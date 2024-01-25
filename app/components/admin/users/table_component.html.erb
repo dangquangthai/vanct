@@ -1,0 +1,28 @@
+<table class="table no-break-line w-full" id="users-table" data-controller="table-sort">
+  <thead>
+    <tr>
+      <%= render Shared::SortColumnComponent.new(title: 'T.Khoản', column: 'name') %>
+      <%= render Shared::SortColumnComponent.new(title: 'Quyền', column: 'role') %>
+      <th class="disable-sort"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% users.each do |user| %>
+      <tr id="user_<%= user.id %>">
+        <td><%= user.username %></td>
+        <td><%= user.role_humanize %></td>
+        <td>
+          <div class="flex gap-2 items-center justify-end">
+            <%= link_to edit_admin_customer_user_path(user.id, customer_id: user.customer_id) do %>
+              <%== svg_icon 'edit', class: 'w-6 h-6' %>
+            <% end %>
+
+            <%= link_to admin_customer_user_path(user.id, customer_id: user.customer_id), data: { "turbo-method" => :delete, 'turbo-confirm' => 'Xoá người dùng này. Bạn chắc chặn không?' } do %>
+              <%== svg_icon 'trash', class: 'w-6 h-6' %>
+            <% end %>
+          </div>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

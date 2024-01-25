@@ -5,9 +5,25 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable, :registerable, :rememberable, :recoverable
   devise :database_authenticatable, :validatable
 
-  ROLES = %w[admin user owner].freeze
+  ROLES = %w[admin manager staff].freeze
+
+  belongs_to :customer
+
+  validates :role, inclusion: { in: ROLES }
 
   def admin?
     role == 'admin'
+  end
+
+  def manager?
+    role == 'manager'
+  end
+
+  def staff?
+    role == 'staff'
+  end
+
+  def role_humanize
+    I18n.t("users.roles.#{role}")
   end
 end

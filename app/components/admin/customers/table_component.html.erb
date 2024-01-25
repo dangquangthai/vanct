@@ -1,0 +1,34 @@
+<table class="table no-break-line w-full" id="customers-table" data-controller="table-sort">
+  <thead>
+    <tr>
+      <%= render Shared::SortColumnComponent.new(title: 'Tên', column: 'name') %>
+      <%= render Shared::SortColumnComponent.new(title: 'H.Động', column: 'enabled') %>
+      <%= render Shared::SortColumnComponent.new(title: 'B.Cáo', column: 'sync_data') %>
+      <th class="disable-sort"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% customers.each do |customer| %>
+      <tr id="customer_<%= customer.id %>">
+        <td><%= customer.name %></td>
+        <td><%= customer.enabled ? 'Có' : 'Không' %></td>
+        <td><%= customer.sync_data ? 'Có' : 'Không' %></td>
+        <td>
+          <div class="flex gap-2 items-center justify-end">
+            <%= link_to edit_admin_customer_path(customer.id) do %>
+              <%== svg_icon 'edit', class: 'w-6 h-6' %>
+            <% end %>
+
+            <%= link_to admin_customer_users_path(customer.id), data: { turbo: false } do %>
+              <%== svg_icon 'users', class: 'w-6 h-6' %>
+            <% end %>
+
+            <%= link_to admin_customer_path(customer.id), data: { "turbo-method" => :delete, 'turbo-confirm' => 'Xoá khách hàng này, toàn bộ dữ liệu liên quan sẽ mất. Bạn chắc chặn không?' } do %>
+              <%== svg_icon 'trash', class: 'w-6 h-6' %>
+            <% end %>
+          </div>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

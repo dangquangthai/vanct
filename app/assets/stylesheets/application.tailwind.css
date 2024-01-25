@@ -21,4 +21,57 @@
   .date {
     @apply txt;
   }
+
+  .table {
+    @apply border-collapse;
+  }
+
+  .table.no-break-line {
+    @apply max-w-full whitespace-nowrap;
+  }
+
+  .table.no-break-line th, .table.no-break-line td {
+    @apply break-keep;
+  }
+
+  .table thead tr th {
+    @apply text-gray-600 leading-3 p-4 uppercase text-left border-b border-gray-100;
+  }
+
+  .table tbody tr td {
+    @apply leading-3 p-4 border-b border-gray-100;
+  }
+
+  .table tbody tr:nth-child(odd) {
+    @apply bg-gray-50;
+  }
+
+  .table tbody tr.selected {
+    @apply bg-gray-100;
+  }
+
+  .table thead tr .sort-column {
+    @apply cursor-pointer;
+  }
+
+  .table thead tr .sort-column .up,
+  .table thead tr .sort-column .down {
+    @apply hidden;
+  }
+
+  .table thead tr .sort-up .up {
+    @apply block;
+  }
+
+  .table thead tr .sort-up .down {
+    @apply hidden;
+  }
+
+  .table thead tr .sort-down .up {
+    @apply hidden;
+  }
+
+  .table thead tr .sort-down .down {
+    @apply block;
+  }
 }

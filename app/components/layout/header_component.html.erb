@@ -1,10 +1,12 @@
 <div class="flex items-center px-2 h-10">
   <div class="grow flex gap-4">
-    <%= link_to '/', class: 'flex gap-1 items-center' do %>
-      <%== svg_icon 'bill', class: 'w-4 h-4' %>
-      <span>Hôm nay</span>
+    <% unless current_user.admin? %>
+      <%= link_to '/', class: 'flex gap-1 items-center' do %>
+        <%== svg_icon 'bill', class: 'w-4 h-4' %>
+        <span>Hôm nay</span>
+      <% end %>
     <% end %>
-    <% if current_user.admin? %>
+    <% if current_user.manager? %>
       <%= link_to '/', class: 'flex gap-1 items-center' do %>
         <%== svg_icon 'report', class: 'w-4 h-4' %>
         <span>Báo cáo</span>
@@ -19,6 +21,15 @@
         <%== svg_icon 'arrow_down' %>
       </div>
       <div data-dropdown-target="dropdown" class="z-10 border hidden absolute top-8 right-0 shadow-sm bg-white rounded-md px-4 py-2 grid gap-2">
+        <% if current_user.admin? %>
+          <div class="w-[180px]" data-turbo="false">
+            <%= link_to '/admin/customers', class: 'flex gap-1 items-center' do %>
+              <%== svg_icon 'customer', class: 'w-4 h-4' %>
+              <span>Quản lý khách hàng</span>
+            <% end %>
+          </div>
+          <hr class="border-gray-100" />
+        <% end %>
         <div class="w-[180px]" data-turbo="false">
           <%= link_to '/', class: 'flex gap-1 items-center' do %>
             <%== svg_icon 'password', class: 'w-4 h-4' %>
