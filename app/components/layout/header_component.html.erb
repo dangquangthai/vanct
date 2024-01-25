@@ -1,0 +1,39 @@
+<div class="flex items-center px-2 h-10">
+  <div class="grow flex gap-4">
+    <%= link_to '/', class: 'flex gap-1 items-center' do %>
+      <%== svg_icon 'bill', class: 'w-4 h-4' %>
+      <span>Hôm nay</span>
+    <% end %>
+    <% if current_user.admin? %>
+      <%= link_to '/', class: 'flex gap-1 items-center' do %>
+        <%== svg_icon 'report', class: 'w-4 h-4' %>
+        <span>Báo cáo</span>
+      <% end %>
+    <% end %>
+  </div>
+  <div class="flex-none">
+    <div class="relative" data-controller="dropdown">
+      <div class="flex gap-1 justify-end items-center cursor-pointer" data-action="click->dropdown#onClick">
+        <%== svg_icon 'user', class: 'w-4 h-4' %>
+        <span><%= current_user.username %></span>
+        <%== svg_icon 'arrow_down' %>
+      </div>
+      <div data-dropdown-target="dropdown" class="z-10 border hidden absolute top-8 right-0 shadow-sm bg-white rounded-md px-4 py-2 grid gap-2">
+        <div class="w-[180px]" data-turbo="false">
+          <%= link_to '/', class: 'flex gap-1 items-center' do %>
+            <%== svg_icon 'password', class: 'w-4 h-4' %>
+            <span>Đổi mật khẩu</span>
+          <% end %>
+        </div>
+        <hr class="border-gray-100" />
+        <div>
+          <%= link_to destroy_user_session_path, data: { "turbo-method" => :delete, 'turbo-confirm' => 'Are your sure?' }, class: 'flex gap-1 items-center' do %>
+            <%== svg_icon 'sign_out', class: 'w-4 h-4' %>
+            <span>Thoát</span>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<hr class="border-gray-500 shadow-sm" />

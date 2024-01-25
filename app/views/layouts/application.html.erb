@@ -11,9 +11,8 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body>
-    <main class="antialiased">
-      <%= yield %>
-    </main>
+  <body class="antialiased">
+    <%= render Layout::HeaderComponent.new %>
+    <%= yield %>
   </body>
 </html>
