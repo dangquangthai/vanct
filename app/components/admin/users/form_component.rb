@@ -1,5 +1,8 @@
 # frozen_string_literal: true
 
-class Admin::Users::FormComponent < ApplicationComponent
-
+module Admin
+  module Users
+    class FormComponent < ApplicationComponent
+    end
+  end
 end

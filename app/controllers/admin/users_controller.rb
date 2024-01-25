@@ -1,18 +1,22 @@
-class Admin::UsersController < ApplicationController
-  before_action :authorize_admin!
-  before_action :require_customer!
+# frozen_string_literal: true
 
-  def index
-    @users = @customer.users
+module Admin
+  class UsersController < ApplicationController
+    before_action :authorize_admin!
+    before_action :require_customer!
 
-    respond_to do |format|
-      format.html
+    def index
+      @users = @customer.users
+
+      respond_to do |format|
+        format.html
+      end
     end
-  end
 
-  protected
+    protected
 
-  def require_customer!
-    @customer = Customer.find(params[:customer_id])
+    def require_customer!
+      @customer = Customer.find(params[:customer_id])
+    end
   end
 end
