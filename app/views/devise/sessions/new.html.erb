@@ -1,0 +1,17 @@
+<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+  <div class="grid gap-4">
+    <div>
+      <%= f.label :username, 'Tài khoản' %><br />
+      <%= f.text_field :username, autofocus: true, autocomplete: "off", class: 'txt' %>
+    </div>
+
+    <div>
+      <%= f.label :password, 'Mật Khẩu' %><br />
+      <%= f.password_field :password, autocomplete: "off", class: 'txt' %>
+    </div>
+
+    <div class="flex gap-4">
+      <%= f.submit "Đăng nhập", class: 'btn' %>
+    </div>
+  </div>
+<% end %>

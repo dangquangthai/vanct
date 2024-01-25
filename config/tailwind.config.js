@@ -4,8 +4,11 @@ module.exports = {
   content: [
     './public/*.html',
     './app/helpers/**/*.rb',
+    './app/decorators/**/*.rb',
     './app/javascript/**/*.js',
-    './app/views/**/*.{erb,haml,html,slim}'
+    './app/views/**/*.{erb,haml,html,slim}',
+    './app/components/**/*.{rb,erb,haml,html,slim}',
+    './app/assets/stylesheets/application.tailwind.css',
   ],
   theme: {
     extend: {

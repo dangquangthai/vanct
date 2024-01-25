@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Vanct</title>
+    <title>Scoot</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
@@ -11,9 +11,9 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body>
-    <main class="antialiased">
+  <body class="flex items-center justify-center h-screen antialiased">
+    <div class="w-[400px] px-4">
       <%= yield %>
-    </main>
+    </div>
   </body>
 </html>
