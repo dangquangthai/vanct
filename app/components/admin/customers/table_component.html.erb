@@ -4,7 +4,13 @@
       <%= render Shared::SortColumnComponent.new(title: 'Tên', column: 'name') %>
       <%= render Shared::SortColumnComponent.new(title: 'H.Động', column: 'enabled') %>
       <%= render Shared::SortColumnComponent.new(title: 'B.Cáo', column: 'sync_data') %>
-      <th class="disable-sort"></th>
+      <th class="disable-sort">
+        <div class="flex justify-end w-full">
+          <div class="w-fit cursor-pointer" data-controller="turbo-fetch" data-url="<%= new_admin_customer_path %>">
+            <%== svg_icon 'add', class: 'w-6 h-6' %>
+          </div>
+        </div>
+      </th>
     </tr>
   </thead>
   <tbody>
@@ -15,9 +21,9 @@
         <td><%= customer.sync_data ? 'Có' : 'Không' %></td>
         <td>
           <div class="flex gap-2 items-center justify-end">
-            <%= link_to edit_admin_customer_path(customer.id) do %>
+            <div class="w-fit cursor-pointer" data-controller="turbo-fetch" data-url="<%= edit_admin_customer_path(customer.id) %>">
               <%== svg_icon 'edit', class: 'w-6 h-6' %>
-            <% end %>
+            </div>
 
             <%= link_to admin_customer_users_path(customer.id), data: { turbo: false } do %>
               <%== svg_icon 'users', class: 'w-6 h-6' %>

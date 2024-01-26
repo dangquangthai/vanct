@@ -4,7 +4,7 @@
 
 @layer components {
   .btn {
-    @apply text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800;
+    @apply text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto p-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800;
   }
 
   .txt {
@@ -35,11 +35,11 @@
   }
 
   .table thead tr th {
-    @apply text-gray-600 leading-3 p-4 uppercase text-left border-b border-gray-100;
+    @apply text-gray-600 leading-3 px-4 py-2 uppercase text-left border-b border-gray-100;
   }
 
   .table tbody tr td {
-    @apply leading-3 p-4 border-b border-gray-100;
+    @apply leading-3 px-4 py-2 border-b border-gray-100;
   }
 
   .table tbody tr:nth-child(odd) {
@@ -47,7 +47,7 @@
   }
 
   .table tbody tr.selected {
-    @apply bg-gray-100;
+    @apply bg-blue-100;
   }
 
   .table thead tr .sort-column {

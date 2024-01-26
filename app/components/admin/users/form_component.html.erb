@@ -1,1 +1,43 @@
-<div>Add Admin::Users::Form template here</div>
+<%= form_for(user, as: :user, url: url, html: { id: 'user-form', method: form_method }) do |f| %>
+  <div class="grid gap-4">
+    <div class="font-bold flex items-center">
+      <div class="grow"><%= form_title %></div>
+      <div class="flex-none cursor-pointer" data-action="click->turbo-modal#close">
+        <%== svg_icon('close', class: 'w-6 h-6') %>
+      </div>
+    </div>
+
+    <div>
+      <%= f.label :username, 'Tài khoản' %>
+      <%= f.text_field :username, required: true, disabled: user.persisted?, autocomplete: 'off', class: 'txt' %>
+      <% if f.object.errors.key?(:username) %>
+        <div class="text-xs text-red-600 mt-1"><%= f.object.errors[:username].join(', ') %></div>
+      <% end %>
+    </div>
+
+    <div>
+      <%= f.label :role, 'Quyền' %>
+      <%= f.select(:role,
+        roles_collection,
+        {
+          prompt: 'Chọn quyền',
+          selected: user.role,
+        },
+        class: 'select'
+      ) %>
+      <% if f.object.errors.key?(:role) %>
+        <span class="text-xs text-red-600 mt-1"><%= f.object.errors[:role].join(', ') %></span>
+      <% end %>
+    </div>
+
+    <div>
+      <%= f.label :password, 'Mật khẩu' %>
+      <%= f.password_field :password, required: user.new_record?, autocomplete: 'off', class: 'txt' %>
+      <% if f.object.errors.key?(:password) %>
+        <div class="text-xs text-red-600 mt-1"><%= f.object.errors[:password].join(', ') %></div>
+      <% end %>
+    </div>
+
+    <%= f.submit "Lưu", class: 'btn btn-primary text-xs leading-none' %>
+  </div>
+<% end %>

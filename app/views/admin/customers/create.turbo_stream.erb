@@ -1,0 +1,13 @@
+<% if @customer.persisted? %>
+  <%= turbo_modal_close %>
+
+  <%= turbo_stream.replace('customers-table') do %>
+    <%= render Admin::Customers::TableComponent.new(customers: Customer.all) %>
+  <% end %>
+
+  <%= turbo_klass "#customer_#{@customer.id}", 'selected', 'add' %>
+<% else %>
+  <%= turbo_modal do %>
+    <%= render Admin::Customers::FormComponent.new(customer: @customer, url: admin_customers_path, form_method: 'POST', form_title: 'Thêm khách hàng mới') %>
+  <% end %>
+<% end %>

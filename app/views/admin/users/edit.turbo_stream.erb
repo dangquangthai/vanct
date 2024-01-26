@@ -1,0 +1,3 @@
+<%= turbo_modal do %>
+  <%= render Admin::Users::FormComponent.new(user: @user, url: admin_customer_user_path(@user.id, customer_id: @customer.id), form_method: 'PATCH', form_title: 'Cập nhật người dùng') %>
+<% end %>

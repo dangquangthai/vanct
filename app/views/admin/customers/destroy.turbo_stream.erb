@@ -1,0 +1,3 @@
+<%= turbo_stream.replace('customers-table') do %>
+  <%= render Admin::Customers::TableComponent.new(customers: Customer.all) %>
+<% end %>

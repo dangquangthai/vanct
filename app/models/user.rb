@@ -10,6 +10,12 @@ class User < ApplicationRecord
   belongs_to :customer
 
   validates :role, inclusion: { in: ROLES }
+  validates :username, uniqueness: true
+  validates :password, presence: true, on: :create
+
+  before_validation on: :create do
+    self.email = "#{username}@vanct.com"
+  end
 
   def admin?
     role == 'admin'

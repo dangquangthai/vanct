@@ -1,0 +1,46 @@
+<%= form_for(customer, as: :customer, url: url, html: { id: 'customer-form', method: form_method }) do |f| %>
+  <div class="grid gap-4">
+    <div class="font-bold flex items-center">
+      <div class="grow"><%= form_title %></div>
+      <div class="flex-none cursor-pointer" data-action="click->turbo-modal#close">
+        <%== svg_icon('close', class: 'w-6 h-6') %>
+      </div>
+    </div>
+
+    <div>
+      <%= f.label :name, 'Tên khách hàng' %>
+      <%= f.text_field :name, required: true, autocomplete: 'off', class: 'txt' %>
+      <% if f.object.errors.key?(:name) %>
+        <div class="text-xs text-red-600 mt-1"><%= f.object.errors[:name].join(', ') %></div>
+      <% end %>
+    </div>
+
+    <div>
+      <%= f.label :key %>
+      <%= f.text_field :key, required: true, autocomplete: 'off', class: 'txt' %>
+      <% if f.object.errors.key?(:key) %>
+        <div class="text-xs text-red-600 mt-1"><%= f.object.errors[:key].join(', ') %></div>
+      <% end %>
+    </div>
+
+    <div>
+      <%= f.label :expires_at, label: 'Ngày hết hạn' %>
+      <%= f.date_field :expires_at, required: true, class: 'txt' %>
+      <% if f.object.errors.key?(:expires_at) %>
+        <div class="text-xs text-red-600 mt-1"><%= f.object.errors[:expires_at].join(', ') %></div>
+      <% end %>
+    </div>
+
+    <div class="flex gap-1 items-center">
+      <%= f.check_box :enabled %>
+      <%= f.label :enabled, 'Hoạt động' %>
+    </div>
+
+    <div class="flex gap-1 items-center">
+      <%= f.check_box :sync_data %>
+      <%= f.label :sync_data, 'Báo cáo' %>
+    </div>
+
+    <%= f.submit "Lưu", class: 'btn' %>
+  </div>
+<% end %>

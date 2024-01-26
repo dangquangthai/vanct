@@ -1,0 +1,13 @@
+<% if @success %>
+  <%= turbo_modal_close %>
+
+  <%= turbo_stream.replace('users-table') do %>
+    <%= render Admin::Users::TableComponent.new(users: @customer.users, customer: @customer) %>
+  <% end %>
+
+  <%= turbo_klass "#user_#{@user.id}", 'selected', 'add' %>
+<% else %>
+  <%= turbo_modal do %>
+    <%= render Admin::Users::FormComponent.new(user: @user, url: admin_customer_user_path(@user.id, customer_id: @customer.id), form_method: 'PATCH', form_title: 'Cập nhật người dùng') %>
+  <% end %>
+<% end %>
