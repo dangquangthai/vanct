@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
-class Table
+require_relative 'base_model'
+
+class Table < BaseModel
   def initialize(table_no:, busy:, has_change:, printed:, stt:, in_time:, out_time:, discount:, staff:)
     @table_no = table_no
     @busy = busy

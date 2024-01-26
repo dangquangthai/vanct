@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
-class TableLine
+require_relative 'base_model'
+
+class TableLine < BaseModel
   def initialize(table_no:, product_name:, product_no:, amount:, price:, unit:, product_group:, order_time:, da_bao:)
     @table_no = table_no
     @product_name = product_name

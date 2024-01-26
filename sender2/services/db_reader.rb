@@ -12,11 +12,11 @@ class DbReader
 
   attr_reader :db
 
-  def tables
+  def tables(to_hash: false)
     sql = 'select MABAN, COKHACH, CODOI, INBILL, STT, GIOVAO, GIORA, GIAM, PHUCVU from [DANH MUC BAN] where [DONG] = 0 order by STT;'
 
     db.query(sql).map do |row|
-      Table.new(
+      model = Table.new(
         table_no: row[0],
         busy: row[1],
         has_change: row[2],
@@ -27,14 +27,16 @@ class DbReader
         discount: row[7],
         staff: row[8]
       )
+
+      to_hash ? model.to_hash : model
     end
   end
 
-  def table_lines
+  def table_lines(to_hash: false)
     sql = 'select SOBAN, MAHG, TENHANG, SOLUONG, DONGIA, DVT, NHOM, DABAO, DateValue(NGAY) + TimeValue(GIO) as NGAYGIO from [BAN];'
 
     db.query(sql).map do |row|
-      TableLine.new(
+      model = TableLine.new(
         table_no: row[0],
         product_no: row[1],
         product_name: row[2],
@@ -45,14 +47,18 @@ class DbReader
         da_bao: row[7],
         order_time: row[8]
       )
+
+      to_hash ? model.to_hash : model
     end
   end
 
-  def shifts
+  def shifts(to_hash: false)
     sql = 'select MAKETSO from [DA KET SO] where DADONGBO=false;'
 
     db.query(sql).map do |row|
-      Shift.new_from_name(name: row[0])
+      model = Shift.new_from_name(name: row[0])
+
+      to_hash ? model.to_hash : model
     end
   end
 
@@ -64,11 +70,11 @@ class DbReader
     end.first
   end
 
-  def shift_lines(shift)
-    sql = "select MAHG, TENHANG, NHOM, SOLUONG, DONGIA, DVT, LUUBAN from [LUU KET QUA BAN HANG] where CA=\"#{shift.stt}\" and Val(Format (NGAY, \"yyyymmdd\"))=\"#{shift.date.strftime('%Y%m%d')}\";"
+  def shift_lines(shift, to_hash: false)
+    sql = "select MAHG, TENHANG, NHOM, SOLUONG, DONGIA, DVT, LUUBAN from [LUU KET QUA BAN HANG] where CA=\"#{shift.stt}\" and Val(Format (NGAY, \"yyyymmdd\"))=\"#{shift.date_to_query}\";"
 
     db.query(sql).map do |row|
-      ShiftLine.new(
+      model = ShiftLine.new(
         product_no: row[0],
         product_name: row[1],
         product_group: row[2],
@@ -77,6 +83,8 @@ class DbReader
         unit: row[5],
         bill_no: row[6]
       )
+
+      to_hash ? model.to_hash : model
     end
   end
 end

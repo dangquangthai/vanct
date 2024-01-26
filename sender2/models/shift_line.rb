@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
-class ShiftLine
+require_relative 'base_model'
+
+class ShiftLine < BaseModel
   def initialize(product_no:, product_name:, product_group:, amount:, price:, unit:, bill_no:)
     @product_no = product_no
     @product_name = product_name
