@@ -3,6 +3,7 @@
 require_relative '../models/table'
 require_relative '../models/table_line'
 require_relative '../models/shift'
+require_relative '../models/shift_line'
 
 class DbReader
   def initialize(db:)
@@ -48,9 +49,34 @@ class DbReader
   end
 
   def shifts
+    sql = 'select MAKETSO from [DA KET SO] where DADONGBO=false;'
+
+    db.query(sql).map do |row|
+      Shift.new_from_name(name: row[0])
+    end
+  end
+
+  def current_shift
     sql = 'select sum(SOLUONG*DONGIA) as TOTAL, XUAT from [BAN] where SOBAN is null group by XUAT;'
+
     db.query(sql).map do |row|
       Shift.new(total: row[0], stt: row[1])
+    end.first
+  end
+
+  def shift_lines(shift)
+    sql = "select MAHG, TENHANG, NHOM, SOLUONG, DONGIA, DVT, LUUBAN from [LUU KET QUA BAN HANG] where CA=\"#{shift.stt}\" and Val(Format (NGAY, \"yyyymmdd\"))=\"#{shift.date.strftime('%Y%m%d')}\";"
+
+    db.query(sql).map do |row|
+      ShiftLine.new(
+        product_no: row[0],
+        product_name: row[1],
+        product_group: row[2],
+        amount: row[3],
+        price: row[4],
+        unit: row[5],
+        bill_no: row[6]
+      )
     end
   end
 end
