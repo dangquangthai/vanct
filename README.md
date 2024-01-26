@@ -1,24 +1,12 @@
-# README
+### Install ruby on windows
+https://reintech.io/blog/how-to-install-ruby-on-windows
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
 
-Things you may want to cover:
+```bash
+ruby -v
+gem -v
+gem install bundler
+```
 
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+### install ms.access driver
+https://www.microsoft.com/en-us/download/details.aspx?id=13255
