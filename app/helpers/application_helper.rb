@@ -14,11 +14,9 @@ module ApplicationHelper
     doc.to_html
   end
 
-  def turbo_modal
+  def turbo_modal(&block)
     turbo_stream.update('turbo-modal') do
-      content_tag :div, data: { controller: 'turbo-modal' }, class: 'w-full md:w-[450px] p-4 mx-4 md:mx-0 bg-white rounded-md' do
-        yield
-      end
+      content_tag :div, data: { controller: 'turbo-modal' }, class: 'w-full md:w-[450px] p-4 mx-4 md:mx-0 bg-white rounded-md', &block
     end
   end
 
