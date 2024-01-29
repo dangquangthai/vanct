@@ -3,7 +3,7 @@
 class ReportController < ApplicationController
   def index
     @pagy, @bills = pagy(bills_query)
-    @shifts = current_user.customer.shifts.where(shifts: { shift_date: from_date..to_date }).order('shifts.shift_date ASC')
+    @shifts = current_user.customer.shifts.where(shift_date: from_date..to_date).order('shifts.shift_date ASC')
     @sum_shifts = @shifts.sum(:total)
     @chart_data = build_chart_data
 
@@ -12,7 +12,59 @@ class ReportController < ApplicationController
     end
   end
 
+  def show
+    @bill = Bill.find(params[:bill_id])
+
+    respond_to do |format|
+      format.turbo_stream
+    end
+  end
+
+  def download_csv
+    respond_to do |format|
+      format.csv do
+        send_data csv_file, filename: "bao_cao_#{Time.current.to_i}.csv"
+      end
+    end
+  end
+
+  def export_form
+    respond_to do |format|
+      format.turbo_stream
+    end
+  end
+
+  def export
+    to_email = params.require(:export).permit(:email)[:email]
+
+    ReportMailer.with(
+      from_date: from_date,
+      to_date: to_date,
+      to_email: to_email,
+      customer_id: current_user.customer.id
+    ).export.deliver_now
+
+    respond_to do |format|
+      format.turbo_stream
+    end
+  end
+
   protected
+
+  def csv_file
+    CSV.generate(headers: true) do |csv|
+      csv << %w[BILL BÀN NGÀY TỔNG]
+
+      bills_query.each do |bill|
+        csv << [
+          "No. #{bill.bill_no}",
+          "Bàn #{bill.table_no}",
+          bill.shift.shift_date.strftime('%d-%m-%y'),
+          bill.total.to_f.round(0)
+        ]
+      end
+    end
+  end
 
   def build_chart_data
     bg_colors = @shifts.map { sample_colors.sample }

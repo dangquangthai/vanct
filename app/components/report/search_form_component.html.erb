@@ -3,7 +3,7 @@
     <div class="grid gap-1">
       <label for="q_from">Từ ngày</label>
       <input 
-        type="date" value="<%= query_attributes[:from] || Time.zone.today.beginning_of_month %>"
+        type="date" value="<%= query_attributes[:from] %>"
         required name="q[from]" id="q_from"
         autocomplete="off" class="txt">
     </div>
@@ -11,10 +11,14 @@
     <div class="grid gap-1">
       <label for="q_to">Đến ngày</label>
       <input 
-        type="date" value="<%= query_attributes[:to] || Time.zone.today %>"
+        type="date" value="<%= query_attributes[:to] %>"
         required name="q[to]" id="q_to"
         autocomplete="off" class="txt">
     </div>
+
+    <div>
+      <%= f.submit "Xem báo cáo", class: 'btn' %>
+    </div>
+    <%= link_to 'Xuất báo cáo', report_download_csv_path(q: query_attributes, format: :csv), class: 'btn', target: '_blank' %>
   </div>
-  <%= f.submit "Xem báo cáo", class: 'btn mt-2' %>
 <% end %>

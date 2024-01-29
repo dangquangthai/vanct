@@ -1,0 +1,28 @@
+<div class="grid gap-4">
+  <div class="font-bold flex items-center">
+    <div class="grow">
+      <div class="grid gap-1">
+        <div>Xuất báo cáo - Định dạng excel</div>
+      </div>
+    </div>
+    <div class="flex-none cursor-pointer" data-action="click->turbo-modal#close">
+      <%== svg_icon('close', class: 'w-6 h-6') %>
+    </div>
+  </div>
+  
+  <%= form_for('export', as: :export, url: report_export_path(q: query_attributes), html: { id: 'export-form', method: 'POST' }) do |f| %>
+    <div class="grid gap-2">
+      <div class="grid gap-1">
+        <label for="export_email">Email người nhận báo</label>
+        <input 
+          type="email"
+          required name="export[email]" id="export_email"
+          autocomplete="off" class="txt">
+      </div>
+
+      <div>
+        <%= f.submit "Gửi email", class: 'btn' %>
+      </div>
+    </div>
+  <% end %>
+</div>

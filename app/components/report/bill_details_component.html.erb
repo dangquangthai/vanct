@@ -1,0 +1,33 @@
+<div class="grid gap-4">
+  <div class="font-bold flex items-center">
+    <div class="grow">
+      <div class="grid gap-1">
+        <div>Bill <%= bill.bill_no %> - Bàn <%= bill.table_no %> - Ngày <%= bill.shift.shift_date.strftime('%d-%m-%y') %></div>
+      </div>
+    </div>
+    <div class="flex-none cursor-pointer" data-action="click->turbo-modal#close">
+      <%== svg_icon('close', class: 'w-6 h-6') %>
+    </div>
+  </div>
+  <div class="grid gap-2">
+    <% bill.bill_lines.each do |line| %>
+      <hr class="border-gray-300" />
+      <div class="grid gap-1">
+        <div><%= line.product_name %></div>
+        <div class="flex gap-1 justify-end">
+          <span class="font-bold"><%= line.amount.round %></span>
+          <span class="font-bold"><%= line.unit %></span>
+          <span>x</span>
+          <span><%= show_money line.price %></span>
+          <span>=</span>
+          <span><%= show_money line.total %></span>
+        </div>
+      </div>
+    <% end %>
+  </div>
+  <hr class="border-gray-300" />
+  <div class="flex gap-1 justify-end font-bold text-red-600">
+    <span>Tổng:</span>
+    <span><%= show_money bill.total %></span>
+  </div>
+</div>

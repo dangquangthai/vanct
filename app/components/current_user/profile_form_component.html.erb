@@ -1,0 +1,28 @@
+<div class="grid gap-4">
+  <div class="font-bold flex items-center">
+    <div class="grow">
+      <div class="grid gap-1">
+        <div>Đổi mật khẩu</div>
+      </div>
+    </div>
+    <div class="flex-none cursor-pointer" data-action="click->turbo-modal#close">
+      <%== svg_icon('close', class: 'w-6 h-6') %>
+    </div>
+  </div>
+  
+  <%= form_for('user', as: :user, url: current_user_change_password_path, html: { id: 'change-password-form', method: 'PATCH' }) do |f| %>
+    <div class="grid gap-2">
+      <div class="grid gap-1">
+        <label for="user_new_password">Mật khẩu mới</label>
+        <input 
+          type="password"
+          required name="user[new_password]" id="user_new_password"
+          autocomplete="off" class="txt">
+      </div>
+
+      <div>
+        <%= f.submit "Lưu", class: 'btn' %>
+      </div>
+    </div>
+  <% end %>
+</div>

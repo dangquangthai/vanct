@@ -54,7 +54,7 @@ module ApplicationHelper
   end
 
   def query_attributes
-    table_params.fetch(:q, {})
+    table_params.fetch(:q, { from: Time.zone.today.beginning_of_month, to: Time.zone.today })
   end
 
   def sort_column

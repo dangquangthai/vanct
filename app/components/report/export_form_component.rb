@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
 module Report
-  class BarChartComponent < ApplicationComponent
+  class ExportFormComponent < ApplicationComponent
   end
 end
