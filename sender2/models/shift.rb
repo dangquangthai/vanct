@@ -19,12 +19,11 @@ class Shift < BaseModel
     new(total: 0, stt: ns.first, date: "20#{ns[3]}-#{ns[2]}-#{ns[1]}")
   end
 
-  # def mark_as_synced!(db)
-  #   sql = "update [DA KET SO] set DADONGBO=true where MAKETSO=\"#{no}\";"
-  #   db.execute(sql)
-  # end
-
   def date_to_query
     DateTime.parse(date).strftime('%Y%m%d')
+  end
+
+  def access_db_key
+    "#{stt}-#{DateTime.parse(date).strftime('%d-%m-%y')}"
   end
 end
