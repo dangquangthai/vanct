@@ -12,7 +12,7 @@ class DbReader
 
   attr_reader :db
 
-  def tables(to_hash: false)
+  def tables(as_hash: false)
     sql = 'select MABAN, COKHACH, CODOI, INBILL, STT, GIOVAO, GIORA, GIAM, PHUCVU from [DANH MUC BAN] where [DONG] = 0 order by STT;'
 
     db.query(sql).map do |row|
@@ -28,11 +28,11 @@ class DbReader
         staff: row[8]
       )
 
-      to_hash ? model.to_hash : model
+      as_hash ? model.to_hash : model
     end
   end
 
-  def table_lines(to_hash: false)
+  def table_lines(as_hash: false)
     sql = 'select SOBAN, MAHG, TENHANG, SOLUONG, DONGIA, DVT, NHOM, DABAO, DateValue(NGAY) + TimeValue(GIO) as NGAYGIO from [BAN];'
 
     db.query(sql).map do |row|
@@ -48,17 +48,17 @@ class DbReader
         order_time: row[8]
       )
 
-      to_hash ? model.to_hash : model
+      as_hash ? model.to_hash : model
     end
   end
 
-  def shifts(to_hash: false)
+  def shifts(as_hash: false)
     sql = 'select MAKETSO from [DA KET SO] where DADONGBO=false;'
 
     db.query(sql).map do |row|
       model = Shift.new_from_no(number: row[0])
 
-      to_hash ? model.to_hash : model
+      as_hash ? model.to_hash : model
     end
   end
 
@@ -70,7 +70,7 @@ class DbReader
     end.first
   end
 
-  def shift_lines(shift, to_hash: false)
+  def shift_lines(shift, as_hash: false)
     sql = "select MAHG, TENHANG, NHOM, SOLUONG, DONGIA, DVT, LUUBAN from [LUU KET QUA BAN HANG] where CA=\"#{shift.stt}\" and Val(Format (NGAY, \"yyyymmdd\"))=\"#{shift.date_to_query}\";"
 
     db.query(sql).map do |row|
@@ -82,10 +82,10 @@ class DbReader
         amount: row[3],
         price: row[4],
         unit: row[5],
-        luu_ban: row[6]
+        bill_ref: row[6]
       )
 
-      to_hash ? model.to_hash : model
+      as_hash ? model.to_hash : model
     end
   end
 end

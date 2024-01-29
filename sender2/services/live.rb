@@ -10,24 +10,19 @@ class Live
 
   attr_reader :reader, :api_client
 
-  def performable?
-    p api_client.info
-    api_client.info['success']
-  end
-
   def perform
     unless file_existing?
-      p 'File not found, creating new file'
       save_data_to_file
       api_client.live(data)
     end
 
     return unless data_has_changed?
 
-    p 'Data has changed, sending to server'
     save_data_to_file
     api_client.live(data)
   end
+
+  protected
 
   def data_has_changed?
     JSON.parse(File.open(file_path).read) == data
@@ -39,8 +34,8 @@ class Live
 
   def data
     @data ||= {
-      tables: reader.tables(to_hash: true),
-      table_lines: reader.table_lines(to_hash: true),
+      tables: reader.tables(as_hash: true),
+      table_lines: reader.table_lines(as_hash: true),
       shift: reader.current_shift.to_hash
     }
   end

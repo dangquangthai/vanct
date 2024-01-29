@@ -4,11 +4,9 @@ class DashboardController < ApplicationController
   before_action :require_live_data
 
   def index
-    current_user.customer.update_last_see_at!
-
     respond_to do |format|
       format.html
-      format.turbo_stream
+      format.turbo_stream { current_user.customer.update_last_see_at! }
     end
   end
 

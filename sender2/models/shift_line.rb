@@ -3,7 +3,7 @@
 require_relative 'base_model'
 
 class ShiftLine < BaseModel
-  def initialize(shift_no:, product_no:, product_name:, product_group:, amount:, price:, unit:, luu_ban:)
+  def initialize(shift_no:, product_no:, product_name:, product_group:, amount:, price:, unit:, bill_ref:)
     @shift_no = shift_no
     @product_no = product_no
     @product_name = product_name
@@ -11,19 +11,15 @@ class ShiftLine < BaseModel
     @amount = amount
     @price = price
     @unit = unit
-    @bill_no = luu_ban.split('-')[1]
-    @table_no = luu_ban.split('-')[2]
-    @total = amount * price
+    @bill_ref = bill_ref
   end
 
-  attr_reader :product_no,
+  attr_reader :shift_no,
+              :product_no,
               :product_name,
               :product_group,
               :amount,
               :price,
               :unit,
-              :bill_no,
-              :table_no,
-              :shift_no,
-              :total
+              :bill_ref
 end

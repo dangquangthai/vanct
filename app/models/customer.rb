@@ -2,6 +2,7 @@
 
 class Customer < ApplicationRecord
   has_many :users, dependent: :destroy
+  has_many :shifts, dependent: :destroy
 
   validates :key, presence: true, uniqueness: true
   validates :name, :expires_at, presence: true
@@ -17,6 +18,14 @@ class Customer < ApplicationRecord
   end
 
   def update_last_see_at!
-    update!(last_seen_at: Time.current) if last_seen_at > 4.minutes.ago
+    update!(last_seen_at: Time.current) unless online?
+  end
+
+  def live?
+    !expired? && enabled? && online?
+  end
+
+  def sync?
+    !expired? && enabled? && sync_data?
   end
 end

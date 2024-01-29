@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   root 'dashboard#index'
   get  'dashboard/:table_no' => 'dashboard#show', as: :dashboard_show
+  get  '/report' => 'report#index', as: :report_index
 
   namespace :admin do
     resources :customers do
