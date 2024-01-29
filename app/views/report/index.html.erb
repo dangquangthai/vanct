@@ -1,13 +1,22 @@
-<div class="p-2 grid gap-6">
-  <%= render Report::SearchFormComponent.new %>
-
+<div class="grid gap-4 mb-24">
+  <div class="px-2 pt-2">
+    <%= render Report::SearchFormComponent.new %>
+  </div>
+  
   <div class="grid gap-2">
-    <span class="font-bold">Biểu đồ doanh thu</span>
-    <%= render Report::BarChartComponent.new %>
+    <div class="px-2">
+      <span class="font-bold">Tổng doanh thu</span>
+      <span class="text-red-600 font-bold"><%= show_money(@sum_shifts) %></span>
+    </div>
+    <div data-controller="barchart" data-chart-data="<%= @chart_data.to_json %>">
+      <div class="max-w-full overflow-auto" data-barchart-target="wrapper">
+        <canvas id="bar-chart" data-barchart-target="myChart"></canvas>
+      </div>
+    </div>
   </div>
 
   <div class="grid gap-2">
-    <span class="font-bold">Danh sách đơn hàng</span>
+    <span class="font-bold px-2">Danh sách đơn hàng</span>
     <%= render Report::BillsTableComponent.new(bills: @bills, pagy: @pagy) %>
   </div>
 </div>
