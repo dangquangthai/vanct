@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
-class CurrentUser::ProfileFormComponent < ApplicationComponent
-
+module CurrentUser
+  class ProfileFormComponent < ApplicationComponent
+  end
 end

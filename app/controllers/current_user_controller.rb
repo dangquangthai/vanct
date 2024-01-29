@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CurrentUserController < ApplicationController
   def show
     respond_to do |format|
