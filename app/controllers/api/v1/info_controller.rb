@@ -6,7 +6,9 @@ module API
       before_action :require_customer!
 
       def show
-        json_response({ success: true })
+        sccuess = !@customer.expired? && @customer.enabled?
+
+        json_response({ success: sccuess })
       end
     end
   end

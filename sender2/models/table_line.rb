@@ -13,6 +13,7 @@ class TableLine < BaseModel
     @product_group = product_group
     @order_time = order_time
     @da_bao = da_bao
+    @total = amount * price
   end
 
   attr_reader :table_no,
@@ -23,5 +24,6 @@ class TableLine < BaseModel
               :unit,
               :product_group,
               :order_time,
-              :da_bao
+              :da_bao,
+              :total
 end

@@ -1,4 +1,4 @@
-<%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: 'mt-4' }) do |f| %>
+<%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: 'mt-4', "data-turbo": false }) do |f| %>
   <div class="grid gap-4">
     <div>
       <%= f.label :username, 'Tài khoản' %><br />

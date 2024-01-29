@@ -6,9 +6,7 @@ module API
       protected
 
       def require_customer!
-        @customer = Customer.find_by!(key: params[:key])
-
-        raise ActiveRecord::RecordInvali if @customer.expired? || !@customer.enabled?
+        @customer = Customer.find_by(key: params[:key])
       end
 
       rescue_from StandardError,                      with: :internal_server_error

@@ -3,7 +3,7 @@
 KEY = 'ace'
 PATH = 'D:\sender2\database\Datashare(NGOCTUYET).mdb'
 PASSWORD = '26331'
-WEBSITE = 'https://d08d-27-69-181-208.ngrok-free.app'
+WEBSITE = 'https://d4da-27-69-181-208.ngrok-free.app'
 
 require 'win32ole'
 require_relative 'services/access_db'
@@ -18,7 +18,7 @@ live = Live.new(reader: reader, api_client: api_client)
 
 db.open
 
-live.perform
+live.perform if live.performable?
 
 # p reader.tables(to_hash: true)
 # p reader.table_lines(to_json: true)

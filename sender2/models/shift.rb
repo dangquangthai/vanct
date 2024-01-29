@@ -5,27 +5,27 @@ require 'date'
 require_relative 'base_model'
 
 class Shift < BaseModel
+  attr_reader :total, :stt, :no, :date
+
   def initialize(total:, stt:, date: nil)
     @total = total
     @stt = stt
     @date = date || DateTime.now.strftime('%d-%m-%y')
-    @name = "#{stt}-#{@date}"
+    @no = "#{stt}-#{@date}"
   end
 
-  def self.new_from_name(name:)
-    names = name.split('-')
-    new(total: 0, stt: names.first, date: "20#{names[3]}-#{names[2]}-#{names[1]}")
+  def self.new_from_no(number:)
+    ns = number.split('-')
+    new(total: 0, stt: ns.first, date: "20#{ns[3]}-#{ns[2]}-#{ns[1]}")
   end
-
-  attr_reader :total, :stt, :name, :date
 
   def mark_as_synced!(db)
-    sql = "update [DA KET SO] set DADONGBO=true where MAKETSO=\"#{name}\";"
+    sql = "update [DA KET SO] set DADONGBO=true where MAKETSO=\"#{no}\";"
     db.execute(sql)
   end
 
   def date_to_query
-    dates = name.split('-')
+    dates = no.split('-')
     DateTime.parse("20#{dates[3]}-#{dates[2]}-#{dates[1]}").strftime('%Y%m%d')
   end
 end

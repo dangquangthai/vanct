@@ -1,0 +1,27 @@
+<div data-controller="live-data">
+  <div class="p-2 flex items-center">
+    <div class="grow flex gap-2 items-center">
+      <div class="flex gap-1 text-red-600 font-bold"><%= busy_tables.size %>/<%= tables.size %> bàn</div>
+      <div class="flex gap-1 font-bold text-green-800">= <%= show_money busy_tables_sum %></div>
+    </div>
+    <div class="flex-none font-bold">
+      Tổng= <%= show_money shift['total'] %>
+    </div>
+  </div>
+
+  <hr class="border-gray-300" />
+
+  <div class="p-2">
+    <div class="grid grid-cols-3 md:grid-cols-6 gap-2">
+      <% tables.each do |table| %>
+        <div class="<%= build_table_css(table) %>" <%= "data-action=click->live-data#showTable data-table-no=#{table['table_no']}" if table['busy'] %>>
+          <div class="flex items-center">
+            <div class="grow">Bàn <%= table['table_no'] %></div>
+            <div class="flex-none"><%= show_time_ago(table['in_time']) if table['in_time'].present? %></div>
+          </div>
+          <div class="flex items-end justify-end"><%= show_money(table['total']) if table['busy'] %></div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

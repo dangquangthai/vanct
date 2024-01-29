@@ -56,7 +56,7 @@ class DbReader
     sql = 'select MAKETSO from [DA KET SO] where DADONGBO=false;'
 
     db.query(sql).map do |row|
-      model = Shift.new_from_name(name: row[0])
+      model = Shift.new_from_no(number: row[0])
 
       to_hash ? model.to_hash : model
     end
@@ -75,13 +75,14 @@ class DbReader
 
     db.query(sql).map do |row|
       model = ShiftLine.new(
+        shift_no: shift.no,
         product_no: row[0],
         product_name: row[1],
         product_group: row[2],
         amount: row[3],
         price: row[4],
         unit: row[5],
-        bill_no: row[6]
+        luu_ban: row[6]
       )
 
       to_hash ? model.to_hash : model

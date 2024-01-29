@@ -1,0 +1,42 @@
+<div class="grid gap-4">
+  <div class="font-bold flex items-center">
+    <div class="grow">
+      <div class="grid gap-1">
+        <div>Bàn <%= table['table_no'] %> - Vào lúc <%= in_time_humanize(table['in_time']) %> - <%= show_time_ago(table['in_time']) %></div>
+      </div>
+    </div>
+    <div class="flex-none cursor-pointer" data-action="click->turbo-modal#close">
+      <%== svg_icon('close', class: 'w-6 h-6') %>
+    </div>
+  </div>
+  <div class="grid gap-2">
+    <% table['lines'].each do |line| %>
+      <hr class="border-gray-300" />
+      <div class="grid gap-1">
+        <div><%= line['product_name'] %></div>
+        <div class="flex gap-1 justify-end">
+          <span class="font-bold"><%= line['amount'].round %></span>
+          <span class="font-bold"><%= line['unit'] %></span>
+          <span>x</span>
+          <span><%= show_money line['price'] %></span>
+          <span>=</span>
+          <span><%= show_money line['total'] %></span>
+        </div>
+      </div>
+    <% end %>
+  </div>
+
+  <% if (table['discount'] || 0) > 0 %>
+    <hr class="border-gray-300" />
+    <div class="flex gap-1 justify-end">
+      <span>Tổng:</span>
+      <span><%= show_money table['total'] %></span>
+    </div>
+  <% end %>
+
+  <hr class="border-gray-300" />
+  <div class="flex gap-1 justify-end font-bold text-red-600">
+    <span>Tổng:</span>
+    <span><%= show_money table['total'] %></span>
+  </div>
+</div>

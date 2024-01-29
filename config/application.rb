@@ -25,6 +25,6 @@ module Vanct
     # config.eager_load_paths << Rails.root.join("extras")
     config.time_zone = 'Hanoi'
 
-    config.hosts << 'd08d-27-69-181-208.ngrok-free.app'
+    config.hosts << 'd4da-27-69-181-208.ngrok-free.app'
   end
 end

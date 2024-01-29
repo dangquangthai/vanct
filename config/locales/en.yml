@@ -4,3 +4,27 @@ en:
       admin: Admin
       manager: Quản lý
       staff: Nhân viên
+  datetime:
+    distance_in_words:
+      about_x_hours:
+        one: "1h"
+        other: "%{count}h"
+      half_a_minute: 1p
+      less_than_x_seconds:
+        one: 1p
+        other: 1p
+      less_than_x_seconds:
+        one: 1p
+        other: 1p
+      less_than_x_minutes:
+        one: 1p
+        other: "%{count}p"
+      x_seconds:
+        one: "%{count}s"
+        other: "%{count}s"
+      x_minutes:
+        one: "%{count}p"
+        other: "%{count}p"
+      x_days:
+        one: "%{count}n"
+        other: "%{count}n"

@@ -10,6 +10,11 @@ class Live
 
   attr_reader :reader, :api_client
 
+  def performable?
+    p api_client.info
+    api_client.info['success']
+  end
+
   def perform
     unless file_existing?
       p 'File not found, creating new file'

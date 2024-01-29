@@ -1,15 +1,16 @@
 <div class="flex items-center px-2 h-10">
-  <div class="grow flex gap-4">
+  <div class="grow flex gap-4" data-turbo="false">
     <% unless current_user.admin? %>
+      <% p controller_name %>
       <%= link_to '/', class: 'flex gap-1 items-center' do %>
         <%== svg_icon 'bill', class: 'w-4 h-4' %>
-        <span>Hôm nay</span>
+        <span class="<%= class_names('font-bold': controller_name == 'dashboard') %>">Hiện tại</span>
       <% end %>
     <% end %>
     <% if current_user.manager? %>
-      <%= link_to '/', class: 'flex gap-1 items-center' do %>
+      <%= link_to '/report', class: 'flex gap-1 items-center' do %>
         <%== svg_icon 'report', class: 'w-4 h-4' %>
-        <span>Báo cáo</span>
+        <span class="<%= class_names('font-bold': controller_name == 'report') %>">Báo cáo</span>
       <% end %>
     <% end %>
   </div>
