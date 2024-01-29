@@ -2,6 +2,7 @@
 
 module ApplicationHelper
   include Turbo::StreamsHelper
+  include Pagy::Frontend
 
   def svg_icon(filename, **options)
     fullpath = Rails.root.join('app', 'assets', 'images', 'svg', "#{filename}.svg")
@@ -49,7 +50,7 @@ module ApplicationHelper
   end
 
   def table_params
-    @table_params ||= params.permit(:sc, :sd, :pn, :ps, q: {}).to_h.deep_symbolize_keys
+    @table_params ||= params.permit(:sc, :sd, q: {}).to_h.deep_symbolize_keys
   end
 
   def query_attributes
@@ -62,13 +63,5 @@ module ApplicationHelper
 
   def sort_direction
     table_params[:sd]
-  end
-
-  def page_number
-    table_params[:pn] || 1
-  end
-
-  def page_size
-    table_params[:ps] || 100
   end
 end

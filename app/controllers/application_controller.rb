@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
   before_action :authenticate_user!
 
   include InitializeComponentContext
-  include QueryParameterize
+  include Pagy::Backend
 
   protected
 

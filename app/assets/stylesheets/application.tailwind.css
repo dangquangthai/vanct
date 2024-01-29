@@ -74,4 +74,16 @@
   .table thead tr .sort-down .down {
     @apply block;
   }
+
+  .pagination {
+    @apply flex gap-1 items-center justify-center;
+  }
+
+  .pagination .page {
+    @apply btn !w-fit !min-w-[40px];
+  }
+
+  .pagination .page.disabled {
+    @apply opacity-50 cursor-not-allowed;
+  }
 }

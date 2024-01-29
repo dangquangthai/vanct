@@ -1,0 +1,34 @@
+<div class="max-w-full overflow-auto border">
+  <table class="table no-break-line w-full" id="bills-table" data-controller="table-sort">
+    <thead>
+      <tr>
+        <%= render Shared::SortColumnComponent.new(title: 'Bill', column: 'bill_no') %>
+        <%= render Shared::SortColumnComponent.new(title: 'Bàn', column: 'table_no') %>
+        <%= render Shared::SortColumnComponent.new(title: 'Ngày', column: 'shift_date') %>
+        <%= render Shared::SortColumnComponent.new(title: 'Tổng', column: 'total', th_class: 'justify-end h-6') %>
+        <th class="disable-sort">
+          
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <% bills.each do |bill| %>
+        <tr id="bill_<%= bill.id %>">
+          <td><%= bill.bill_no %></td>
+          <td>Bàn <%= bill.table_no %></td>
+          <td><%= bill.shift.shift_date.strftime('%d-%m-%y') %></td>
+          <td class="text-right"><%= show_money bill.total %></td>
+          <td>
+            <div class="flex gap-2 items-center justify-end">
+              <div class="w-fit cursor-pointer" data-controller="turbo-fetch" data-url="#">
+                <%== svg_icon 'bill', class: 'w-6 h-6' %>
+              </div>
+            </div>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<%== pagy_nav(pagy) if pagy.pages > 1 %>

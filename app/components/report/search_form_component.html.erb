@@ -1,0 +1,20 @@
+<%= form_for('q', as: :q, url: report_index_path, html: { id: 'report-search-form', method: 'GET' }) do |f| %>
+  <div class="grid grid-cols-2 gap-2 w-full md:w-[400px]">
+    <div class="grid gap-1">
+      <label for="q_from">Từ ngày</label>
+      <input 
+        type="date" value="<%= query_attributes[:from] || Time.zone.today.beginning_of_month %>"
+        required name="q[from]" id="q_from"
+        autocomplete="off" class="txt">
+    </div>
+
+    <div class="grid gap-1">
+      <label for="q_to">Đến ngày</label>
+      <input 
+        type="date" value="<%= query_attributes[:to] || Time.zone.today %>"
+        required name="q[to]" id="q_to"
+        autocomplete="off" class="txt">
+    </div>
+  </div>
+  <%= f.submit "Xem báo cáo", class: 'btn mt-2' %>
+<% end %>
