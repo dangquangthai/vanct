@@ -1,4 +1,4 @@
-<div class="grid gap-4">
+<div class="grid gap-2">
   <div class="font-bold flex items-center">
     <div class="grow">
       <div class="grid gap-1">
@@ -9,21 +9,24 @@
       <%== svg_icon('close', class: 'w-6 h-6') %>
     </div>
   </div>
-  <div class="grid gap-2">
-    <% table['lines'].each do |line| %>
-      <hr class="border-gray-300" />
-      <div class="grid gap-1">
-        <div><%= line['product_name'] %></div>
-        <div class="flex gap-1 justify-end">
-          <span class="font-bold"><%= line['amount'].round %></span>
-          <span class="font-bold"><%= line['unit'] %></span>
-          <span>x</span>
-          <span><%= show_money line['price'] %></span>
-          <span>=</span>
-          <span><%= show_money line['total'] %></span>
+
+  <div class="max-h-[530px] overflow-y-auto">
+    <div class="grid gap-1">
+      <% table['lines'].each do |line| %>
+        <hr class="border-gray-300" />
+        <div class="grid gap-1">
+          <div><%= line['product_name'] %></div>
+          <div class="flex gap-1 justify-end">
+            <span class="font-bold"><%= line['amount'].round %></span>
+            <span class="font-bold"><%= line['unit'] %></span>
+            <span>x</span>
+            <span><%= show_money line['price'] %></span>
+            <span>=</span>
+            <span><%= show_money line['total'] %></span>
+          </div>
         </div>
-      </div>
-    <% end %>
+      <% end %>
+    </div>
   </div>
 
   <% if (table['discount'] || 0) > 0 %>
