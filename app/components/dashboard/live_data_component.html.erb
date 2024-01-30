@@ -1,11 +1,19 @@
 <div data-controller="live-data">
-  <div class="p-2 flex items-center">
-    <div class="grow flex gap-2 items-center">
-      <div class="flex gap-1 text-red-600 font-bold"><%= busy_tables.size %>/<%= tables.size %> bàn</div>
-      <div class="flex gap-1 font-bold text-green-800">= <%= show_money busy_tables_sum %></div>
+  <div class="p-2 flex w-full">
+    <div class="text-red-600 font-bold grow">
+      <%= busy_tables.size %>/<%= tables.size %>
     </div>
-    <div class="flex-none font-bold">
-      Tổng= <%= show_money shift['total'] %>
+
+    <div class="grid flex-none">
+      <div class="font-bold flex">
+        <div class="w-[80px]">Chưa thu</div>
+        <div class="text-red-600"><%= show_money busy_tables_sum %></div>
+      </div>
+
+      <div class="font-bold flex">
+        <div class="w-[80px]">Đã thu</div>
+        <div class="text-green-800"><%= show_money shift['total'] %></div>
+      </div>
     </div>
   </div>
 

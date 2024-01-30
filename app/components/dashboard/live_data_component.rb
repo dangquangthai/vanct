@@ -28,8 +28,8 @@ module Dashboard
 
     def build_table_css(table)
       class_names('rounded border h-20 grid px-2 py-1',
-                  'bg-blue-200 text-blue-800': table['busy'] && table['printed'],
-                  'bg-red-200 text-red-800': table['busy'] && !table['printed'])
+                  'bg-green-800 text-white': table['busy'] && table['printed'],
+                  'bg-red-600 text-white': table['busy'] && !table['printed'])
     end
   end
 end
