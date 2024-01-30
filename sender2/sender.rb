@@ -3,7 +3,7 @@
 KEY = 'ace'
 PATH = 'D:\sender2\database\Datashare(NGOCTUYET)2.mdb'
 PASSWORD = '26331'
-WEBSITE = 'https://d4da-27-69-181-208.ngrok-free.app'
+WEBSITE = 'http://vanct.vn'
 
 require 'win32ole'
 require_relative 'services/access_db'
