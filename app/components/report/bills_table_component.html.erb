@@ -12,7 +12,7 @@
       <% bills.each do |bill| %>
         <tr id="bill_<%= bill.id %>" class="cursor-pointer" data-controller="turbo-fetch" data-url="<%= report_show_path(bill_id: bill.id) %>">
           <td><%= bill.bill_no %></td>
-          <td>Bàn <%= bill.table_no %></td>
+          <td><%= bill.table_no %></td>
           <td><%= bill.shift.shift_date.strftime('%d/%m') %></td>
           <td>
             <div class="h-5 flex items-center justify-end"><%= show_money bill.total %></div>

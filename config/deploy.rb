@@ -125,12 +125,12 @@ before "deploy:assets:precompile", "deploy:yarn_install"
 namespace :deploy do
   desc "Run rake yarn:install"
   task :yarn_install do
-    on roles(:web) do
-      within release_path do
-        # execute("which yarn && ls -la && cd #{release_path} && yarn install --silent --no-progress --no-audit --no-optional")
-        execute("echo $(pwd) && echo $(which yarn) && echo $(ls -la)")
-      end
-    end
+    # on roles(:web) do
+    #   within release_path do
+    #     execute("which yarn && ls -la && cd #{release_path} && yarn install --silent --no-progress --no-audit --no-optional")
+    #     execute("echo $(pwd) && echo $(which yarn) && echo $(ls -la)")
+    #   end
+    # end
   end
 end
 

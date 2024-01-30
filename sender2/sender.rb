@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-KEY = 'ace'
-PATH = 'D:\sender2\database\Datashare(NGOCTUYET)2.mdb'
+KEY = 'NGOCTUYET'
+PATH = 'D:\Phan mem tinh tien 4.0\SyncData\Datashare.mdb'
 PASSWORD = '26331'
 WEBSITE = 'http://vanct.vn'
 

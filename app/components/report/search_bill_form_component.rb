@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
-class Report::SearchBillFormComponent < ApplicationComponent
-
+module Report
+  class SearchBillFormComponent < ApplicationComponent
+  end
 end

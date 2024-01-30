@@ -25,7 +25,10 @@ class Live
   protected
 
   def data_has_changed?
-    JSON.parse(File.open(file_path).read) == data
+    previous_data = JSON.parse(File.open(file_path).read)
+    previous_data['table_lines'].count != data[:table_lines].count ||
+      previous_data['shift']['total'] != data[:shift].total ||
+      previous_data['tables'].count { |t| t['busy'] } != data[:tables].count(&:busy)
   end
 
   def save_data_to_file

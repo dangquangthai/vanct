@@ -58,7 +58,7 @@ class ReportController < ApplicationController
       bills_query.each do |bill|
         csv << [
           bill.bill_no,
-          "Bàn #{bill.table_no}",
+          bill.table_no,
           bill.shift.shift_date.strftime('%d-%m-%y'),
           bill.total.to_f.round(0)
         ]
@@ -96,9 +96,9 @@ class ReportController < ApplicationController
 
   def bills_query
     bills = Bill.includes(:shift)
-        .joins(:shift)
-        .where(shifts: { shift_date: from_date..to_date })
-        .where(shifts: { customer_id: current_user.customer.id })
+                .joins(:shift)
+                .where(shifts: { shift_date: from_date..to_date })
+                .where(shifts: { customer_id: current_user.customer.id })
     bills = bills.where(bill_no: bill_no) if bill_no.present?
     bills = bills.where(table_no: table_no) if table_no.present?
     bills.order('shifts.shift_date DESC')

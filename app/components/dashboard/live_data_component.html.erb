@@ -15,7 +15,7 @@
     <div class="grid grid-cols-3 md:grid-cols-6 gap-2">
       <% tables.each do |table| %>
         <div class="<%= build_table_css(table) %>" <%= "data-action=click->live-data#showTable data-table-no=#{table['table_no']}" if table['busy'] %>>
-          <div>Bàn <%= table['table_no'] %></div>
+          <div><%= table['table_no'] %></div>
           <div><%= show_time_ago(table['in_time']) if table['in_time'].present? %></div>
           <div class="flex items-end justify-end"><%= show_money(table['total']) if table['busy'] %></div>
         </div>
