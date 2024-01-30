@@ -17,6 +17,7 @@
 
   <div class="grid gap-2">
     <span class="font-bold px-2">Danh sách đơn hàng</span>
+    <%= render Report::SearchBillFormComponent.new %>
     <%= render Report::BillsTableComponent.new(bills: @bills, pagy: @pagy) %>
   </div>
 </div>
