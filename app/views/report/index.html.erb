@@ -3,20 +3,21 @@
     <%= render Report::SearchFormComponent.new %>
   </div>
   
-  <div class="grid gap-2">
-    <div class="px-2">
-      <span class="font-bold">Tổng doanh thu</span>
-      <span class="text-red-600 font-bold"><%= show_money(@sum_shifts) %></span>
-    </div>
-    <div data-controller="barchart" data-chart-data="<%= @chart_data.to_json %>">
-      <div class="max-w-full overflow-auto" data-barchart-target="wrapper">
-        <canvas id="bar-chart" data-barchart-target="myChart"></canvas>
+  <div class="px-2">
+    <span class="font-bold">Tổng doanh thu</span>
+    <span class="text-red-600 font-bold"><%= show_money(@sum_shifts) %></span>
+  </div>
+  
+  <div class="max-w-full overflow-auto">
+    <div class="grid gap-2">
+      <div data-controller="barchart" data-chart-data="<%= @chart_data.to_json %>">
+        <canvas id="bar-chart" data-barchart-target="myChart" width="1000" height="250"></canvas>
       </div>
     </div>
   </div>
 
   <div class="grid gap-2">
-    <span class="font-bold px-2">Danh sách đơn hàng</span>
+    <span class="font-bold px-2">Danh sách đơn hàng (<%= @pagy.count %>)</span>
     <%= render Report::SearchBillFormComponent.new %>
     <%= render Report::BillsTableComponent.new(bills: @bills, pagy: @pagy) %>
   </div>

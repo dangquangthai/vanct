@@ -10,6 +10,10 @@ module Dashboard
 
     attr_reader :live_data, :shift, :tables
 
+    def render?
+      live_data['shift'].present? && live_data['tables'].present?
+    end
+
     def busy_tables
       @busy_tables ||= tables.select { |table| table['busy'] }
     end

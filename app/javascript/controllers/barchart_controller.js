@@ -7,6 +7,15 @@ export default class extends Controller {
 
   connect() {
     const chartData = JSON.parse(this.element.dataset.chartData);
+    const maxWidth = 1000;
+    const count = chartData.labels.length;
+    
+    if (count < 10) {
+      this.myChartTarget.removeAttribute('width');
+      this.myChartTarget.removeAttribute('height');
+    } else {
+      this.myChartTarget.width = count * 50;
+    }
 
     new Chart(this.canvasContext, {
       type: 'bar',
