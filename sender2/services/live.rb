@@ -12,23 +12,24 @@ class Live
 
   def perform
     unless file_existing?
-      save_data_to_file
       api_client.live(data)
+      save_data_to_file
+      return
     end
 
     return unless data_has_changed?
 
-    save_data_to_file
     api_client.live(data)
+    save_data_to_file
   end
 
   protected
 
   def data_has_changed?
-    previous_data = JSON.parse(File.open(file_path).read)
-    previous_data['table_lines'].count != data[:table_lines].count ||
-      previous_data['shift']['total'] != data[:shift].total ||
-      previous_data['tables'].count { |t| t['busy'] } != data[:tables].count(&:busy)
+    previous_data = JSON.parse(File.open(file_path).read || {})
+    previous_data['table_lines'].count != data['table_lines'].count ||
+      previous_data['shift']['total'] != data['shift']['total'] ||
+      previous_data['tables'].count { |t| t['busy'] } != data['tables'].count { |t| t['shift'] }
   end
 
   def save_data_to_file
@@ -37,9 +38,9 @@ class Live
 
   def data
     @data ||= {
-      tables: reader.tables(as_hash: true),
-      table_lines: reader.table_lines(as_hash: true),
-      shift: reader.current_shift.to_hash
+      "tables" => reader.tables(as_hash: true),
+      "table_lines" => reader.table_lines(as_hash: true),
+      "shift" => reader.current_shift.to_hash
     }
   end
 
