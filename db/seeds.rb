@@ -24,7 +24,7 @@ ace.save!
   user.save!
 end
 
-(1..29).each do |index|
-  day = sprintf '%02d', index
-  Shift.create({ customer_id: 1, no: "1-2024-01-#{day}", stt: "1", total: (200.0 * index) * rand(1000..9000), shift_date: Time.zone.parse("2024-01-#{day}") })
-end
+# (1..29).each do |index|
+#   day = sprintf '%02d', index
+#   Shift.create({ customer_id: 1, no: "1-2024-01-#{day}", stt: "1", total: (200.0 * index) * rand(1000..9000), shift_date: Time.zone.parse("2024-01-#{day}") })
+# end

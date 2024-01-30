@@ -77,6 +77,12 @@ group :development do
   gem 'rubocop', require: false
   gem 'rubocop-performance', require: false
   gem 'rubocop-rails', require: false
+
+  gem 'capistrano',                 '~> 3.17.1', require: false
+  gem 'capistrano3-puma',           require: false
+  gem 'capistrano-bundler',         require: false
+  gem 'capistrano-rails',           '~> 1.6.2', require: false
+  gem 'capistrano-rvm',             require: false
 end
 
 group :test do

@@ -25,6 +25,9 @@ module Vanct
     # config.eager_load_paths << Rails.root.join("extras")
     config.time_zone = 'Hanoi'
 
-    config.hosts << 'd4da-27-69-181-208.ngrok-free.app'
+    if ENV['APP_DOMAIN'] && !Rails.env.test?
+      config.hosts << ENV['APP_DOMAIN']
+      routes.default_url_options[:host] = ENV['APP_DOMAIN']
+    end
   end
 end
