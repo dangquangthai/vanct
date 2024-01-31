@@ -101,7 +101,7 @@ class ReportController < ApplicationController
                 .where(shifts: { customer_id: current_user.customer.id })
     bills = bills.where(bill_no: bill_no) if bill_no.present?
     bills = bills.where(table_no: table_no) if table_no.present?
-    bills.order('shifts.shift_date DESC')
+    bills.order('shifts.shift_date DESC, bills.bill_no DESC')
   end
 
   def bill_no
