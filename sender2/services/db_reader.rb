@@ -67,7 +67,7 @@ class DbReader
 
     db.query(sql).map do |row|
       Shift.new(total: row[0], stt: row[1])
-    end.first || Shift.new(total: 0, stt: "1")
+    end.first || Shift.new(total: 0, stt: '1')
   end
 
   def shift_lines(shift, as_hash: false)

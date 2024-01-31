@@ -3,8 +3,6 @@
 class ReportController < ApplicationController
   def index
     @pagy, @bills = pagy(bills_query)
-    @shifts = current_user.customer.shifts.where(shift_date: from_date..to_date).order('shifts.shift_date ASC')
-    @sum_shifts = @shifts.sum(:total)
     @chart_data = build_chart_data
 
     respond_to do |format|
@@ -67,14 +65,16 @@ class ReportController < ApplicationController
   end
 
   def build_chart_data
-    bg_colors = @shifts.map { sample_colors.sample }
+    shifts = current_user.customer.shifts.where(shift_date: from_date..to_date).select('shift_date').group('shift_date').order('shift_date ASC')
+    totals = shifts.sum('total')
+    bg_colors = totals.map { sample_colors.sample }
     border_colors = bg_colors.map { |color| color.gsub(/, 0\.2\)/, ', 1)') }
-
+    @sum_shifts = totals.sum { |_, total| total }
     {
-      labels: @shifts.map { |shift| shift.shift_date.strftime('%d/%m') },
+      labels: totals.map { |date, _| date.strftime('%d/%m') },
       datasets: [
         {
-          data: @shifts.map { |s| s.total / 1000 },
+          data: totals.map { |_, total| total.to_i / 1000 },
           backgroundColor: bg_colors,
           borderColor: border_colors,
           borderWidth: 1

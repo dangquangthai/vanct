@@ -38,9 +38,9 @@ class Live
 
   def data
     @data ||= {
-      "tables" => reader.tables(as_hash: true),
-      "table_lines" => reader.table_lines(as_hash: true),
-      "shift" => reader.current_shift.to_hash
+      'tables' => reader.tables(as_hash: true),
+      'table_lines' => reader.table_lines(as_hash: true),
+      'shift' => reader.current_shift.to_hash
     }
   end
 
