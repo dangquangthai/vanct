@@ -10,6 +10,6 @@ export default class extends Controller {
   }
 
   showTable(event) {
-    turboFetch(`/dashboard/${event.currentTarget.dataset.tableNo}`);
+    turboFetch(`/dashboard/show?table_no=${event.currentTarget.dataset.tableNo}`);
   }
 }
