@@ -1,7 +1,10 @@
 import { Controller } from "@hotwired/stimulus"
+import { useClickOutside } from 'stimulus-use'
 
 export default class extends Controller {
   connect() {
+    useClickOutside(this);
+
     if (!this.overlay) {
       const overlay = document.createElement('div');
       overlay.id = 'turbo-modal-overlay';
@@ -10,6 +13,10 @@ export default class extends Controller {
     }
       
     addClass(this.turboModal, 'inset-0 h-screen w-screen fixed flex items-center justify-center z-20');
+  }
+
+  clickOutside() {
+    this.close();
   }
 
   disconnect() {
