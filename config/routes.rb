@@ -21,6 +21,8 @@ Rails.application.routes.draw do
   get  '/current_user' => 'current_user#show', as: :current_user_show
   patch '/current_user/change_password' => 'current_user#change_password', as: :current_user_change_password
 
+  get '/expired' => 'expired#index', as: :expired
+
   namespace :admin do
     resources :customers do
       resources :users

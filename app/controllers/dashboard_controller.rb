@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class DashboardController < ApplicationController
+  before_action :validate_customer_expired!
   before_action :require_live_data
 
   def index

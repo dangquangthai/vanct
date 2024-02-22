@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class ReportController < ApplicationController
+  before_action :validate_customer_expired!
+
   def index
     @pagy, @bills = pagy(bills_query)
     @chart_data = build_chart_data
@@ -110,10 +112,6 @@ class ReportController < ApplicationController
 
   def table_no
     helpers.query_attributes[:table_no]
-  end
-
-  def from_date
-    helpers.query_attributes[:from]
   end
 
   def from_date
