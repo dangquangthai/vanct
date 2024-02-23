@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-KEY = 'NGOCTUYET'
+KEY = 'Tuans'
 PATH = 'D:\Phan mem tinh tien 4.0\SyncData\Datashare.mdb'
 PASSWORD = '26331'
 WEBSITE = 'http://vanct.vn'
