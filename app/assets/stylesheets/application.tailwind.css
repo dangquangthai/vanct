@@ -79,11 +79,15 @@
     @apply flex gap-1 items-center justify-center;
   }
 
-  .pagination .page {
-    @apply btn !w-fit !min-w-[40px];
+  .pagination .page > a {
+    @apply btn;
   }
 
-  .pagination .page.disabled {
+  .pagination .page.disabled > a {
     @apply opacity-50 cursor-not-allowed;
+  }
+
+  .pagination .page.active > a {
+    @apply cursor-not-allowed bg-blue-900;
   }
 }

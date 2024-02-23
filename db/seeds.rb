@@ -17,7 +17,7 @@ ace.save!
 
 ['thai', 'admin'].each do |username|
   user = User.find_or_initialize_by(username: username)
-  user.password = '123456'
+  user.password = '123456' # ThisIs@Very!@#456
   user.role = 'admin'
   user.email = "#{username}@vanct.com"
   user.customer = ace
