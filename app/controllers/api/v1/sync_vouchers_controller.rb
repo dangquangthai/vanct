@@ -13,6 +13,8 @@ module API
             shift.vouchers.create!(voucher)
           end
         end
+
+        json_response({ success: true })
       end
 
       def vouchers

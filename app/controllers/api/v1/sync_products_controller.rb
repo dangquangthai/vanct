@@ -6,9 +6,13 @@ module API
       before_action :require_customer!
 
       def create
-        products.each do |product|
-          @customer.products.create!(product)
+        ActiveRecord::Base.transaction do
+          products.each do |product|
+            @customer.products.create!(product)
+          end
         end
+
+        json_response({ success: true })
       end
 
       def products
