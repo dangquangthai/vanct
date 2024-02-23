@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_02_23_131715) do
+ActiveRecord::Schema[7.1].define(version: 2024_02_23_144443) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -92,7 +92,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_23_131715) do
     t.bigint "shift_id", null: false
     t.string "no"
     t.datetime "time"
-    t.string "description"
+    t.string "note"
     t.decimal "total"
     t.string "kind"
     t.datetime "created_at", null: false
