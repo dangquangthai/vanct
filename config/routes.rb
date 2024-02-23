@@ -15,7 +15,6 @@ Rails.application.routes.draw do
   get  '/report' => 'report#index', as: :report_index
   get  '/report/show/:bill_id' => 'report#show', as: :report_show
   get  '/report/export/form' => 'report#export_form', as: :report_export_form
-  post '/report/export' => 'report#export', as: :report_export
   get  '/report/download_csv' => 'report#download_csv', as: :report_download_csv
 
   get  '/current_user' => 'current_user#show', as: :current_user_show

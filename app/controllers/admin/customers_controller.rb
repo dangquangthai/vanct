@@ -2,6 +2,8 @@
 
 module Admin
   class CustomersController < ApplicationController
+    before_action :authorize_admin!
+
     def index
       @customers = Customer.all
 

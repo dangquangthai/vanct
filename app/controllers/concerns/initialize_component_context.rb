@@ -10,6 +10,7 @@ module InitializeComponentContext
       return unless user_signed_in?
 
       Current.current_user = current_user
+      Current.current_customer = current_user.customer
     end
   end
 end

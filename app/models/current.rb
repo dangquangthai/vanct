@@ -2,5 +2,5 @@
 
 # https://api.rubyonrails.org/classes/ActiveSupport/CurrentAttributes.html
 class Current < ActiveSupport::CurrentAttributes
-  attribute :current_user
+  attribute :current_user, :current_customer
 end
