@@ -3,9 +3,26 @@
     <%= render Report::SearchFormComponent.new %>
   </div>
   
-  <div class="px-2">
-    <span class="font-bold">Tổng doanh thu</span>
-    <span class="text-red-600 font-bold"><%= show_money(@sum_shifts) %></span>
+  <div class="grid gap-1">
+    <div class="px-2 flex gap-1 font-bold">
+      <div class="w-[100px]">Doanh thu</div>
+      <div class="w-[150px] text-red-600 flex justify-end"><%= show_money(@report_builder.sum_shifts) %></div>
+    </div>
+
+    <div class="px-2 flex gap-1 font-bold">
+      <div class="w-[100px]">Thu ngoài</div>
+      <div class="w-[150px] text-red-600 flex justify-end"><%= show_money(@report_builder.sum_receipt_vouchers) %></div>
+    </div>
+
+    <div class="px-2 flex gap-1 font-bold">
+      <div class="w-[100px]">Chi</div>
+      <div class="w-[150px] text-red-600 flex justify-end"><%= show_money(@report_builder.sum_payment_vouchers) %></div>
+    </div>
+
+    <div class="px-2 flex gap-1 font-bold">
+      <div class="w-[100px]">Còn lại</div>
+      <div class="w-[150px] text-red-600 flex justify-end"><%= show_money(@report_builder.sum_shifts + @report_builder.sum_receipt_vouchers - @report_builder.sum_payment_vouchers) %></div>
+    </div>
   </div>
   
   <div class="max-w-full overflow-auto">
@@ -17,8 +34,19 @@
   </div>
 
   <div class="grid gap-2">
-    <span class="font-bold px-2">Danh sách đơn hàng (<%= @pagy.count %>)</span>
+    <div class="font-bold px-2">Danh sách đơn hàng (<%= @bills_pagy.count %>)</div>
     <%= render Report::SearchBillFormComponent.new %>
-    <%= render Report::BillsTableComponent.new(bills: @bills, pagy: @pagy) %>
+    <%= render Report::BillsTableComponent.new(bills: @bills, pagy: @bills_pagy) %>
+
+    <div></div>
+    <div></div>
+    <div></div>
+    
+    <div class="font-bold px-2 flex gap-4">
+      <%= link_to "Danh sách Phiếu (#{@vouchers_pagy.count})", report_index_path(q: query_attributes.except(:v_kind)) %>
+      <%= link_to 'Thu', report_index_path(q: query_attributes.merge(v_kind: 'receipt')), class: 'text-green-700' %>
+      <%= link_to 'Chi', report_index_path(q: query_attributes.merge(v_kind: 'payment')), class: 'text-red-600' %>
+    </div>
+    <%= render Report::VouchersTableComponent.new(vouchers: @vouchers, pagy: @vouchers_pagy) %>
   </div>
 </div>

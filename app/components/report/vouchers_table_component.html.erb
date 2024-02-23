@@ -1,0 +1,28 @@
+<div class="max-w-full overflow-auto border-t">
+  <table class="table no-break-line w-full" id="vouchers-table" data-controller="table-sort">
+    <thead>
+      <tr>
+        <%= render Shared::SortColumnComponent.new(title: 'S.Phiếu', column: 'no') %>
+        <%= render Shared::SortColumnComponent.new(title: 'Ngày', column: 'time') %>
+        <%= render Shared::SortColumnComponent.new(title: 'Tiền', column: 'total', th_class: 'justify-end h-6') %>
+        <%= render Shared::SortColumnComponent.new(title: 'D.Giải', column: 'note') %>
+      </tr>
+    </thead>
+    <tbody>
+      <% vouchers.each do |voucher| %>
+        <tr id="voucher_<%= voucher.id %>">
+          <td class="font-bold"><%= voucher.no %></td>
+          <td><%= voucher.time.strftime('%d/%m') %></td>
+          <td>
+            <div class="<%= kind_classes(voucher) %>"><%= show_money voucher.total %></div>
+          </td>
+          <td><%= voucher.note %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<div class="overflow-auto flex items-center justify-center h-10 mx-2">
+  <%== pagy_nav(pagy) if pagy.pages > 1 %>
+</div>

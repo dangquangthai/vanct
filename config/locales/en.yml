@@ -4,6 +4,10 @@ en:
       admin: Admin
       manager: Quản lý
       staff: Nhân viên
+  vouchers:
+    kinds:
+      payment: Chi
+      receipt: Thu
   datetime:
     distance_in_words:
       about_x_hours:

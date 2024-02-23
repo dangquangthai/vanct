@@ -3,14 +3,15 @@
 require 'csv'
 
 class ReportDataBuilder
-  def initialize(from_date:, to_date:, bill_no:, table_no:)
+  def initialize(from_date:, to_date:, bill_no:, table_no:, v_kind:)
     @from_date = from_date
     @to_date = to_date
     @bill_no = bill_no
     @table_no = table_no
+    @v_kind = v_kind
   end
 
-  attr_reader :to_date, :from_date, :bill_no, :table_no
+  attr_reader :to_date, :from_date, :bill_no, :table_no, :v_kind
 
   delegate :current_user, :current_customer, to: Current
 
@@ -47,7 +48,7 @@ class ReportDataBuilder
   end
 
   def sum_shifts
-    shifts_and_totals.sum { |_, total| total }
+    @sum_shifts ||= shifts_and_totals.sum { |_, total| total }
   end
 
   def shifts_and_totals
@@ -69,6 +70,27 @@ class ReportDataBuilder
       'rgba(153, 102, 255, 0.2)',
       'rgba(255, 159, 64, 0.2)'
     ]
+  end
+
+  def vouchers
+    Voucher.includes(:shift)
+      .joins(:shift)
+      .where(shifts: { shift_date: from_date..to_date })
+      .where(shifts: { customer_id: current_customer.id })
+  end
+
+  def vouchers_query
+    v = vouchers
+    v = v.where(kind: v_kind) if v_kind.present?
+    v.order('shifts.shift_date DESC, vouchers.no DESC')
+  end
+
+  def sum_payment_vouchers
+    @sum_payment_vouchers ||= vouchers.where(kind: :payment).sum(:total)
+  end
+
+  def sum_receipt_vouchers
+    @sum_receipt_vouchers ||= vouchers.where(kind: :receipt).sum(:total)
   end
 
   def bills_query
