@@ -22,7 +22,7 @@ class Sync
       lines = reader.shift_lines(shift, as_hash: true)
       next if lines.empty?
 
-      api_client.sync({ shift_lines: lines })
+      api_client.sync_shift({ shift_lines: lines })
 
       mark_as_synced!(shift)
       sync_vouchers(shift)

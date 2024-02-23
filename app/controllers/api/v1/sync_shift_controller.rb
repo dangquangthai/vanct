@@ -2,7 +2,7 @@
 
 module API
   module V1
-    class SyncController < API::V1::BaseController
+    class SyncShiftController < API::V1::BaseController
       before_action :require_customer!
 
       def create

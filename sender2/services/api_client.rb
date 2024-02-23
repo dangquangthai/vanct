@@ -22,8 +22,16 @@ class ApiClient
     post(data, api_method: 'live')
   end
 
-  def sync(data)
-    post(data, api_method: 'sync')
+  def sync_shift(data)
+    post(data, api_method: 'sync_shift')
+  end
+
+  def sync_vouchers(data)
+    post(data, api_method: 'sync_vouchers')
+  end
+
+  def sync_products(data)
+    post(data, api_method: 'sync_products')
   end
 
   private

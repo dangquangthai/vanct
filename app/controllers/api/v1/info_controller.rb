@@ -5,7 +5,7 @@ module API
     class InfoController < API::V1::BaseController
       before_action :require_customer!
 
-      def show
+      def index
         json_response({ live: @customer.live?, sync: @customer.sync? })
       end
     end

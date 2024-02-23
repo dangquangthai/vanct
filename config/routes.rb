@@ -30,9 +30,15 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
-      get  'info' => 'info#show'
-      post 'live' => 'live#create'
-      post 'sync' => 'sync#create'
+      resources :info, only: %i[index]
+      resources :live, only: %i[create]
+
+      # for the old version
+      post 'sync' => 'sync_shift#create'
+      resources :sync_shift, only: %i[create]
+
+      resources :sync_vouchers, only: %i[create]
+      resources :sync_products, only: %i[create]
     end
   end
 end
