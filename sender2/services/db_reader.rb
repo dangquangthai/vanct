@@ -92,7 +92,7 @@ class DbReader
   end
 
   def vouchers(shift, as_hash: false)
-    sql = "select SOPHIEU, DateValue(NGAY) + TimeValue(GIO) as NGAYGIO, DIENGIAI, SOTIEN from [THU CHI] where CA=\"#{shift.stt}\" and Val(Format (NGAY, \"yyyymmdd\"))=\"#{shift.date_to_query}\";"
+    sql = "select SOPHIEU, DateValue(NGAY) + TimeValue(GIO) as NGAYGIO, DIENGIAI, SOTIEN, MATC from [THU CHI] where CA=\"#{shift.stt}\" and Val(Format (NGAY, \"yyyymmdd\"))=\"#{shift.date_to_query}\";"
 
     db.query(sql).map do |row|
       model = Voucher.new(
