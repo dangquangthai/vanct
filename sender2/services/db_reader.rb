@@ -55,7 +55,7 @@ class DbReader
   end
 
   def shifts(as_hash: false)
-    sql = 'select MAKETSO from [DA KET SO] where DADONGBO=false;'
+    sql = 'select MAKETSO from [DA KET SO] where DADONGBO=true;'
 
     db.query(sql).map do |row|
       model = Shift.new_from_no(number: row[0])
@@ -99,9 +99,9 @@ class DbReader
         shift_no: shift.no,
         no: row[0],
         time: row[1],
-        description: row[2],
+        note: row[2],
         total: row[3],
-        type: row[4] == 'C' ? 'payment' : 'receipt'
+        kind: row[4] == 'C' ? 'payment' : 'receipt'
       )
 
       as_hash ? model.to_hash : model
@@ -109,7 +109,7 @@ class DbReader
   end
 
   def products(as_hash: false)
-    sql = "select MAHG, TENHANG, NHOM, MUC, DVT, DONGIA, DONGIA1 from [DANH MUC HANG];"
+    sql = 'select MAHG, TENHANG, NHOM, MUC, DVT, DONGIA, DONGIA1 from [DANH MUC HANG];'
 
     db.query(sql).map do |row|
       model = Product.new(
@@ -119,7 +119,7 @@ class DbReader
         cname: row[3], # MUC
         unit: row[4], # DVT
         price: row[5], # DONGIA
-        price1: row[6], # DONGIA1
+        price1: row[6] # DONGIA1
       )
 
       as_hash ? model.to_hash : model

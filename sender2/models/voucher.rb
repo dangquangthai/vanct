@@ -5,14 +5,16 @@ require 'date'
 require_relative 'base_model'
 
 class Voucher < BaseModel
-  attr_reader :shift_no, :no, :time, :description, :total, :type
+  attr_reader :shift_no, :no, :time, :note, :total, :kind
 
-  def initialize(shift_no:, no:, time:, description:, total:, type:)
+  # rubocop:disable Naming/MethodParameterName
+  def initialize(shift_no:, no:, time:, note:, total:, kind:)
     @shift_no = shift_no
     @no = no
     @time = time
-    @description = description
+    @note = note
     @total = total
-    @type = type
+    @kind = kind
   end
+  # rubocop:enable Naming/MethodParameterName
 end

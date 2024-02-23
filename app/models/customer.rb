@@ -3,6 +3,7 @@
 class Customer < ApplicationRecord
   has_many :users, dependent: :destroy
   has_many :shifts, dependent: :destroy
+  has_many :products, dependent: :destroy
 
   validates :key, presence: true, uniqueness: true
   validates :name, :expires_at, presence: true

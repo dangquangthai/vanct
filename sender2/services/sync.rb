@@ -23,22 +23,15 @@ class Sync
       next if lines.empty?
 
       api_client.sync_shift({ shift_lines: lines })
+      api_client.sync_vouchers({ shift_no: shift.no, vouchers: reader.vouchers(shift, as_hash: true) })
 
       mark_as_synced!(shift)
-      sync_vouchers(shift)
       @has_new_shitf = true
     end
   end
 
   def sync_products
-    reader.products.each do |h|
-    end
-  end
-
-  def sync_vouchers(shift)
-    reader.vouchers(shift).each do |h|
-
-    end
+    api_client.sync_products({ products: reader.products(as_hash: true) })
   end
 
   def mark_as_synced!(shift)

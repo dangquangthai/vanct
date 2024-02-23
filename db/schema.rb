@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_01_29_085805) do
+ActiveRecord::Schema[7.1].define(version: 2024_02_23_131715) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -50,6 +50,20 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_29_085805) do
     t.index ["key"], name: "index_customers_on_key", unique: true
   end
 
+  create_table "products", force: :cascade do |t|
+    t.bigint "customer_id", null: false
+    t.string "no"
+    t.string "name"
+    t.string "gname"
+    t.string "cname"
+    t.string "unit"
+    t.decimal "price"
+    t.decimal "price1"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["customer_id"], name: "index_products_on_customer_id"
+  end
+
   create_table "shifts", force: :cascade do |t|
     t.bigint "customer_id", null: false
     t.string "no"
@@ -74,8 +88,22 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_29_085805) do
     t.index ["username"], name: "index_users_on_username", unique: true
   end
 
+  create_table "vouchers", force: :cascade do |t|
+    t.bigint "shift_id", null: false
+    t.string "no"
+    t.datetime "time"
+    t.string "description"
+    t.decimal "total"
+    t.string "kind"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["shift_id"], name: "index_vouchers_on_shift_id"
+  end
+
   add_foreign_key "bill_lines", "bills"
   add_foreign_key "bills", "shifts"
+  add_foreign_key "products", "customers"
   add_foreign_key "shifts", "customers"
   add_foreign_key "users", "customers"
+  add_foreign_key "vouchers", "shifts"
 end
