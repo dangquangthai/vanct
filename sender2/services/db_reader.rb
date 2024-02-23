@@ -4,6 +4,8 @@ require_relative '../models/table'
 require_relative '../models/table_line'
 require_relative '../models/shift'
 require_relative '../models/shift_line'
+require_relative '../models/voucher'
+require_relative '../models/product'
 
 class DbReader
   def initialize(db:)
@@ -84,6 +86,40 @@ class DbReader
         unit: row[5],
         bill_ref: row[6]
       )
+
+      as_hash ? model.to_hash : model
+    end
+  end
+
+  def vouchers(shift, as_hash: false)
+    sql = "select SOPHIEU, DateValue(NGAY) + TimeValue(GIO) as NGAYGIO, DIENGIAI, SOTIEN from [THU CHI] where CA=\"#{shift.stt}\" and Val(Format (NGAY, \"yyyymmdd\"))=\"#{shift.date_to_query}\";"
+
+    db.query(sql).map do |row|
+      model = Voucher.new(
+        shift_no: shift.no,
+        no: row[0],
+        time: row[1],
+        description: row[2],
+        total: row[3],
+        type: row[4] == 'C' ? 'payment' : 'receipt'
+      )
+
+      as_hash ? model.to_hash : model
+    end
+  end
+
+  def products(as_hash: false)
+    sql = "select SOPHIEU, DateValue(NGAY) + TimeValue(GIO) as NGAYGIO, DIENGIAI, SOTIEN, MATC from [THU CHI] where CA=\"#{shift.stt}\" and Val(Format (NGAY, \"yyyymmdd\"))=\"#{shift.date_to_query}\";"
+
+    db.query(sql).map do |row|
+      # model = Voucher.new(
+      #   shift_no: shift.no,
+      #   no: row[0],
+      #   time: row[1],
+      #   description: row[2],
+      #   total: row[3],
+      #   type: row[4] == 'C' ? 'payment' : 'receipt'
+      # )
 
       as_hash ? model.to_hash : model
     end
