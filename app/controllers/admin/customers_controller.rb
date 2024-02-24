@@ -5,7 +5,7 @@ module Admin
     before_action :authorize_admin!
 
     def index
-      @customers = Customer.all
+      @customers = Customer.all.where.not(key: 'ace')
 
       respond_to do |format|
         format.html
