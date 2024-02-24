@@ -1,0 +1,73 @@
+<%= form_for(product, as: :product, url: url, html: { id: 'product-form', method: form_method }) do |f| %>
+  <div class="grid gap-4">
+    <div class="font-bold flex items-center">
+      <div class="grow"><%= form_title %></div>
+      <div class="flex-none cursor-pointer" data-action="click->turbo-modal#close">
+        <%== svg_icon('close', class: 'w-6 h-6') %>
+      </div>
+    </div>
+
+    <div class="flex gap-4">
+      <div class="grow">
+        <%= f.label :no, 'MÃ' %>
+        <%= f.text_field :no, readonly: true, autocomplete: 'off', class: 'txt' %>
+        <% if f.object.errors.key?(:no) %>
+          <div class="text-xs text-red-600 mt-1"><%= f.object.errors[:no].join(', ') %></div>
+        <% end %>
+      </div>
+      <div class="grow">
+        <%= f.label :unit, 'ĐVT' %>
+        <%= f.text_field :unit, autocomplete: 'off', class: 'txt' %>
+        <% if f.object.errors.key?(:unit) %>
+          <div class="text-xs text-red-600 mt-1"><%= f.object.errors[:unit].join(', ') %></div>
+        <% end %>
+      </div>
+    </div>
+
+    <div>
+      <%= f.label :name, 'TÊN' %>
+      <%= f.text_field :name, autocomplete: 'off', class: 'txt' %>
+      <% if f.object.errors.key?(:name) %>
+        <div class="text-xs text-red-600 mt-1"><%= f.object.errors[:name].join(', ') %></div>
+      <% end %>
+    </div>
+
+    <div class="flex gap-4">
+      <div class="grow">
+        <%= f.label :gname, 'NHÓM' %>
+        <%= f.text_field :gname, autocomplete: 'off', class: 'txt' %>
+        <% if f.object.errors.key?(:gname) %>
+          <div class="text-xs text-red-600 mt-1"><%= f.object.errors[:gname].join(', ') %></div>
+        <% end %>
+      </div>
+
+      <div class="grow">
+        <%= f.label :cname, 'MỤC' %>
+        <%= f.text_field :cname, autocomplete: 'off', class: 'txt' %>
+        <% if f.object.errors.key?(:cname) %>
+          <div class="text-xs text-red-600 mt-1"><%= f.object.errors[:cname].join(', ') %></div>
+        <% end %>
+      </div>
+    </div>
+
+    <div class="flex gap-4">
+      <div class="grow">
+        <%= f.label :price, 'GIÁ' %>
+        <%= f.text_field :price, autocomplete: 'off', class: 'txt' %>
+        <% if f.object.errors.key?(:price) %>
+          <div class="text-xs text-red-600 mt-1"><%= f.object.errors[:price].join(', ') %></div>
+        <% end %>
+      </div>
+
+      <div class="grow">
+        <%= f.label :price1, 'GIÁ1' %>
+        <%= f.text_field :price1, autocomplete: 'off', class: 'txt' %>
+        <% if f.object.errors.key?(:price1) %>
+          <div class="text-xs text-red-600 mt-1"><%= f.object.errors[:price1].join(', ') %></div>
+        <% end %>
+      </div>
+    </div>
+
+    <%= f.submit "Lưu", class: 'btn' %>
+  </div>
+<% end %>

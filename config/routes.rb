@@ -26,6 +26,7 @@ Rails.application.routes.draw do
     resources :customers do
       resources :users
     end
+    resources :products, only: %i[index edit update]
   end
 
   namespace :api do

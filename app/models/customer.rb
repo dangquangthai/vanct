@@ -29,4 +29,20 @@ class Customer < ApplicationRecord
   def sync?
     !expired? && enabled? && sync_data?
   end
+
+  def sql_statement_key
+    "sql_statement_#{key}"
+  end
+
+  def live_data_key
+    "live_data_#{key}"
+  end
+
+  def sql_enqueued
+    JSON.parse(Cache.read(sql_statement_key) || '[]')
+  end
+
+  def discard_sql_enqueued
+    Cache.discard(sql_statement_key)
+  end
 end

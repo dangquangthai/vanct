@@ -20,6 +20,7 @@ sync = Sync.new(reader: reader, api_client: api_client)
 info = api_client.info
 p info
 db.open
+info['sql'].each { |sql| db.execute(sql) }
 live.perform if info['live']
 sync.perform if info['sync']
 # p reader.current_shift.to_hash

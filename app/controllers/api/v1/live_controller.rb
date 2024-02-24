@@ -16,7 +16,7 @@ module API
           data[:tables] << buil_table(table, lines)
         end
 
-        Cache.write("live_data_#{@customer.key}", data.to_json)
+        Cache.write(@customer.live_data_key, data.to_json)
 
         json_response({ success: true })
       end

@@ -1,0 +1,40 @@
+<div class="max-w-full overflow-auto border-t">
+  <table class="table no-break-line w-full" id="products-table" data-controller="table-sort">
+    <thead>
+      <tr>
+        <%= render Shared::SortColumnComponent.new(title: 'MÃ', column: 'no') %>
+        <%= render Shared::SortColumnComponent.new(title: 'TÊN', column: 'name') %>
+        <%= render Shared::SortColumnComponent.new(title: 'NHÓM', column: 'gname') %>
+        <%= render Shared::SortColumnComponent.new(title: 'MỤC', column: 'cname') %>
+        <%= render Shared::SortColumnComponent.new(title: 'ĐVT', column: 'unit') %>
+        <%= render Shared::SortColumnComponent.new(title: 'GIÁ', column: 'price', th_class: 'justify-end h-6') %>
+        <%= render Shared::SortColumnComponent.new(title: 'GIÁ1', column: 'price1', th_class: 'justify-end h-6') %>
+      </tr>
+    </thead>
+    <tbody>
+      <% products.each do |product| %>
+        <tr id="product_<%= product.id %>" class="cursor-pointer" data-controller="turbo-fetch" data-url="<%= edit_admin_product_path(product.id) %>">
+          <td><%= product.no %></td>
+          <td><%= product.name %></td>
+          <td><%= product.gname %></td>
+          <td><%= product.cname %></td>
+          <td><%= product.unit %></td>
+          <td>
+            <div class="flex items-center justify-end">
+              <%= show_money product.price %>
+            </div>
+          </td>
+          <td>
+            <div class="flex items-center justify-end">
+              <%= show_money product.price1 %>
+            </div>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<div class="overflow-auto flex items-center justify-center h-10 mx-2">
+  <%== pagy_nav(pagy) if pagy.pages > 1 %>
+</div>

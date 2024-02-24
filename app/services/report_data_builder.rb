@@ -74,9 +74,9 @@ class ReportDataBuilder
 
   def vouchers
     Voucher.includes(:shift)
-      .joins(:shift)
-      .where(shifts: { shift_date: from_date..to_date })
-      .where(shifts: { customer_id: current_customer.id })
+           .joins(:shift)
+           .where(shifts: { shift_date: from_date..to_date })
+           .where(shifts: { customer_id: current_customer.id })
   end
 
   def vouchers_query

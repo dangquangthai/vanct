@@ -5,7 +5,7 @@ class DashboardController < ApplicationController
   before_action :require_live_data
 
   def index
-    current_user.customer.update_last_see_at!
+    current_customer.update_last_see_at!
 
     respond_to do |format|
       format.html
@@ -24,7 +24,7 @@ class DashboardController < ApplicationController
   protected
 
   def require_live_data
-    key = "live_data_#{current_user.customer.key}"
+    key = "live_data_#{current_customer.key}"
     @live_data = Cache.exist?(key) ? JSON.parse(Cache.read(key)) : {}
   end
 end

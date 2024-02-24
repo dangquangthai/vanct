@@ -1,0 +1,7 @@
+<% if @success %>
+  <%= turbo_redirect request.referrer %>
+<% else %>
+  <%= turbo_modal do %>
+    <%= render Admin::Products::FormComponent.new(product: @product, url: admin_product_path(@product.id), form_method: 'PATCH', form_title: 'Cập nhật món') %>
+  <% end %>
+<% end %>

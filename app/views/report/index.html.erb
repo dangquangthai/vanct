@@ -38,9 +38,7 @@
     <%= render Report::SearchBillFormComponent.new %>
     <%= render Report::BillsTableComponent.new(bills: @bills, pagy: @bills_pagy) %>
 
-    <div></div>
-    <div></div>
-    <div></div>
+    <div class="w-full h-4"></div>
     
     <div class="font-bold px-2 flex gap-4">
       <%= link_to "Danh sách Phiếu (#{@vouchers_pagy.count})", report_index_path(q: query_attributes.except(:v_kind)) %>
