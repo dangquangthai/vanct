@@ -7,8 +7,14 @@ module API
 
       def create
         ActiveRecord::Base.transaction do
-          products.each do |product|
-            @customer.products.create!(product)
+          products.each do |product_params|
+            product = @customer.products.find_by(no: product_params[:no])
+
+            if product.present?
+              product.update!(product_params)
+            else
+              @customer.products.create!(product_params)
+            end
           end
         end
 

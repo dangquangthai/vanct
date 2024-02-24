@@ -58,6 +58,6 @@ class ReportController < ApplicationController
   end
 
   def v_kind
-    helpers.query_attributes[:v_kind]
+    helpers.query_attributes.fetch(:v_kind, 'payment')
   end
 end

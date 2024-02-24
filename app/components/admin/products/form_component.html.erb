@@ -60,7 +60,7 @@
       </div>
 
       <div class="grow">
-        <%= f.label :price1, 'GIÁ1' %>
+        <%= f.label :price1, 'GIÁ TẾT' %>
         <%= f.text_field :price1, autocomplete: 'off', class: 'txt' %>
         <% if f.object.errors.key?(:price1) %>
           <div class="text-xs text-red-600 mt-1"><%= f.object.errors[:price1].join(', ') %></div>

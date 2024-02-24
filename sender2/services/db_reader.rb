@@ -55,7 +55,7 @@ class DbReader
   end
 
   def shifts(as_hash: false)
-    sql = 'select MAKETSO from [DA KET SO] where DADONGBO=true;'
+    sql = 'select MAKETSO from [DA KET SO] where DADONGBO=false;'
 
     db.query(sql).map do |row|
       model = Shift.new_from_no(number: row[0])

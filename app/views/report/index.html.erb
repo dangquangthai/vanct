@@ -41,9 +41,8 @@
     <div class="w-full h-4"></div>
     
     <div class="font-bold px-2 flex gap-4">
-      <%= link_to "Danh sách Phiếu (#{@vouchers_pagy.count})", report_index_path(q: query_attributes.except(:v_kind)) %>
-      <%= link_to 'Thu', report_index_path(q: query_attributes.merge(v_kind: 'receipt')), class: 'text-green-700' %>
       <%= link_to 'Chi', report_index_path(q: query_attributes.merge(v_kind: 'payment')), class: 'text-red-600' %>
+      <%= link_to 'Thu', report_index_path(q: query_attributes.merge(v_kind: 'receipt')), class: 'text-green-700' %>
     </div>
     <%= render Report::VouchersTableComponent.new(vouchers: @vouchers, pagy: @vouchers_pagy) %>
   </div>

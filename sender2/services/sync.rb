@@ -6,6 +6,7 @@ class Sync
   def initialize(reader:, api_client:)
     @api_client = api_client
     @reader = reader
+    @has_new_shitf = false
   end
 
   attr_reader :reader, :api_client, :has_new_shitf
