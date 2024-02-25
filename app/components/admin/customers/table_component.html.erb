@@ -3,7 +3,7 @@
     <tr>
       <%= render Shared::SortColumnComponent.new(title: 'Tên', column: 'name') %>
       <%= render Shared::SortColumnComponent.new(title: 'H.Động', column: 'enabled') %>
-      <%= render Shared::SortColumnComponent.new(title: 'B.Cáo', column: 'sync_data') %>
+      <%= render Shared::SortColumnComponent.new(title: 'ĐB.Dữ liệu', column: 'sync_data') %>
       <th class="disable-sort">
         <div class="flex justify-end w-full">
           <div class="w-fit cursor-pointer" data-controller="turbo-fetch" data-url="<%= new_admin_customer_path %>">

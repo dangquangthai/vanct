@@ -38,11 +38,32 @@ class Customer < ApplicationRecord
     "live_data_#{key}"
   end
 
+  def live_data
+    JSON.parse(Cache.read(live_data_key) || '{}')
+  end
+
+  def live_data_exist?
+    Cache.exist?(live_data_key)
+  end
+
   def sql_enqueued
     JSON.parse(Cache.read(sql_statement_key) || '[]')
   end
 
   def discard_sql_enqueued
     Cache.discard(sql_statement_key)
+  end
+
+  def live_data_expired?
+    return true if live_data['updated_at'].blank?
+
+    live_data['updated_at'].first(10) != Current.ftime.first(10)
+  end
+
+  def delete_live_data_if_expired!
+    return unless live_data_exist?
+    return unless live_data_expired? 
+
+    Cache.discard(live_data_key)
   end
 end

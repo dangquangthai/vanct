@@ -8,7 +8,8 @@ module API
       def create
         data = {
           shift: shift,
-          tables: []
+          tables: [],
+          updated_at: Current.ftime
         }
 
         tables.each do |table|
