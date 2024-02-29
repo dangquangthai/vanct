@@ -36,7 +36,6 @@ module Admin
 
     def queue_insert_to_desktop
       current_customer.products.map(&:queue_insert_to_desktop)
-
       respond_to do |format|
         format.turbo_stream
       end
@@ -50,7 +49,7 @@ module Admin
 
     def products_query
       products = current_customer.products
-      products = productswhere('LOWER(products.name) LIKE ?', "%#{name.downcase}%") if name.present?
+      products = products.where('LOWER(products.name) LIKE ?', "%#{name.downcase}%") if name.present?
       products.order(:no)
     end
 

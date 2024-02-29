@@ -1,8 +1,19 @@
 <div class="px-4 py-2 font-bold">
-  Quản lý Món
+  <div class="flex items-center">
+    <div class="grow">Quản lý Món</div>
+    <div class="flex-none">
+      <div class="w-fit cursor-pointer flex items-center gap-2" data-controller="turbo-fetch" data-method="POST" data-url="<%= queue_insert_to_desktop_admin_products_path %>">
+        <div><%== svg_icon 'sync', class: 'w-4 h-4' %></div>
+        <div>Đồng bộ</div>
+      </div>
+    </div>
+  </div>
 </div>
 <hr class="border-gray-300" />
 <div class="grid gap-2">
+  <div class="pt-2">
+    <%= render Admin::Products::SearchFormComponent.new %>
+  </div>
   <%= render Admin::Products::TableComponent.new(products: @products, pagy: @pagy) %>  
 </div>
 <div class="w-full h-20"></div>

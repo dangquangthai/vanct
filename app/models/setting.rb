@@ -14,6 +14,6 @@ class Setting < ApplicationRecord
   protected
 
   def to_update_sql_statement
-    self.class.sanitize_sql_array(["update [TUY CHON] set #{name}=?;", value])
+    self.class.sanitize_sql_array(["update [TUY CHON] set `#{name}`=?;", value])
   end
 end
