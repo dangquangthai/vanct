@@ -104,4 +104,16 @@ class ReportDataBuilder
       bills.order('shifts.shift_date DESC, bills.bill_no DESC')
     end
   end
+
+  def bill_lines_query
+    BillLine.select('*').from(
+      BillLine.select('count(bill_lines.id) as id, bill_lines.product_no, bill_lines.product_name, bill_lines.unit, bill_lines.price, sum(bill_lines.amount) as amount, sum(bill_lines.total) as total')
+        .joins('INNER JOIN bills ON bill_lines.bill_id = bills.id')
+        .joins('INNER JOIN shifts ON bills.shift_id = shifts.id')
+        .where(shifts: { shift_date: from_date..to_date })
+        .where(shifts: { customer_id: current_customer.id })
+        .group('bill_lines.product_no, bill_lines.product_name, bill_lines.unit, bill_lines.price')
+        .order('bill_lines.product_name')
+    )
+  end
 end

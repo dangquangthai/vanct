@@ -1,5 +1,8 @@
 # frozen_string_literal: true
 
-class Admin::Products::SearchFormComponent < ApplicationComponent
-
+module Admin
+  module Products
+    class SearchFormComponent < ApplicationComponent
+    end
+  end
 end

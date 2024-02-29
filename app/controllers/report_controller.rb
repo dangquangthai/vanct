@@ -4,8 +4,9 @@ class ReportController < ApplicationController
   before_action :validate_customer_expired!
 
   def index
-    @bills_pagy, @bills = pagy(report_builder.bills_query, page_param: :bill_page)
-    @vouchers_pagy, @vouchers = pagy(report_builder.vouchers_query, page_param: :voucher_page)
+    @bills_pagy, @bills = pagy(report_builder.bills_query, page_param: :bill_page, items: 10)
+    @vouchers_pagy, @vouchers = pagy(report_builder.vouchers_query, page_param: :voucher_page, items: 10)
+    @bill_lines_pagy, @bill_lines = pagy(report_builder.bill_lines_query, page_param: :bill_lines_page, items: 10)
     @chart_data = report_builder.perform
 
     respond_to do |format|
