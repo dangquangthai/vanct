@@ -26,6 +26,10 @@
                 <%== svg_icon 'edit', class: 'w-6 h-6' %>
               </div>
 
+              <div class="w-fit cursor-pointer" data-controller="turbo-fetch" data-method="POST" data-url="<%= queue_insert_to_desktop_admin_customer_path(customer.id) %>">
+                <%== svg_icon 'sync', class: 'w-6 h-6' %>
+              </div>
+
               <%= link_to admin_customer_users_path(customer.id), data: { turbo: false } do %>
                 <%== svg_icon 'users', class: 'w-6 h-6' %>
               <% end %>

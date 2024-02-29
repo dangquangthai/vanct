@@ -25,13 +25,12 @@ Rails.application.routes.draw do
   namespace :admin do
     resources :customers do
       resources :users
-    end
-    resources :settings, only: %i[index edit update]
-    resources :products, only: %i[index edit update] do
-      collection do
+      member do
         post :queue_insert_to_desktop
       end
     end
+    resources :settings, only: %i[index edit update]
+    resources :products, only: %i[index edit update]
   end
 
   namespace :api do
