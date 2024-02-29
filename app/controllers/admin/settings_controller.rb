@@ -28,7 +28,7 @@ module Admin
       respond_to do |format|
         format.turbo_stream do
           if @success
-            @setting.queue_update_to_desktop 
+            @setting.queue_update_to_desktop
             @settings = current_customer.settings
           end
         end
