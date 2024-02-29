@@ -11,19 +11,19 @@
               <div class="grid grid-cols-4 gap-2">
                 <div class="grid gap-1">
                   <div class="font-bold text-gray-500 text-right text-sm leading-none">ĐẦU</div>
-                  <div class="text-right leading-none"><%= inventory.open %></div>
+                  <div class="text-right leading-none <%= inventory.open < 0 ? 'text-red-600' : '' %>"><%= inventory.open == 0 ? '-' : inventory.open %></div>
                 </div>
                 <div class="grid gap-1">
                   <div class="font-bold text-gray-500 text-right text-sm leading-none">NHẬP</div>
-                  <div class="text-right leading-none"><%= inventory.input %></div>
+                  <div class="text-right leading-none <%= inventory.input < 0 ? 'text-red-600' : '' %>"><%= inventory.input == 0 ? '-' : inventory.input %></div>
                 </div>
                 <div class="grid gap-1">
                   <div class="font-bold text-gray-500 text-right text-sm leading-none">XUẤT</div>
-                  <div class="text-right leading-none"><%= inventory.output %></div>
+                  <div class="text-right leading-none <%= inventory.output < 0 ? 'text-red-600' : '' %>"><%= inventory.output == 0 ? '-' : inventory.output %></div>
                 </div>
                 <div class="grid gap-1">
                   <div class="font-bold text-gray-500 text-right text-sm leading-none">CUỐI</div>
-                  <div class="text-right leading-none"><%= inventory.close %></div>
+                  <div class="text-right leading-none <%= inventory.close < 0 ? 'text-red-600' : '' %>"><%= inventory.close == 0 ? '-' : inventory.close %></div>
                 </div>
               </div>
             </div>
