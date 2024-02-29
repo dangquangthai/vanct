@@ -6,6 +6,7 @@ export default class extends Controller {
 
   connect() {
     useClickOutside(this)
+    hide(this.dropdownTarget)
   }
 
   onClick() {

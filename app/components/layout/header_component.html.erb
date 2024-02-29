@@ -21,7 +21,7 @@
         <span><%= current_user.username %></span>
         <%== svg_icon 'arrow_down' %>
       </div>
-      <div data-dropdown-target="dropdown" class="z-10 border  shadow-lg bg-whitehidden absolute top-8 right-0 shadow-sm bg-white rounded-md px-4 py-2 grid gap-2">
+      <div data-dropdown-target="dropdown" class="z-10 border hidden shadow-lg bg-whitehidden absolute top-8 right-0 shadow-sm bg-white rounded-md px-4 py-2 grid gap-2">
         <% if current_user.admin? %>
           <div class="w-[180px]" data-turbo="false">
             <%= link_to '/admin/customers', class: 'flex gap-1 items-center' do %>

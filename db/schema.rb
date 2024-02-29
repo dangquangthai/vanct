@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_02_29_032408) do
+ActiveRecord::Schema[7.1].define(version: 2024_02_29_034941) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -78,6 +78,15 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_29_032408) do
     t.index ["customer_id"], name: "index_products_on_customer_id"
   end
 
+  create_table "settings", force: :cascade do |t|
+    t.bigint "customer_id", null: false
+    t.string "name"
+    t.string "value"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["customer_id"], name: "index_settings_on_customer_id"
+  end
+
   create_table "shifts", force: :cascade do |t|
     t.bigint "customer_id", null: false
     t.string "no"
@@ -118,6 +127,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_29_032408) do
   add_foreign_key "bills", "shifts"
   add_foreign_key "inventories", "shifts"
   add_foreign_key "products", "customers"
+  add_foreign_key "settings", "customers"
   add_foreign_key "shifts", "customers"
   add_foreign_key "users", "customers"
   add_foreign_key "vouchers", "shifts"
