@@ -29,6 +29,10 @@
               <%== svg_icon 'users', class: 'w-6 h-6' %>
             <% end %>
 
+            <%= link_to admin_customer_settings_path(customer.id), data: { turbo: false } do %>
+              <%== svg_icon 'settings', class: 'w-6 h-6' %>
+            <% end %>
+
             <%= link_to admin_customer_path(customer.id), data: { "turbo-method" => :delete, 'turbo-confirm' => 'Xoá khách hàng này, toàn bộ dữ liệu liên quan sẽ mất. Bạn chắc chặn không?' } do %>
               <%== svg_icon 'trash', class: 'w-6 h-6' %>
             <% end %>

@@ -1,0 +1,22 @@
+<table class="table no-break-line w-full" id="settings-table" data-controller="table-sort">
+  <thead>
+    <tr>
+      <%= render Shared::SortColumnComponent.new(title: 'TÊN CỘT', column: 'name') %>
+      <%= render Shared::SortColumnComponent.new(title: 'GIÁ TRỊ', column: 'value') %>
+      <th class="disable-sort"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% settings.each do |setting| %>
+      <tr id="setting_<%= setting.id %>">
+        <td><%= setting.name %></td>
+        <td><%= setting.value %></td>
+        <td>
+          <div class="w-fit cursor-pointer" data-controller="turbo-fetch" data-url="<%= edit_admin_customer_setting_path(setting.id, customer_id: setting.customer_id) %>">
+            <%== svg_icon 'edit', class: 'w-6 h-6' %>
+          </div>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

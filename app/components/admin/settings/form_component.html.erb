@@ -1,0 +1,40 @@
+<%= form_for(setting, as: :setting, url: url, html: { id: 'setting-form', method: form_method }) do |f| %>
+  <div class="grid gap-4">
+    <div class="font-bold flex items-center">
+      <div class="grow"><%= form_title %></div>
+      <div class="flex-none cursor-pointer" data-action="click->turbo-modal#close">
+        <%== svg_icon('close', class: 'w-6 h-6') %>
+      </div>
+    </div>
+
+    <div>
+      <%= f.label :name, 'Tên cột' %>
+      <%= f.text_field :name, readonly: true, autocomplete: 'off', class: 'txt' %>
+      <% if f.object.errors.key?(:name) %>
+        <div class="text-xs text-red-600 mt-1"><%= f.object.errors[:name].join(', ') %></div>
+      <% end %>
+    </div>
+
+    <% if setting.name == 'NOIDUNG' %>
+      <div>
+        <%= f.label :value, 'Giá trị' %>
+        <%= f.text_area :value, required: true, autocomplete: 'off', class: 'txt' %>
+        <% if f.object.errors.key?(:value) %>
+          <div class="text-xs text-red-600 mt-1"><%= f.object.errors[:value].join(', ') %></div>
+        <% end %>
+      </div>
+    <% else %>
+      <div>
+        <%= f.label :value, 'Giá trị. Lưu ý true=1 false=0' %>
+        <%= f.text_field :value, required: true, autocomplete: 'off', class: 'txt' %>
+        <% if f.object.errors.key?(:value) %>
+          <div class="text-xs text-red-600 mt-1"><%= f.object.errors[:value].join(', ') %></div>
+        <% end %>
+      </div>
+    <% end %>
+
+    
+
+    <%= f.submit "Lưu", class: 'btn btn-primary text-xs leading-none' %>
+  </div>
+<% end %>

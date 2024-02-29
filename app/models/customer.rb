@@ -4,6 +4,7 @@ class Customer < ApplicationRecord
   has_many :users, dependent: :destroy
   has_many :shifts, dependent: :destroy
   has_many :products, dependent: :destroy
+  has_many :settings, dependent: :destroy
 
   validates :key, presence: true, uniqueness: true
   validates :name, :expires_at, presence: true
@@ -65,5 +66,9 @@ class Customer < ApplicationRecord
     return unless live_data_expired?
 
     Cache.discard(live_data_key)
+  end
+
+  def init_settings
+    Setting::KEYS.each { |key| settings.create(name: key) }
   end
 end

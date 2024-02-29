@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Admin
-  class UsersController < ApplicationController
+  class UsersController < BaseController
     before_action :authorize_admin!
     before_action :require_customer!
 
@@ -67,10 +67,6 @@ module Admin
 
     def edit_user_params
       @edit_user_params ||= params.require(:user).permit(:password, :role)
-    end
-
-    def require_customer!
-      @customer = Customer.find(params[:customer_id])
     end
   end
 end

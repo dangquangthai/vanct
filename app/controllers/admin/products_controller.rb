@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Admin
-  class ProductsController < ApplicationController
+  class ProductsController < BaseController
     before_action :authorize_manager!
 
     def index
