@@ -38,7 +38,7 @@ module Admin
     protected
 
     def update_params
-      params.require(:setting).permit(:name, :value)
+      params.require(:setting).permit(:label, :value)
     end
   end
 end

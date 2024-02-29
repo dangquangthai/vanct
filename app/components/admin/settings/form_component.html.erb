@@ -8,10 +8,10 @@
     </div>
 
     <div>
-      <%= f.label :name, 'Tên cột' %>
-      <%= f.text_field :name, readonly: true, autocomplete: 'off', class: 'txt' %>
-      <% if f.object.errors.key?(:name) %>
-        <div class="text-xs text-red-600 mt-1"><%= f.object.errors[:name].join(', ') %></div>
+      <%= f.label :label, 'Tên' %>
+      <%= f.text_field :label, readonly: true, autocomplete: 'off', class: 'txt' %>
+      <% if f.object.errors.key?(:label) %>
+        <div class="text-xs text-red-600 mt-1"><%= f.object.errors[:label].join(', ') %></div>
       <% end %>
     </div>
 

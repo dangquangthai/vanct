@@ -2,7 +2,7 @@
   <table class="table no-break-line w-full" id="settings-table" data-controller="table-sort">
     <thead>
       <tr>
-        <%= render Shared::SortColumnComponent.new(title: 'TÊN CỘT', column: 'name') %>
+        <%= render Shared::SortColumnComponent.new(title: 'TÊN', column: 'label') %>
         <%= render Shared::SortColumnComponent.new(title: 'GIÁ TRỊ', column: 'value', th_class: 'h-6') %>
         <th class="disable-sort"></th>
       </tr>
@@ -10,7 +10,7 @@
     <tbody>
       <% settings.each do |setting| %>
         <tr id="setting_<%= setting.id %>">
-          <td><%= setting.name %></td>
+          <td><%= setting.label %></td>
           <td><%= setting.value %></td>
           <td>
             <div class="w-fit cursor-pointer" data-controller="turbo-fetch" data-url="<%= edit_admin_setting_path(setting.id) %>">
