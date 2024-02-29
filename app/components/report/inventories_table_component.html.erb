@@ -1,40 +1,29 @@
 <div class="max-w-full overflow-auto border-t">
-  <table class="table no-break-line w-full" id="inventories-table" data-controller="table-sort">
-    <thead>
-      <tr>
-        <%= render Shared::SortColumnComponent.new(title: 'MÃ', column: 'no') %>
-        <%= render Shared::SortColumnComponent.new(title: 'TÊN', column: 'name') %>
-        <%= render Shared::SortColumnComponent.new(title: 'ĐVT', column: 'unit') %>
-        <%= render Shared::SortColumnComponent.new(title: 'ĐẦU', column: 'open', th_class: 'justify-end h-6') %>
-        <%= render Shared::SortColumnComponent.new(title: 'NHẬP', column: 'input', th_class: 'justify-end h-6') %>
-        <%= render Shared::SortColumnComponent.new(title: 'XUẤT', column: 'output', th_class: 'justify-end h-6') %>
-        <%= render Shared::SortColumnComponent.new(title: 'CUỐI', column: 'close', th_class: 'justify-end h-6') %>
-      </tr>
-    </thead>
+  <table class="table no-break-line w-full" id="inventories-table">
     <tbody>
       <% inventories.each do |inventory| %>
         <tr id="inventory_<%= inventory.id %>">
-          <td><%= inventory.no %></td>
-          <td><%= inventory.name %></td>
-          <td><%= inventory.unit %></td>
           <td>
-            <div class="flex items-center justify-end">
-              <%= inventory.open %>
-            </div>
-          </td>
-          <td>
-            <div class="flex items-center justify-end">
-              <%= inventory.input %>
-            </div>
-          </td>
-          <td>
-            <div class="flex items-center justify-end">
-              <%= inventory.output %>
-            </div>
-          </td>
-          <td>
-            <div class="flex items-center justify-end">
-              <%= inventory.close %>
+            <div class="grid gap-1">
+              <div><%= inventory.name %> | <%= inventory.no %> | <%= inventory.unit %></div>
+              <div class="grid grid-cols-4 gap-2">
+                <div class="grid gap-1">
+                  <span class="font-bold text-gray-600">ĐẦU</span>
+                  <span><%= inventory.open %></span>
+                </div>
+                <div class="grid gap-1">
+                  <span class="font-bold text-gray-600">NHẬP</span>
+                  <span><%= inventory.input %></span>
+                </div>
+                <div class="grid gap-1">
+                  <span class="font-bold text-gray-600">XUẤT</span>
+                  <span><%= inventory.output %></span>
+                </div>
+                <div class="grid gap-1">
+                  <span class="font-bold text-gray-600">CUỐI</span>
+                  <span><%= inventory.close %></span>
+                </div>
+              </div>
             </div>
           </td>
         </tr>
