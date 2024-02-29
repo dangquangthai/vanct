@@ -63,7 +63,9 @@ class ReportDataBuilder
 
   def inventories_query
     latest_shift = current_customer.shifts.where(shift_date: from_date..to_date).order(:id).last
-    latest_shift.inventories
+    latest_shift.inventories if latest_shift.present?
+    
+    Inventory.none
   end
 
   def sample_colors
