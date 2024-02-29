@@ -2,12 +2,12 @@
   <%= turbo_modal_close %>
 
   <%= turbo_stream.replace('settings-table') do %>
-    <%= render Admin::Settings::TableComponent.new(settings: @customer.settings, customer: @customer) %>
+    <%= render Admin::Settings::TableComponent.new(settings: @settings) %>
   <% end %>
 
   <%= turbo_klass "#setting_#{@setting.id}", 'selected', 'add' %>
 <% else %>
   <%= turbo_modal do %>
-    <%= render Admin::Settings::FormComponent.new(setting: @setting, url: admin_customer_setting_path(customer_id: @customer.id), form_method: 'PATCH', form_title: 'Cập nhật tuỳ chọn') %>
+    <%= render Admin::Settings::FormComponent.new(setting: @setting, url: admin_setting_path(@setting.id), form_method: 'PATCH', form_title: 'Cập nhật tuỳ chọn') %>
   <% end %>
 <% end %>

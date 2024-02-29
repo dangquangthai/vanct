@@ -39,6 +39,13 @@
             <% end %>
           </div>
           <hr class="border-gray-100" />
+          <div class="w-[180px]" data-turbo="false">
+            <%= link_to '/admin/settings', class: 'flex gap-1 items-center' do %>
+              <%== svg_icon 'settings', class: 'w-4 h-4' %>
+              <span>Tuỳ chọn</span>
+            <% end %>
+          </div>
+          <hr class="border-gray-100" />
         <% end %>
         <div class="w-[180px] flex gap-1 items-center cursor-pointer" data-controller="turbo-fetch" data-url="<%= current_user_show_path %>">
           <%== svg_icon 'password', class: 'w-4 h-4' %>

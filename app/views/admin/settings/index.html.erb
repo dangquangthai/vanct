@@ -1,5 +1,5 @@
 <div class="px-4 py-2 font-bold flex gap-1">
-  <span class="text-gray-600"><%= @customer.name %></span> TUỲ CHỌN
+  <div class="grow">Tuỳ chọn</div>
 </div>
 <hr class="border-gray-300" />
-<%= render Admin::Settings::TableComponent.new(settings: @customer.settings, customer: @customer) %>
+<%= render Admin::Settings::TableComponent.new(settings: @settings) %>

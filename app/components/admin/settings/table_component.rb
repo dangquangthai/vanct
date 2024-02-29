@@ -3,12 +3,11 @@
 module Admin
   module Settings
     class TableComponent < ApplicationComponent
-      def initialize(settings:, customer:)
+      def initialize(settings:)
         @settings = settings
-        @customer = customer
       end
 
-      attr_reader :settings, :customer
+      attr_reader :settings
     end
   end
 end

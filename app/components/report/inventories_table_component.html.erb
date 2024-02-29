@@ -17,10 +17,26 @@
           <td><%= inventory.no %></td>
           <td><%= inventory.name %></td>
           <td><%= inventory.unit %></td>
-          <td><%= inventory.open %></td>
-          <td><%= inventory.input %></td>
-          <td><%= inventory.output %></td>
-          <td><%= inventory.close %></td>
+          <td>
+            <div class="flex items-center justify-end">
+              <%= inventory.open %>
+            </div>
+          </td>
+          <td>
+            <div class="flex items-center justify-end">
+              <%= inventory.input %>
+            </div>
+          </td>
+          <td>
+            <div class="flex items-center justify-end">
+              <%= inventory.output %>
+            </div>
+          </td>
+          <td>
+            <div class="flex items-center justify-end">
+              <%= inventory.close %>
+            </div>
+          </td>
         </tr>
       <% end %>
     </tbody>

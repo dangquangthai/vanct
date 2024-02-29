@@ -4,10 +4,10 @@
       <tr>
         <%= render Shared::SortColumnComponent.new(title: 'MÃ', column: 'no') %>
         <%= render Shared::SortColumnComponent.new(title: 'TÊN', column: 'name') %>
+        <%= render Shared::SortColumnComponent.new(title: 'GIÁ', column: 'price', th_class: 'justify-end h-6') %>
         <%= render Shared::SortColumnComponent.new(title: 'NHÓM', column: 'gname') %>
         <%= render Shared::SortColumnComponent.new(title: 'MỤC', column: 'cname') %>
         <%= render Shared::SortColumnComponent.new(title: 'ĐVT', column: 'unit') %>
-        <%= render Shared::SortColumnComponent.new(title: 'GIÁ', column: 'price', th_class: 'justify-end h-6') %>
         <%= render Shared::SortColumnComponent.new(title: 'GIÁ TẾT', column: 'price1', th_class: 'justify-end h-6') %>
       </tr>
     </thead>
@@ -16,14 +16,14 @@
         <tr id="product_<%= product.id %>" class="cursor-pointer" data-controller="turbo-fetch" data-url="<%= edit_admin_product_path(product.id) %>">
           <td><%= product.no %></td>
           <td><%= product.name %></td>
-          <td><%= product.gname %></td>
-          <td><%= product.cname %></td>
-          <td><%= product.unit %></td>
           <td>
             <div class="flex items-center justify-end">
               <%= show_money product.price %>
             </div>
           </td>
+          <td><%= product.gname %></td>
+          <td><%= product.cname %></td>
+          <td><%= product.unit %></td>
           <td>
             <div class="flex items-center justify-end">
               <%= show_money product.price1 %>

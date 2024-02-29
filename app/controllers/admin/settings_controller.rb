@@ -2,11 +2,11 @@
 
 module Admin
   class SettingsController < BaseController
-    before_action :authorize_admin!
-    before_action :require_customer!
+    before_action :authorize_manager!
 
     def index
-      @customer.init_settings if @customer.settings.count.zero?
+      current_customer.init_settings if current_customer.settings.count.zero?
+      @settings = current_customer.settings
 
       respond_to do |format|
         format.html
@@ -14,7 +14,7 @@ module Admin
     end
 
     def edit
-      @setting = @customer.settings.find(params[:id])
+      @setting = current_customer.settings.find(params[:id])
 
       respond_to do |format|
         format.turbo_stream
@@ -22,12 +22,15 @@ module Admin
     end
 
     def update
-      @setting = @customer.settings.find(params[:id])
+      @setting = current_customer.settings.find(params[:id])
       @success = @setting.update(update_params)
 
       respond_to do |format|
         format.turbo_stream do
-          @setting.queue_update_to_desktop if @success
+          if @success
+            @setting.queue_update_to_desktop 
+            @settings = current_customer.settings
+          end
         end
       end
     end

@@ -1,44 +1,42 @@
-<table class="table no-break-line w-full" id="customers-table" data-controller="table-sort">
-  <thead>
-    <tr>
-      <%= render Shared::SortColumnComponent.new(title: 'Tên', column: 'name') %>
-      <%= render Shared::SortColumnComponent.new(title: 'H.Động', column: 'enabled') %>
-      <%= render Shared::SortColumnComponent.new(title: 'ĐB.Dữ liệu', column: 'sync_data') %>
-      <th class="disable-sort">
-        <div class="flex justify-end w-full">
-          <div class="w-fit cursor-pointer" data-controller="turbo-fetch" data-url="<%= new_admin_customer_path %>">
-            <%== svg_icon 'add', class: 'w-6 h-6' %>
-          </div>
-        </div>
-      </th>
-    </tr>
-  </thead>
-  <tbody>
-    <% customers.each do |customer| %>
-      <tr id="customer_<%= customer.id %>">
-        <td><%= customer.name %></td>
-        <td><%= customer.enabled ? 'Có' : 'Không' %></td>
-        <td><%= customer.sync_data ? 'Có' : 'Không' %></td>
-        <td>
-          <div class="flex gap-2 items-center justify-end">
-            <div class="w-fit cursor-pointer" data-controller="turbo-fetch" data-url="<%= edit_admin_customer_path(customer.id) %>">
-              <%== svg_icon 'edit', class: 'w-6 h-6' %>
+<div class="max-w-full overflow-auto border-t">
+  <table class="table no-break-line w-full" id="customers-table" data-controller="table-sort">
+    <thead>
+      <tr>
+        <%= render Shared::SortColumnComponent.new(title: 'Tên', column: 'name') %>
+        <%= render Shared::SortColumnComponent.new(title: 'H.Động', column: 'enabled') %>
+        <%= render Shared::SortColumnComponent.new(title: 'ĐB.Dữ liệu', column: 'sync_data') %>
+        <th class="disable-sort">
+          <div class="flex justify-end w-full">
+            <div class="w-fit cursor-pointer" data-controller="turbo-fetch" data-url="<%= new_admin_customer_path %>">
+              <%== svg_icon 'add', class: 'w-6 h-6' %>
             </div>
-
-            <%= link_to admin_customer_users_path(customer.id), data: { turbo: false } do %>
-              <%== svg_icon 'users', class: 'w-6 h-6' %>
-            <% end %>
-
-            <%= link_to admin_customer_settings_path(customer.id), data: { turbo: false } do %>
-              <%== svg_icon 'settings', class: 'w-6 h-6' %>
-            <% end %>
-
-            <%= link_to admin_customer_path(customer.id), data: { "turbo-method" => :delete, 'turbo-confirm' => 'Xoá khách hàng này, toàn bộ dữ liệu liên quan sẽ mất. Bạn chắc chặn không?' } do %>
-              <%== svg_icon 'trash', class: 'w-6 h-6' %>
-            <% end %>
           </div>
-        </td>
+        </th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
+    <tbody>
+      <% customers.each do |customer| %>
+        <tr id="customer_<%= customer.id %>">
+          <td><%= customer.name %></td>
+          <td><%= customer.enabled ? 'Có' : 'Không' %></td>
+          <td><%= customer.sync_data ? 'Có' : 'Không' %></td>
+          <td>
+            <div class="flex gap-2 items-center justify-end">
+              <div class="w-fit cursor-pointer" data-controller="turbo-fetch" data-url="<%= edit_admin_customer_path(customer.id) %>">
+                <%== svg_icon 'edit', class: 'w-6 h-6' %>
+              </div>
+
+              <%= link_to admin_customer_users_path(customer.id), data: { turbo: false } do %>
+                <%== svg_icon 'users', class: 'w-6 h-6' %>
+              <% end %>
+
+              <%= link_to admin_customer_path(customer.id), data: { "turbo-method" => :delete, 'turbo-confirm' => 'Xoá khách hàng này, toàn bộ dữ liệu liên quan sẽ mất. Bạn chắc chặn không?' } do %>
+                <%== svg_icon 'trash', class: 'w-6 h-6' %>
+              <% end %>
+            </div>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
