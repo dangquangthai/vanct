@@ -134,10 +134,10 @@ class DbReader
       model = Inventory.new(
         no: row[0], # MAHG
         name: row[1], # TENHANG
-        unit: row[4], # DVT
-        open: row[5], # TONDAU
-        input: row[6], # NHAP
-        output: row[6], # XUAT
+        unit: row[2], # DVT
+        open: row[3], # TONDAU
+        input: row[4], # NHAP
+        output: row[5], # XUAT
         close: row[6] # TONCUOI
       )
 
