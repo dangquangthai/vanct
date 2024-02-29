@@ -3,9 +3,9 @@
     <thead>
       <tr>
         <%= render Shared::SortColumnComponent.new(title: 'MÓN', column: 'no') %>
-        <%= render Shared::SortColumnComponent.new(title: 'ĐVT', column: 'unit') %>
-        <%= render Shared::SortColumnComponent.new(title: 'GIÁ', column: 'price') %>
         <%= render Shared::SortColumnComponent.new(title: 'S.L', column: 'total', th_class: 'justify-end h-6') %>
+        <%= render Shared::SortColumnComponent.new(title: 'GIÁ', column: 'price') %>
+        <%= render Shared::SortColumnComponent.new(title: 'ĐVT', column: 'unit') %>
         <%= render Shared::SortColumnComponent.new(title: 'TỔNG', column: 'total', th_class: 'justify-end h-6') %>
       </tr>
     </thead>
@@ -13,13 +13,13 @@
       <% lines.each do |line| %>
         <tr id="line_<%= line.id %>">
           <td><%= line.product_name %></td>
-          <td><%= line.unit %></td>
-          <td>
-            <div class="h-5 flex items-center justify-end"><%= show_money line.price %></div>
-          </td>
           <td>
             <div class="h-5 flex items-center justify-end"><%= line.amount %></div>
           </td>
+          <td>
+            <div class="h-5 flex items-center justify-end"><%= show_money line.price %></div>
+          </td>
+          <td><%= line.unit %></td>
           <td>
             <div class="h-5 flex items-center justify-end"><%= show_money line.total %></div>
           </td>

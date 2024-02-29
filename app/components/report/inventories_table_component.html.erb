@@ -1,0 +1,32 @@
+<div class="max-w-full overflow-auto border-t">
+  <table class="table no-break-line w-full" id="inventories-table" data-controller="table-sort">
+    <thead>
+      <tr>
+        <%= render Shared::SortColumnComponent.new(title: 'MÃ', column: 'no') %>
+        <%= render Shared::SortColumnComponent.new(title: 'TÊN', column: 'name') %>
+        <%= render Shared::SortColumnComponent.new(title: 'ĐVT', column: 'unit') %>
+        <%= render Shared::SortColumnComponent.new(title: 'ĐẦU', column: 'open', th_class: 'justify-end h-6') %>
+        <%= render Shared::SortColumnComponent.new(title: 'NHẬP', column: 'input', th_class: 'justify-end h-6') %>
+        <%= render Shared::SortColumnComponent.new(title: 'XUẤT', column: 'output', th_class: 'justify-end h-6') %>
+        <%= render Shared::SortColumnComponent.new(title: 'CUỐI', column: 'close', th_class: 'justify-end h-6') %>
+      </tr>
+    </thead>
+    <tbody>
+      <% inventories.each do |inventory| %>
+        <tr id="inventory_<%= inventory.id %>">
+          <td><%= inventory.no %></td>
+          <td><%= inventory.name %></td>
+          <td><%= inventory.unit %></td>
+          <td><%= inventory.open %></td>
+          <td><%= inventory.input %></td>
+          <td><%= inventory.output %></td>
+          <td><%= inventory.close %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<div class="overflow-auto flex items-center justify-center h-10 mx-2">
+  <%== pagy_nav(pagy) if pagy.pages > 1 %>
+</div>

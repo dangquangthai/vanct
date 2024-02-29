@@ -6,7 +6,8 @@ class ReportController < ApplicationController
   def index
     @bills_pagy, @bills = pagy(report_builder.bills_query, page_param: :bill_page, items: 10)
     @vouchers_pagy, @vouchers = pagy(report_builder.vouchers_query, page_param: :voucher_page, items: 10)
-    @bill_lines_pagy, @bill_lines = pagy(report_builder.bill_lines_query, page_param: :bill_lines_page, items: 10)
+    @bill_lines_pagy, @bill_lines = pagy(report_builder.bill_lines_query, page_param: :bill_line_page, items: 10)
+    @inventories_pagy, @inventories = pagy(report_builder.inventories_query, page_param: :inventory_page, items: 10)
     @chart_data = report_builder.perform
 
     respond_to do |format|

@@ -61,6 +61,11 @@ class ReportDataBuilder
                            .sum('total')
   end
 
+  def inventories_query
+    latest_shift = current_customer.shifts.where(shift_date: from_date..to_date).order(:id).last
+    latest_shift.inventories
+  end
+
   def sample_colors
     [
       'rgba(255, 99, 132, 0.2)',
@@ -113,7 +118,6 @@ class ReportDataBuilder
         .where(shifts: { shift_date: from_date..to_date })
         .where(shifts: { customer_id: current_customer.id })
         .group('bill_lines.product_no, bill_lines.product_name, bill_lines.unit, bill_lines.price')
-        .order('bill_lines.product_name')
-    )
+    ).order('amount DESC')
   end
 end
