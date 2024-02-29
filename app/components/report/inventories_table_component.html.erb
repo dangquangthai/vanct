@@ -4,24 +4,26 @@
       <% inventories.each do |inventory| %>
         <tr id="inventory_<%= inventory.id %>">
           <td>
-            <div class="grid gap-1">
-              <div><%= inventory.name %> | <%= inventory.no %> | <%= inventory.unit %></div>
+            <div class="grid gap-2">
+              <div class="leading-none">
+                <%= inventory.name %> | MÃ: <%= inventory.no %> | ĐVT: <%= inventory.unit %>
+              </div>
               <div class="grid grid-cols-4 gap-2">
                 <div class="grid gap-1">
-                  <span class="font-bold text-gray-600">ĐẦU</span>
-                  <span><%= inventory.open %></span>
+                  <div class="font-bold text-gray-500 text-right text-sm leading-none">ĐẦU</div>
+                  <div class="text-right leading-none"><%= inventory.open %></div>
                 </div>
                 <div class="grid gap-1">
-                  <span class="font-bold text-gray-600">NHẬP</span>
-                  <span><%= inventory.input %></span>
+                  <div class="font-bold text-gray-500 text-right text-sm leading-none">NHẬP</div>
+                  <div class="text-right leading-none"><%= inventory.input %></div>
                 </div>
                 <div class="grid gap-1">
-                  <span class="font-bold text-gray-600">XUẤT</span>
-                  <span><%= inventory.output %></span>
+                  <div class="font-bold text-gray-500 text-right text-sm leading-none">XUẤT</div>
+                  <div class="text-right leading-none"><%= inventory.output %></div>
                 </div>
                 <div class="grid gap-1">
-                  <span class="font-bold text-gray-600">CUỐI</span>
-                  <span><%= inventory.close %></span>
+                  <div class="font-bold text-gray-500 text-right text-sm leading-none">CUỐI</div>
+                  <div class="text-right leading-none"><%= inventory.close %></div>
                 </div>
               </div>
             </div>
