@@ -6,6 +6,7 @@ require_relative '../models/shift'
 require_relative '../models/shift_line'
 require_relative '../models/voucher'
 require_relative '../models/product'
+require_relative '../models/inventory'
 
 class DbReader
   def initialize(db:)
@@ -120,6 +121,24 @@ class DbReader
         unit: row[4], # DVT
         price: row[5], # DONGIA
         price1: row[6] # DONGIA1
+      )
+
+      as_hash ? model.to_hash : model
+    end
+  end
+
+  def inventories(as_hash: false)
+    sql = 'select MAHG, TENHANG, DVT, TONDAU, NHAP, XUAT, TONCUOI from [DANH MUC MUA];'
+
+    db.query(sql).map do |row|
+      model = Inventory.new(
+        no: row[0], # MAHG
+        name: row[1], # TENHANG
+        unit: row[4], # DVT
+        open: row[5], # TONDAU
+        input: row[6], # NHAP
+        output: row[6], # XUAT
+        close: row[6] # TONCUOI
       )
 
       as_hash ? model.to_hash : model

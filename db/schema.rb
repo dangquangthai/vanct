@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_02_23_144443) do
+ActiveRecord::Schema[7.1].define(version: 2024_02_29_032408) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -48,6 +48,20 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_23_144443) do
     t.datetime "updated_at", null: false
     t.datetime "last_seen_at"
     t.index ["key"], name: "index_customers_on_key", unique: true
+  end
+
+  create_table "inventories", force: :cascade do |t|
+    t.bigint "shift_id", null: false
+    t.string "no"
+    t.string "name"
+    t.string "unit"
+    t.decimal "open"
+    t.decimal "input"
+    t.decimal "output"
+    t.decimal "close"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["shift_id"], name: "index_inventories_on_shift_id"
   end
 
   create_table "products", force: :cascade do |t|
@@ -102,6 +116,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_23_144443) do
 
   add_foreign_key "bill_lines", "bills"
   add_foreign_key "bills", "shifts"
+  add_foreign_key "inventories", "shifts"
   add_foreign_key "products", "customers"
   add_foreign_key "shifts", "customers"
   add_foreign_key "users", "customers"

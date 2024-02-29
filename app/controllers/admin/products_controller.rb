@@ -34,6 +34,14 @@ module Admin
       end
     end
 
+    def queue_insert_to_desktop
+      current_customer.products.map(&:queue_insert_to_desktop)
+
+      respond_to do |format|
+        format.turbo_stream
+      end
+    end
+
     protected
 
     def update_params

@@ -14,6 +14,7 @@ class Sync
   def perform
     sync_shifts
     sync_products if has_new_shitf
+    sync_inventories if has_new_shitf
   end
 
   protected
@@ -33,6 +34,10 @@ class Sync
 
   def sync_products
     api_client.sync_products({ products: reader.products(as_hash: true) })
+  end
+
+  def sync_inventories
+    api_client.sync_inventories({ inventories: reader.inventories(as_hash: true) })
   end
 
   def mark_as_synced!(shift)

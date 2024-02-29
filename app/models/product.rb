@@ -9,8 +9,16 @@ class Product < ApplicationRecord
     Cache.write(customer.sql_statement_key, enqueued.to_json)
   end
 
+  def queue_insert_to_desktop
+    enqueued = customer.sql_enqueued
+    enqueued << to_insert_sql_statement
+    Cache.write(customer.sql_statement_key, enqueued.to_json)
+  end
+
+  protected
+
   def to_update_sql_statement
-    updated_attrs = {
+    attrs = {
       'TENHANG' => name,
       'NHOM' => gname,
       'MUC' => cname,
@@ -19,9 +27,27 @@ class Product < ApplicationRecord
       'DONGIA1' => price1.to_i
     }
 
-    sql_params = updated_attrs.keys.map { |k| "#{k}=?" }.join(', ')
-    sql = self.class.sanitize_sql_array([sql_params] + updated_attrs.values)
+    sql_params = attrs.keys.map { |k| "#{k}=?" }.join(', ')
+    sql = self.class.sanitize_sql_array([sql_params] + attrs.values)
 
     "update [DANH MUC HANG] set #{sql} where MAHG='#{no}';"
+  end
+
+  def to_insert_sql_statement
+    attrs = {
+      'MAHG' => no,
+      'TENHANG' => name,
+      'NHOM' => gname,
+      'MUC' => cname,
+      'DVT' => unit,
+      'DONGIA' => price.to_i,
+      'DONGIA1' => price1.to_i
+    }
+
+    sql_columns = attrs.keys.map { |k| k }.join(', ')
+    sql_params = attrs.keys.map { |_| '?' }.join(', ')
+    sql = self.class.sanitize_sql_array([sql_params] + attrs.values)
+
+    "INSERT INTO [DANH MUC HANG] (#{sql_columns}) VALUES(#{sql});"
   end
 end

@@ -62,7 +62,7 @@ class Customer < ApplicationRecord
 
   def delete_live_data_if_expired!
     return unless live_data_exist?
-    return unless live_data_expired? 
+    return unless live_data_expired?
 
     Cache.discard(live_data_key)
   end

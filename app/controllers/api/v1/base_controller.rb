@@ -6,7 +6,7 @@ module API
       protected
 
       def require_customer!
-        @customer = Customer.find_by(key: params[:key])
+        @customer = Customer.find_by!(key: params[:key])
       end
 
       rescue_from StandardError,                      with: :internal_server_error

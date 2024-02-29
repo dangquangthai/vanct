@@ -26,7 +26,11 @@ Rails.application.routes.draw do
     resources :customers do
       resources :users
     end
-    resources :products, only: %i[index edit update]
+    resources :products, only: %i[index edit update] do
+      collection do
+        post :queue_insert_to_desktop
+      end
+    end
   end
 
   namespace :api do
@@ -40,6 +44,7 @@ Rails.application.routes.draw do
 
       resources :sync_vouchers, only: %i[create]
       resources :sync_products, only: %i[create]
+      resources :sync_inventories, only: %i[create]
     end
   end
 end
