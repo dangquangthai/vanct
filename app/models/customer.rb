@@ -84,6 +84,38 @@ class Customer < ApplicationRecord
     Cache.write(sql_statement_key, enqueued.to_json)
   end
 
+  def sync_live_data!
+    enqueued = sql_enqueued
+    enqueued << 'DELETE [BAN] where 1=1;'
+    live_data['tables'].map do |t|
+      attrs = {
+        'COKHACH' => t['busy'],
+        'CODOI' => t['has_change'],
+        'INBILL' => t['printed'],
+        'STT' => t['stt'],
+        'GIOVAO' => t['in_time'],
+        'GIORA' => t['out_time'],
+        'GIAM' => t['discount'],
+        'PHUCVU' => t['staff']
+      }
+
+      sql_params = attrs.keys.map { |k| "`#{k}`=?" }.join(', ')
+      sql = self.class.sanitize_sql_array([sql_params] + attrs.values)
+
+      enqueued << "update [DANH MUC HANG] set #{sql} where MABAN='#{t['table_no']}';"
+
+      # lines.each do |l|
+      #   line_attrs = %w[SOBAN, MAHG, TENHANG, SOLUONG, DONGIA, DVT, NHOM, DABAO, DateValue(NGAY) + TimeValue(GIO) as NGAYGIO, QUAY, MANV]
+      # end
+    end
+
+    Cache.write(sql_statement_key, enqueued.to_json)
+  end
+
+  def sync_products!
+    products.map(&:queue_insert_to_desktop)
+  end
+
   protected
 
   def to_update_web_key_sql_statement

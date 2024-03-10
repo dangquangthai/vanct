@@ -12,7 +12,7 @@ module Admin
     end
 
     def products
-      @customer.products.map(&:queue_insert_to_desktop)
+      @customer.sync_products!
 
       respond_to do |format|
         format.turbo_stream
@@ -20,6 +20,8 @@ module Admin
     end
 
     def live_data
+      @customer.sync_live_data! if live_data_exist?
+
       respond_to do |format|
         format.turbo_stream
       end
