@@ -42,7 +42,7 @@ class ReportDataBuilder
           bill.table_no,
           bill.shift.shift_date.strftime('%d-%m-%y'),
           bill.total.to_f.round(0),
-          bill.discount.to_f.round(0),
+          bill.discount.to_f.round(0)
         ]
       end
     end
@@ -65,7 +65,7 @@ class ReportDataBuilder
   def inventories_query
     latest_shift = current_customer.shifts.where(shift_date: from_date..to_date).order(:id).last
     return latest_shift.inventories if latest_shift.present?
-    
+
     Inventory.none
   end
 

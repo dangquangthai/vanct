@@ -4,11 +4,24 @@ class Setting < ApplicationRecord
   belongs_to :customer
 
   KEYS = %w[MATKHAU NOIDUNG GIAM SUA IN GIATET].freeze
+  BOOLEAN_KEYS = %w[SUA IN GIATET].freeze
+  LABELS = {
+    'MATKHAU' => 'Mật khẩu',
+    'NOIDUNG' => 'Tiêu đề cuối bill',
+    'GIAM' => '%Tăng, giảm giá mặc định',
+    'SUA' => 'Trả món sau in bill',
+    'IN' => 'In order',
+    'GIATET' => 'Bán giá tết'
+  }.freeze
 
   def queue_update_to_desktop
     enqueued = customer.sql_enqueued
     enqueued << to_update_sql_statement
     Cache.write(customer.sql_statement_key, enqueued.to_json)
+  end
+
+  def boolean?
+    name.in?(BOOLEAN_KEYS)
   end
 
   protected

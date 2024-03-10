@@ -45,6 +45,7 @@ Rails.application.routes.draw do
       resources :sync_vouchers, only: %i[create]
       resources :sync_products, only: %i[create]
       resources :sync_inventories, only: %i[create]
+      resources :sync_settings, only: %i[create]
     end
   end
 end

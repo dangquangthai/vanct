@@ -7,6 +7,7 @@ require_relative '../models/shift_line'
 require_relative '../models/voucher'
 require_relative '../models/product'
 require_relative '../models/inventory'
+require_relative '../models/setting'
 
 class DbReader
   def initialize(db:)
@@ -86,7 +87,7 @@ class DbReader
         price: row[4],
         unit: row[5],
         bill_ref: row[6], # LUUBAN
-        discount: row[7], # GIAGOC
+        discount: row[7] # GIAGOC
       )
 
       as_hash ? model.to_hash : model
@@ -141,6 +142,26 @@ class DbReader
         output: row[5], # XUAT
         close: row[6] # TONCUOI
       )
+
+      as_hash ? model.to_hash : model
+    end
+  end
+
+  def settings(as_hash: false)
+    keys = %w[MATKHAU NOIDUNG GIAM SUA IN GIATET]
+    sql = "select #{keys.map { |k| "`#{k}`" }.join(', ')} from [TUY CHON];" # always return 1 row
+    row = db.query(sql)[0]
+
+    keys.each_with_index.map do |key, index|
+      value = if row[index].is_a?(FalseClass)
+                '0'
+              elsif row[index].is_a?(TrueClass)
+                '1'
+              else
+                row[index]
+              end
+
+      model = Setting.new(name: key, value: value)
 
       as_hash ? model.to_hash : model
     end

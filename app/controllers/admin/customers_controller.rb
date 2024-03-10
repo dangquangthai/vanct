@@ -24,7 +24,9 @@ module Admin
       @customer = Customer.create(customer_params)
 
       respond_to do |format|
-        format.turbo_stream
+        format.turbo_stream do
+          @customer.queue_update_settings_to_desktop if @customer.persisted?
+        end
       end
     end
 
@@ -42,6 +44,7 @@ module Admin
       respond_to do |format|
         format.turbo_stream do
           @success = @customer.update(customer_params)
+          @customer.queue_update_settings_to_desktop if @success
         end
       end
     end
