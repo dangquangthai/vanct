@@ -87,50 +87,10 @@ class Customer < ApplicationRecord
   def sync_live_data!
     enqueued = sql_enqueued
     enqueued << 'DELETE FROM [BAN];'
+
     live_data['tables'].map do |t|
-      in_time = t['in_time'].present? ? Time.zone.parse(t['in_time']).strftime('%d/%m/%y %H:%M:%S') : nil
-      out_time = t['out_time'].present? ? Time.zone.parse(t['out_time']).strftime('%d/%m/%y %H:%M:%S') : nil
-      attrs = {
-        'COKHACH' => t['busy'],
-        'CODOI' => t['has_change'],
-        'INBILL' => t['printed'],
-        'STT' => t['stt'],
-        'GIOVAO' => in_time,
-        'GIORA' => out_time,
-        'GIAM' => t['discount'],
-        'PHUCVU' => t['staff']
-      }
-
-      sql_params = attrs.keys.map { |k| "`#{k}`=?" }.join(', ')
-      sql = self.class.sanitize_sql_array([sql_params] + attrs.values)
-      enqueued << "update [DANH MUC BAN] set #{sql} where MABAN='#{t['table_no']}';"
-
-      t['lines'].each do |l|
-        order_time = Time.zone.parse(l['order_time'])
-        attrs = {
-          'SOBAN' => l['table_no'],
-          'MAHG' => l['product_no'],
-          'TENHANG' => l['product_name'],
-          'SOLUONG' => l['amount'],
-          'DONGIA' => l['price'],
-          'DVT' => l['unit'],
-          'NHOM' => l['product_group'],
-          'DABAO' => l['da_bao'],
-          'NGAY' => order_time.strftime('%d/%m/%y'),
-          'GIO' => order_time.strftime('%H:%M:%S'),
-          'QUAY' => l['cabin'],
-          'MANV' => l['staff'],
-          'INCHUA' => l['inor'],
-          'MAQL' => l['no'],
-          'XUAT' => l['stt']
-        }
-
-        sql_columns = attrs.keys.map { |k| k }.join(', ')
-        sql_params = attrs.keys.map { |_| '?' }.join(', ')
-        sql = self.class.sanitize_sql_array([sql_params] + attrs.values)
-
-        enqueued << "INSERT INTO [BAN] (#{sql_columns}) VALUES(#{sql});"
-      end
+      enqueued << build_table_sql(t)
+      raw['lines'].each { |l| enqueued << build_table_line_sql(l) }
     end
 
     Cache.write(sql_statement_key, enqueued.to_json)
@@ -141,6 +101,52 @@ class Customer < ApplicationRecord
   end
 
   protected
+
+  def build_table_line_sql(raw)
+    order_time = Time.zone.parse(raw['order_time'])
+    attrs = {
+      'SOBAN' => raw['table_no'],
+      'MAHG' => raw['product_no'],
+      'TENHANG' => raw['product_name'],
+      'SOLUONG' => raw['amount'],
+      'DONGIA' => raw['price'],
+      'DVT' => raw['unit'],
+      'NHOM' => raw['product_group'],
+      'DABAO' => raw['da_bao'],
+      'NGAY' => order_time.strftime('%d/%m/%y'),
+      'GIO' => order_time.strftime('%H:%M:%S'),
+      'QUAY' => raw['cabin'],
+      'MANV' => raw['staff'],
+      'INCHUA' => raw['inor'],
+      'MAQL' => raw['no'],
+      'XUAT' => raw['stt']
+    }
+
+    sql_columns = attrs.keys.map { |k| k }.join(', ')
+    sql_params = attrs.keys.map { |_| '?' }.join(', ')
+    sql = self.class.sanitize_sql_array([sql_params] + attrs.values)
+
+    "INSERT INTO [BAN] (#{sql_columns}) VALUES(#{sql});"
+  end
+
+  def build_table_sql(raw)
+    in_time = raw['in_time'].present? ? Time.zone.parse(raw['in_time']).strftime('%d/%m/%y %H:%M:%S') : nil
+    out_time = raw['out_time'].present? ? Time.zone.parse(raw['out_time']).strftime('%d/%m/%y %H:%M:%S') : nil
+    attrs = {
+      'COKHACH' => raw['busy'],
+      'CODOI' => raw['has_change'],
+      'INBILL' => raw['printed'],
+      'STT' => raw['stt'],
+      'GIOVAO' => in_time,
+      'GIORA' => out_time,
+      'GIAM' => raw['discount'],
+      'PHUCVU' => raw['staff']
+    }
+
+    sql_params = attrs.keys.map { |k| "`#{k}`=?" }.join(', ')
+    sql = self.class.sanitize_sql_array([sql_params] + attrs.values)
+    "update [DANH MUC BAN] set #{sql} where MABAN='#{raw['table_no']}';"
+  end
 
   def to_update_web_key_sql_statement
     self.class.sanitize_sql_array(['update [TUY CHON] set `WEBKEY`=?;', key])
