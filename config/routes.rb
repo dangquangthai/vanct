@@ -30,8 +30,11 @@ Rails.application.routes.draw do
           delete :destroy_all
         end
       end
-      member do
-        post :queue_insert_to_desktop
+      resources :syncs, only: %i[index] do
+        collection do
+          post :products
+          post :live_data
+        end
       end
     end
     resources :settings, only: %i[index edit update]

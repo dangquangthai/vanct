@@ -26,9 +26,9 @@
                 <%== svg_icon 'edit', class: 'w-6 h-6' %>
               </div>
 
-              <div title="Đồng bộ Danh mục Món" class="w-fit cursor-pointer" data-controller="turbo-fetch" data-method="POST" data-url="<%= queue_insert_to_desktop_admin_customer_path(customer.id) %>">
+              <%= link_to admin_customer_syncs_path(customer.id), data: { turbo: false }, title: 'Đồng bộ' do %>
                 <%== svg_icon 'sync', class: 'w-6 h-6' %>
-              </div>
+              <% end %>
 
               <%= link_to admin_customer_shifts_path(customer.id), data: { turbo: false }, target: '_blank', title: 'Danh sách ca bán hàng' do %>
                 <%== svg_icon 'shift', class: 'w-6 h-6' %>

@@ -1,0 +1,22 @@
+<div class="px-4 py-2 font-bold flex gap-1">
+  <span class="text-gray-600">[<%= @customer.name %>]</span> Đồng bộ dữ liệu
+</div>
+<hr class="border-gray-300" />
+<div class="grid gap-4 mb-24 select-none px-2 mt-2">
+  <div class="grid grid-cols-2 gap-2 w-full md:w-[400px]">
+    <div 
+      class="cursor-pointer btn" 
+      data-controller="turbo-fetch"
+      data-method="POST"
+      data-url="<%= live_data_admin_customer_syncs_path(@customer.id) %>">
+      Hiện tại
+    </div>
+    <div 
+      class="cursor-pointer btn" 
+      data-controller="turbo-fetch"
+      data-method="POST"
+      data-url="<%= products_admin_customer_syncs_path(@customer.id) %>">
+      Danh mục món
+    </div>
+  </div>
+</div>
