@@ -15,9 +15,8 @@ require_relative 'services/sync'
 db = AccessDb.new(path: PATH, password: PASSWORD)
 reader = DbReader.new(db: db)
 api_client = ApiClient.new(endpoint: WEBSITE, key: KEY)
-live = Live.new(reader: reader, api_client: api_client)
+sync = Sync.new(reader: reader, api_client: api_client)
 info = api_client.info
 db.open
-info['sql'].each { |sql| db.execute(sql) }
-live.perform if info['live']
+sync.perform if info['sync']
 db.close

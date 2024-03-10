@@ -25,6 +25,11 @@ Rails.application.routes.draw do
   namespace :admin do
     resources :customers do
       resources :users
+      resources :shifts, only: %i[index] do
+        collection do
+          delete :destroy_all
+        end
+      end
       member do
         post :queue_insert_to_desktop
       end
@@ -45,6 +50,7 @@ Rails.application.routes.draw do
       resources :sync_vouchers, only: %i[create]
       resources :sync_products, only: %i[create]
       resources :sync_inventories, only: %i[create]
+      resources :sync_settings, only: %i[create]
     end
   end
 end

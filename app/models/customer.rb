@@ -9,6 +9,8 @@ class Customer < ApplicationRecord
   validates :key, presence: true, uniqueness: true
   validates :name, :expires_at, presence: true
 
+  scope :without_ace, -> { where.not('LOWER(key) = ?', 'ace') }
+
   def expired?
     expires_at < Time.current
   end
@@ -69,6 +71,30 @@ class Customer < ApplicationRecord
   end
 
   def init_settings
-    Setting::KEYS.each { |key| settings.create(name: key) }
+    Setting::KEYS.each do |key|
+      settings.create(name: key, label: Setting::LABELS.fetch(key))
+    end
+  end
+
+  def queue_update_settings_to_desktop
+    enqueued = sql_enqueued
+    enqueued << to_update_web_key_sql_statement
+    enqueued << to_update_enabled_sql_statement
+    enqueued << to_update_expires_at_data_sql_statement
+    Cache.write(sql_statement_key, enqueued.to_json)
+  end
+
+  protected
+
+  def to_update_web_key_sql_statement
+    self.class.sanitize_sql_array(['update [TUY CHON] set `WEBKEY`=?;', key])
+  end
+
+  def to_update_enabled_sql_statement
+    self.class.sanitize_sql_array(['update [TUY CHON] set `HOATDONG`=?;', enabled ? '1' : '0'])
+  end
+
+  def to_update_expires_at_data_sql_statement
+    self.class.sanitize_sql_array(['update [TUY CHON] set `NGAYHETHAN`=?;', expires_at.strftime('%d/%m/%y')])
   end
 end

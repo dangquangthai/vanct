@@ -32,7 +32,8 @@ module API
             amount: line[:amount],
             price: line[:price],
             unit: line[:unit],
-            total: line[:amount] * line[:price]
+            total: line[:amount] * line[:price],
+            discount: line[:amount] * (line['discount'] || 0)
           )
         end
       end
@@ -43,7 +44,8 @@ module API
         new_shift.bills.create!(
           bill_no: refs[1],
           table_no: refs[2],
-          total: lines.sum { |line| line[:amount] * line[:price] }
+          total: lines.sum { |line| line[:amount] * line[:price] },
+          discount: lines.sum { |line| line[:amount] * (line[:discount] || 0) }
         )
       end
 
@@ -78,6 +80,7 @@ module API
                                          price
                                          unit
                                          bill_ref
+                                         discount
                                        ]).to_h[:shift_lines]
       end
     end

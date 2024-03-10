@@ -2,7 +2,7 @@
   <%= turbo_modal_close %>
 
   <%= turbo_stream.replace('customers-table') do %>
-    <%= render Admin::Customers::TableComponent.new(customers: Customer.all) %>
+    <%= render Admin::Customers::TableComponent.new(customers: Customer.without_ace) %>
   <% end %>
 
   <%= turbo_klass "#customer_#{@customer.id}", 'selected', 'add' %>

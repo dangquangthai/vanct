@@ -11,7 +11,13 @@
       <% settings.each do |setting| %>
         <tr id="setting_<%= setting.id %>">
           <td><%= setting.label %></td>
-          <td><%= setting.value %></td>
+          <td>
+            <% if setting.boolean? %>
+              <%= setting.value == '1' ? 'Có' : 'Không' %>
+            <% else %>
+              <%= setting.value %>
+            <% end %>
+          </td>
           <td>
             <div class="w-fit cursor-pointer" data-controller="turbo-fetch" data-url="<%= edit_admin_setting_path(setting.id) %>">
               <%== svg_icon 'edit', class: 'w-6 h-6' %>

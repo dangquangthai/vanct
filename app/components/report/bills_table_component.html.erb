@@ -6,6 +6,7 @@
         <%= render Shared::SortColumnComponent.new(title: 'Bàn', column: 'table_no') %>
         <%= render Shared::SortColumnComponent.new(title: 'Ngày', column: 'shift_date') %>
         <%= render Shared::SortColumnComponent.new(title: 'Tổng', column: 'total', th_class: 'justify-end h-6') %>
+        <%= render Shared::SortColumnComponent.new(title: 'T/G Giá', column: 'total', th_class: 'justify-end h-6') %>
       </tr>
     </thead>
     <tbody>
@@ -16,6 +17,9 @@
           <td><%= bill.shift.shift_date.strftime('%d/%m') %></td>
           <td>
             <div class="h-5 flex items-center justify-end"><%= show_money bill.total %></div>
+          </td>
+          <td>
+            <div class="h-5 flex items-center justify-end"><%= show_money bill.discount %></div>
           </td>
         </tr>
       <% end %>

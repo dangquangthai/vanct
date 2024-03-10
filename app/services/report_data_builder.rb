@@ -34,14 +34,15 @@ class ReportDataBuilder
 
   def to_csv_file
     CSV.generate(headers: true) do |csv|
-      csv << %w[BILL BÀN NGÀY TỔNG]
+      csv << %w[BILL BÀN NGÀY TỔNG TvG]
 
       bills_query.each do |bill|
         csv << [
           bill.bill_no,
           bill.table_no,
           bill.shift.shift_date.strftime('%d-%m-%y'),
-          bill.total.to_f.round(0)
+          bill.total.to_f.round(0),
+          bill.discount.to_f.round(0)
         ]
       end
     end
@@ -64,7 +65,7 @@ class ReportDataBuilder
   def inventories_query
     latest_shift = current_customer.shifts.where(shift_date: from_date..to_date).order(:id).last
     return latest_shift.inventories if latest_shift.present?
-    
+
     Inventory.none
   end
 
@@ -110,6 +111,10 @@ class ReportDataBuilder
       bills = bills.where(table_no: table_no) if table_no.present?
       bills.order('shifts.shift_date DESC, bills.bill_no DESC')
     end
+  end
+
+  def sum_discount_of_bills
+    bills_query.sum(:discount)
   end
 
   def bill_lines_query

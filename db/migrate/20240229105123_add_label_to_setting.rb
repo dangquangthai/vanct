@@ -8,13 +8,6 @@ class AddLabelToSetting < ActiveRecord::Migration[7.1]
   end
 
   def map_name(name)
-    {
-      'MATKHAU' => 'Mật khẩu',
-      'NOIDUNG' => 'Tiêu đề cuối bill',
-      'GIAM' => '%Tăng, giảm giá mặc định',
-      'SUA' => 'Trả món sau in bill',
-      'IN' => 'In order',
-      'GIATET' => 'Bán giá tết'
-    }.fetch(name)
+    Setting::LABELS.fetch(name)
   end
 end

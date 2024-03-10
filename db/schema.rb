@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_02_29_105123) do
+ActiveRecord::Schema[7.1].define(version: 2024_03_10_075622) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -25,6 +25,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_29_105123) do
     t.decimal "total"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.decimal "discount", default: "0.0"
     t.index ["bill_id"], name: "index_bill_lines_on_bill_id"
   end
 
@@ -35,6 +36,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_29_105123) do
     t.decimal "total"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.decimal "discount", default: "0.0"
     t.index ["shift_id"], name: "index_bills_on_shift_id"
   end
 

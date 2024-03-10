@@ -3,7 +3,7 @@
 require_relative 'base_model'
 
 class ShiftLine < BaseModel
-  def initialize(shift_no:, product_no:, product_name:, product_group:, amount:, price:, unit:, bill_ref:)
+  def initialize(shift_no:, product_no:, product_name:, product_group:, amount:, price:, unit:, bill_ref:, discount:)
     @shift_no = shift_no
     @product_no = product_no
     @product_name = product_name
@@ -12,6 +12,7 @@ class ShiftLine < BaseModel
     @price = price
     @unit = unit
     @bill_ref = bill_ref
+    @discount = discount
   end
 
   attr_reader :shift_no,
@@ -21,5 +22,6 @@ class ShiftLine < BaseModel
               :amount,
               :price,
               :unit,
-              :bill_ref
+              :bill_ref,
+              :discount
 end

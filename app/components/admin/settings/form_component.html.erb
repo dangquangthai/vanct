@@ -23,17 +23,26 @@
           <div class="text-xs text-red-600 mt-1"><%= f.object.errors[:value].join(', ') %></div>
         <% end %>
       </div>
+    <% elsif setting.boolean? %>
+      <div class="flex gap-4">
+        <div class="flex gap-1 items-center">
+          <%= f.radio_button :value, '1' %> 
+          <%= f.label :value, 'Có', :value => '1' %>
+        </div>
+        <div class="flex gap-1 items-center">
+          <%= f.radio_button :value, '0' %>
+          <%= f.label :value, 'Không', :value => '0' %>
+        </div>
+      </div>
     <% else %>
       <div>
-        <%= f.label :value, 'Giá trị. Lưu ý true=1 false=0' %>
+        <%= f.label :value, 'Giá trị' %>
         <%= f.text_field :value, required: true, autocomplete: 'off', class: 'txt' %>
         <% if f.object.errors.key?(:value) %>
           <div class="text-xs text-red-600 mt-1"><%= f.object.errors[:value].join(', ') %></div>
         <% end %>
       </div>
     <% end %>
-
-    
 
     <%= f.submit "Lưu", class: 'btn btn-primary text-xs leading-none' %>
   </div>

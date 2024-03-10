@@ -5,7 +5,6 @@ module Admin
     before_action :authorize_manager!
 
     def index
-      current_customer.init_settings if current_customer.settings.count.zero?
       @settings = current_customer.settings
 
       respond_to do |format|

@@ -5,7 +5,7 @@ module Admin
     before_action :authorize_admin!
 
     def index
-      @customers = Customer.all.where.not(key: 'ace')
+      @customers = Customer.without_ace
 
       respond_to do |format|
         format.html
@@ -24,7 +24,12 @@ module Admin
       @customer = Customer.create(customer_params)
 
       respond_to do |format|
-        format.turbo_stream
+        format.turbo_stream do
+          if @customer.persisted?
+            @customer.init_settings
+            @customer.queue_update_settings_to_desktop
+          end
+        end
       end
     end
 
@@ -42,6 +47,7 @@ module Admin
       respond_to do |format|
         format.turbo_stream do
           @success = @customer.update(customer_params)
+          @customer.queue_update_settings_to_desktop if @success
         end
       end
     end

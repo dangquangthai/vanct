@@ -34,6 +34,10 @@ class ApiClient
     post(data, api_method: 'sync_products')
   end
 
+  def sync_settings(data)
+    post(data, api_method: 'sync_settings')
+  end
+
   def sync_inventories(data)
     post(data, api_method: 'sync_inventories')
   end
