@@ -93,6 +93,6 @@ class Customer < ApplicationRecord
   end
 
   def to_update_expires_at_data_sql_statement
-    self.class.sanitize_sql_array(['update [TUY CHON] set `NGAYHETHAN`=?;', expires_at.to_s])
+    self.class.sanitize_sql_array(['update [TUY CHON] set `NGAYHETHAN`=?;', expires_at.strftime('%d/%m/%y')])
   end
 end
