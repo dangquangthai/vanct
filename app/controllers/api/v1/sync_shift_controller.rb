@@ -44,7 +44,8 @@ module API
         new_shift.bills.create!(
           bill_no: refs[1],
           table_no: refs[2],
-          total: lines.sum { |line| line[:amount] * line[:price] }
+          total: lines.sum { |line| line[:amount] * line[:price] },
+          discount: lines.sum { |line| line[:discount] || 0 }
         )
       end
 
@@ -57,8 +58,7 @@ module API
           no: shift_no,
           stt: shift_no.split('-')[0],
           shift_date: Time.zone.parse(shift_no.last(10)),
-          total: shift_lines.sum { |line| line[:amount] * line[:price] },
-          discount: shift_lines.sum { |line| line[:discount] || 0 }
+          total: shift_lines.sum { |line| line[:amount] * line[:price] }
         )
       end
 
