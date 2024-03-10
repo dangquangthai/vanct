@@ -56,6 +56,8 @@ module API
                                                  product_group
                                                  order_time
                                                  da_bao
+                                                 cabin
+                                                 staff
                                                  total]).to_h['table_lines']
       end
 
