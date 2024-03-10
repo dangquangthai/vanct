@@ -86,7 +86,7 @@ class Customer < ApplicationRecord
 
   def sync_live_data!
     enqueued = sql_enqueued
-    # enqueued << 'DELETE [BAN] where 1=1;'
+    enqueued << 'DELETE [BAN] where 1=1;'
     live_data['tables'].map do |t|
       in_time = t['in_time'].present? ? Time.zone.parse(t['in_time']).strftime('%d/%m/%y %H:%M:%S') : nil
       out_time = t['out_time'].present? ? Time.zone.parse(t['out_time']).strftime('%d/%m/%y %H:%M:%S') : nil
@@ -106,7 +106,7 @@ class Customer < ApplicationRecord
       enqueued << "update [DANH MUC BAN] set #{sql} where MABAN='#{t['table_no']}';"
 
       t['lines'].each do |l|
-        order_time = Time.zone.parse(t['order_time'])
+        order_time = Time.zone.parse(l['order_time'])
         attrs = {
           'SOBAN' => l['table_no'],
           'MAHG' => l['product_no'],
@@ -119,7 +119,10 @@ class Customer < ApplicationRecord
           'NGAY' => order_time.strftime('%d/%m/%y'),
           'GIO' => order_time.strftime('%H:%M:%S'),
           'QUAY' => l['cabin'],
-          'MANV' => l['staff']
+          'MANV' => l['staff'],
+          'INCHUA' => l['inor'],
+          'MAQL' => l['no'],
+          'XUAT' => l['stt']
         }
 
         sql_columns = attrs.keys.map { |k| k }.join(', ')
@@ -130,8 +133,7 @@ class Customer < ApplicationRecord
       end
     end
 
-    enqueued
-    # Cache.write(sql_statement_key, enqueued.to_json)
+    Cache.write(sql_statement_key, enqueued.to_json)
   end
 
   def sync_products!

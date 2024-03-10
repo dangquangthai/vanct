@@ -58,6 +58,9 @@ module API
                                                  da_bao
                                                  cabin
                                                  staff
+                                                 inor
+                                                 no
+                                                 stt
                                                  total]).to_h['table_lines']
       end
 
