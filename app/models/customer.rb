@@ -86,7 +86,7 @@ class Customer < ApplicationRecord
 
   def sync_live_data!
     enqueued = sql_enqueued
-    enqueued << 'DELETE [BAN] where 1=1;'
+    # enqueued << 'DELETE [BAN] where 1=1;'
     live_data['tables'].map do |t|
       attrs = {
         'COKHACH' => t['busy'],
@@ -109,7 +109,8 @@ class Customer < ApplicationRecord
       # end
     end
 
-    Cache.write(sql_statement_key, enqueued.to_json)
+    # Cache.write(sql_statement_key, enqueued.to_json)
+    enqueued
   end
 
   def sync_products!
