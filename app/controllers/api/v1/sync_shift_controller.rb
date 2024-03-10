@@ -33,7 +33,7 @@ module API
             price: line[:price],
             unit: line[:unit],
             total: line[:amount] * line[:price],
-            discount: line['discount'] || 0
+            discount: line[:amount] * (line['discount'] || 0)
           )
         end
       end
@@ -45,7 +45,7 @@ module API
           bill_no: refs[1],
           table_no: refs[2],
           total: lines.sum { |line| line[:amount] * line[:price] },
-          discount: lines.sum { |line| line[:discount] || 0 }
+          discount: lines.sum { |line| line[:amount] * (line[:discount] || 0) }
         )
       end
 
