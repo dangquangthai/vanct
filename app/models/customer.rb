@@ -86,7 +86,7 @@ class Customer < ApplicationRecord
 
   def sync_live_data!
     enqueued = sql_enqueued
-    enqueued << 'DELETE [BAN] where 1=1;'
+    enqueued << 'DELETE FROM [BAN];'
     live_data['tables'].map do |t|
       in_time = t['in_time'].present? ? Time.zone.parse(t['in_time']).strftime('%d/%m/%y %H:%M:%S') : nil
       out_time = t['out_time'].present? ? Time.zone.parse(t['out_time']).strftime('%d/%m/%y %H:%M:%S') : nil

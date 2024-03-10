@@ -54,7 +54,7 @@ class DbReader
         staff: row[10], # MANV
         inor: row[11], # INCHUA
         no: row[12], # MAQL
-        stt: row[12] #XUAT
+        stt: row[13] # XUAT
       )
 
       as_hash ? model.to_hash : model

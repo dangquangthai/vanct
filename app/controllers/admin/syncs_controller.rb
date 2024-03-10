@@ -20,7 +20,7 @@ module Admin
     end
 
     def live_data
-      @customer.sync_live_data! if live_data_exist?
+      @customer.sync_live_data! if @customer.live_data_exist?
 
       respond_to do |format|
         format.turbo_stream
