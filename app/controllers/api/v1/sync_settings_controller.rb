@@ -10,7 +10,7 @@ module API
           settings_params.each do |setting_params|
             setting = @customer.settings.find_by(name: setting_params[:name])
 
-            setting.update!(setting_params[:value]) if setting.present?
+            setting.update!(value: setting_params[:value]) if setting.present?
           end
         end
 
