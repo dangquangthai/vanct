@@ -74,7 +74,7 @@ class DbReader
   end
 
   def shift_lines(shift, as_hash: false)
-    sql = "select MAHG, TENHANG, NHOM, SOLUONG, DONGIA, DVT, LUUBAN from [LUU KET QUA BAN HANG] where CA=\"#{shift.stt}\" and Val(Format (NGAY, \"yyyymmdd\"))=\"#{shift.date_to_query}\";"
+    sql = "select MAHG, TENHANG, NHOM, SOLUONG, DONGIA, DVT, LUUBAN, GIAGOC from [LUU KET QUA BAN HANG] where CA=\"#{shift.stt}\" and Val(Format (NGAY, \"yyyymmdd\"))=\"#{shift.date_to_query}\";"
 
     db.query(sql).map do |row|
       model = ShiftLine.new(
@@ -85,7 +85,8 @@ class DbReader
         amount: row[3],
         price: row[4],
         unit: row[5],
-        bill_ref: row[6]
+        bill_ref: row[6], # LUUBAN
+        discount: row[7], # GIAGOC
       )
 
       as_hash ? model.to_hash : model

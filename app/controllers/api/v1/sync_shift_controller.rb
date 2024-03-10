@@ -32,7 +32,8 @@ module API
             amount: line[:amount],
             price: line[:price],
             unit: line[:unit],
-            total: line[:amount] * line[:price]
+            total: line[:amount] * line[:price],
+            discount: line['discount'] || 0
           )
         end
       end
@@ -56,7 +57,8 @@ module API
           no: shift_no,
           stt: shift_no.split('-')[0],
           shift_date: Time.zone.parse(shift_no.last(10)),
-          total: shift_lines.sum { |line| line[:amount] * line[:price] }
+          total: shift_lines.sum { |line| line[:amount] * line[:price] },
+          discount: shift_lines.sum { |line| line[:discount] || 0 }
         )
       end
 
@@ -78,6 +80,7 @@ module API
                                          price
                                          unit
                                          bill_ref
+                                         discount
                                        ]).to_h[:shift_lines]
       end
     end

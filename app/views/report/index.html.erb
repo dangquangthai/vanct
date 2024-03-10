@@ -21,7 +21,7 @@
 
     <div class="px-2 flex gap-1 font-bold">
       <div class="w-[100px]">Còn lại</div>
-      <div class="w-[150px] text-red-600 flex justify-end"><%= show_money(@report_builder.sum_shifts + @report_builder.sum_receipt_vouchers - @report_builder.sum_payment_vouchers) %></div>
+      <div class="w-[150px] text-red-600 flex justify-end"><%= show_money(@report_builder.sum_shifts + @report_builder.sum_discount_of_bills + @report_builder.sum_receipt_vouchers - @report_builder.sum_payment_vouchers) %></div>
     </div>
   </div>
   
