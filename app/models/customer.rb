@@ -88,29 +88,50 @@ class Customer < ApplicationRecord
     enqueued = sql_enqueued
     # enqueued << 'DELETE [BAN] where 1=1;'
     live_data['tables'].map do |t|
+      in_time = t['in_time'].present? ? Time.zone.parse(t['in_time']).strftime('%d/%m/%y %H:%M:%S') : nil
+      out_time = t['out_time'].present? ? Time.zone.parse(t['out_time']).strftime('%d/%m/%y %H:%M:%S') : nil
       attrs = {
         'COKHACH' => t['busy'],
         'CODOI' => t['has_change'],
         'INBILL' => t['printed'],
         'STT' => t['stt'],
-        'GIOVAO' => t['in_time'],
-        'GIORA' => t['out_time'],
+        'GIOVAO' => in_time,
+        'GIORA' => out_time,
         'GIAM' => t['discount'],
         'PHUCVU' => t['staff']
       }
 
       sql_params = attrs.keys.map { |k| "`#{k}`=?" }.join(', ')
       sql = self.class.sanitize_sql_array([sql_params] + attrs.values)
+      enqueued << "update [DANH MUC BAN] set #{sql} where MABAN='#{t['table_no']}';"
 
-      enqueued << "update [DANH MUC HANG] set #{sql} where MABAN='#{t['table_no']}';"
+      t['lines'].each do |l|
+        order_time = Time.zone.parse(t['order_time'])
+        attrs = {
+          'SOBAN' => l['table_no'],
+          'MAHG' => l['product_no'],
+          'TENHANG' => l['product_name'],
+          'SOLUONG' => l['amount'],
+          'DONGIA' => l['price'],
+          'DVT' => l['unit'],
+          'NHOM' => l['product_group'],
+          'DABAO' => l['da_bao'],
+          'NGAY' => order_time.strftime('%d/%m/%y'),
+          'GIO' => order_time.strftime('%H:%M:%S'),
+          'QUAY' => l['cabin'],
+          'MANV' => l['staff']
+        }
 
-      # lines.each do |l|
-      #   line_attrs = %w[SOBAN, MAHG, TENHANG, SOLUONG, DONGIA, DVT, NHOM, DABAO, DateValue(NGAY) + TimeValue(GIO) as NGAYGIO, QUAY, MANV]
-      # end
+        sql_columns = attrs.keys.map { |k| k }.join(', ')
+        sql_params = attrs.keys.map { |_| '?' }.join(', ')
+        sql = self.class.sanitize_sql_array([sql_params] + attrs.values)
+
+        enqueued << "INSERT INTO [BAN] (#{sql_columns}) VALUES(#{sql});"
+      end
     end
 
-    # Cache.write(sql_statement_key, enqueued.to_json)
     enqueued
+    # Cache.write(sql_statement_key, enqueued.to_json)
   end
 
   def sync_products!
