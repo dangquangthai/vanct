@@ -22,19 +22,23 @@
           <td><%= customer.sync_data ? 'Có' : 'Không' %></td>
           <td>
             <div class="flex gap-2 items-center justify-end">
-              <div class="w-fit cursor-pointer" data-controller="turbo-fetch" data-url="<%= edit_admin_customer_path(customer.id) %>">
+              <div title="Cập nhật khách hàng" class="w-fit cursor-pointer" data-controller="turbo-fetch" data-url="<%= edit_admin_customer_path(customer.id) %>">
                 <%== svg_icon 'edit', class: 'w-6 h-6' %>
               </div>
 
-              <div class="w-fit cursor-pointer" data-controller="turbo-fetch" data-method="POST" data-url="<%= queue_insert_to_desktop_admin_customer_path(customer.id) %>">
+              <div title="Đồng bộ Danh mục Món" class="w-fit cursor-pointer" data-controller="turbo-fetch" data-method="POST" data-url="<%= queue_insert_to_desktop_admin_customer_path(customer.id) %>">
                 <%== svg_icon 'sync', class: 'w-6 h-6' %>
               </div>
 
-              <%= link_to admin_customer_users_path(customer.id), data: { turbo: false } do %>
+              <%= link_to admin_customer_shifts_path(customer.id), data: { turbo: false }, target: '_blank', title: 'Danh sách ca bán hàng' do %>
+                <%== svg_icon 'shift', class: 'w-6 h-6' %>
+              <% end %>
+
+              <%= link_to admin_customer_users_path(customer.id), data: { turbo: false }, title: 'Danh sách người dùng' do %>
                 <%== svg_icon 'users', class: 'w-6 h-6' %>
               <% end %>
 
-              <%= link_to admin_customer_path(customer.id), data: { "turbo-method" => :delete, 'turbo-confirm' => 'Xoá khách hàng này, toàn bộ dữ liệu liên quan sẽ mất. Bạn chắc chặn không?' } do %>
+              <%= link_to admin_customer_path(customer.id), title: 'Xoá khách hàng', data: { "turbo-method" => :delete, 'turbo-confirm' => 'Xoá khách hàng này, toàn bộ dữ liệu liên quan sẽ mất. Bạn chắc chặn không?' } do %>
                 <%== svg_icon 'trash', class: 'w-6 h-6' %>
               <% end %>
             </div>

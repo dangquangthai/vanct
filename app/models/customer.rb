@@ -9,6 +9,8 @@ class Customer < ApplicationRecord
   validates :key, presence: true, uniqueness: true
   validates :name, :expires_at, presence: true
 
+  scope :without_ace, -> { where.not('LOWER(key) = ?', 'ace') }
+
   def expired?
     expires_at < Time.current
   end

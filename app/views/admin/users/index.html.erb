@@ -1,5 +1,5 @@
 <div class="px-4 py-2 font-bold flex gap-1">
-  <span class="text-gray-600"><%= @customer.name %></span> Danh sách người dùng
+  <span class="text-gray-600">[<%= @customer.name %>]</span> Danh sách người dùng
 </div>
 <hr class="border-gray-300" />
 <%= render Admin::Users::TableComponent.new(users: @users, customer: @customer) %>
