@@ -5,7 +5,7 @@ class Setting < ApplicationRecord
 
   KEYS = %w[MATKHAU NOIDUNG GIAM SUA IN GIATET].freeze
   BOOLEAN_KEYS = %w[SUA IN GIATET].freeze
-  SYSTEM_KEYS = %w[APPKEY NGAYHETHAN HOATDONG].freeze
+  SYSTEM_KEYS = %w[WEBKEY NGAYHETHAN HOATDONG].freeze
   LABELS = {
     'MATKHAU' => 'Mật khẩu',
     'NOIDUNG' => 'Tiêu đề cuối bill',
