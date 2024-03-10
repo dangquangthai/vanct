@@ -2,7 +2,7 @@
 
 module API
   module V1
-    class SyncSettingsController < ApplicationController
+    class SyncSettingsController < API::V1::BaseController
       before_action :require_customer!
 
       def create
