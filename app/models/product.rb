@@ -4,11 +4,12 @@ class Product < ApplicationRecord
   belongs_to :customer
 
   attr_accessor :have_to_validate
-  validates :no, :name, :gname, :cname, :unit, :price, :price1, 
-    presence: { message: 'vui lòng nhập giá trị' }, 
-    if: -> { have_to_validate == true }
 
-  validates :no, uniqueness: { scope: :customer_id, message: "đã sử dụng" }, if: -> { have_to_validate == true }
+  validates :no, :name, :gname, :cname, :unit, :price, :price1,
+            presence: { message: 'vui lòng nhập giá trị' },
+            if: -> { have_to_validate == true }
+
+  validates :no, uniqueness: { scope: :customer_id, message: 'đã sử dụng' }, if: -> { have_to_validate == true }
 
   def queue_update_to_desktop
     enqueued = customer.sql_enqueued
