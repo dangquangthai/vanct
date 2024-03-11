@@ -16,7 +16,8 @@ db = AccessDb.new(path: PATH, password: PASSWORD)
 reader = DbReader.new(db: db)
 api_client = ApiClient.new(endpoint: WEBSITE, key: KEY)
 sync = Sync.new(reader: reader, api_client: api_client)
-info = api_client.info
+info = api_client.verify_data('sync_data')
 db.open
+info['sql'].each { |sql| db.execute(sql) }
 sync.perform if info['sync']
 db.close

@@ -10,8 +10,9 @@ class ApiClient
     @endpoint = endpoint
   end
 
-  def info
-    uri = URI.parse("#{endpoint}/api/v1/info?key=#{key}")
+  # action can be `live_data` or `sync_data`
+  def verify_data(action)
+    uri = URI.parse("#{endpoint}/api/v2/info/#{action}?key=#{key}")
     ssl = uri.scheme == 'https'
     request = Net::HTTP::Get.new(uri.to_s)
     response = Net::HTTP.start(uri.host, uri.port, use_ssl: ssl) { |http| http.request(request) }

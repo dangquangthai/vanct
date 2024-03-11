@@ -43,7 +43,7 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
-      resources :verify, only: %i[live_data sync_data]
+      resources :info, only: %i[index]
       resources :live, only: %i[create]
 
       # for the old version
@@ -54,6 +54,15 @@ Rails.application.routes.draw do
       resources :sync_products, only: %i[create]
       resources :sync_inventories, only: %i[create]
       resources :sync_settings, only: %i[create]
+    end
+
+    namespace :v2 do
+      resources :info, only: %i[] do
+        collection do
+          get :live_data
+          get :sync_data
+        end
+      end
     end
   end
 end

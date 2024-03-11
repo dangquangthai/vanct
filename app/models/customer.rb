@@ -77,11 +77,11 @@ class Customer < ApplicationRecord
   end
 
   def queue_update_settings_to_desktop
-    enqueued = sql_enqueued
-    enqueued << to_update_web_key_sql_statement
-    enqueued << to_update_enabled_sql_statement
-    enqueued << to_update_expires_at_data_sql_statement
-    Cache.write(sql_statement_key, enqueued.to_json)
+    [
+      to_update_web_key_sql_statement,
+      to_update_enabled_sql_statement,
+      to_update_expires_at_data_sql_statement
+    ]
   end
 
   def sync_live_data!
