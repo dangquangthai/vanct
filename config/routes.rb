@@ -43,7 +43,7 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
-      resources :info, only: %i[index]
+      resources :verify, only: %i[live_data sync_data]
       resources :live, only: %i[create]
 
       # for the old version
