@@ -90,7 +90,7 @@ class Customer < ApplicationRecord
 
     live_data['tables'].map do |t|
       enqueued << build_table_sql(t)
-      raw['lines'].each { |l| enqueued << build_table_line_sql(l) }
+      t['lines'].each { |l| enqueued << build_table_line_sql(l) }
     end
 
     live_data['lines'].map do |l|

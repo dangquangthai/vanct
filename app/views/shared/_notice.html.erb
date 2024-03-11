@@ -1,0 +1,6 @@
+<% if flash.key?(:notice) %>
+  <hr class="border-gray-300" />
+  <div class="flex items-center p-2 justify-center text-green-700 font-bold">
+    <%= flash[:notice] %>
+  </div>
+<% end %>

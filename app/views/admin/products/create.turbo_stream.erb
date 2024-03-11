@@ -1,0 +1,7 @@
+<% if @success %>
+  <%= turbo_redirect request.referrer %>
+<% else %>
+  <%= turbo_modal do %>
+    <%= render Admin::Products::FormComponent.new(product: @product, url: admin_products_path, form_method: 'POST', form_title: 'Thêm món') %>
+  <% end %>
+<% end %>

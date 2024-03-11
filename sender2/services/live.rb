@@ -26,22 +26,11 @@ class Live
   protected
 
   def data_has_changed?
-    previous_data = JSON.parse(File.open(file_path).read || empty_data.to_json)
-    previous_data['lines'].count != data['lines'].count ||
+    previous_data = JSON.parse(File.open(file_path).read || {})
+    previous_data.fetch('lines', []).count != data.fetch('lines', []).count ||
       previous_data['table_lines'].count != data['table_lines'].count ||
       previous_data['shift']['total'] != data['shift']['total'] ||
       previous_data['tables'].count { |t| t['busy'] } != data['tables'].count { |t| t['shift'] }
-  end
-
-  def empty_data
-    {
-      tables: [],
-      table_lines: [],
-      lines: [],
-      shift: {
-        total: -1
-      }
-    }
   end
 
   def save_data_to_file
