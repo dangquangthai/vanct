@@ -1,6 +1,7 @@
 <div class="px-4 py-2 font-bold flex gap-1">
   <span class="text-gray-600">[<%= @customer.name %>]</span> Danh sách ca bán hàng
 </div>
+<%= render partial: 'shared/notice' %>
 <hr class="border-gray-300" />
 <div class="grid gap-4 mb-24 select-none px-2 mt-2">
   <%= form_for('q', as: :q, url: admin_customer_shifts_path(@customer.id), html: { id: 'search-shifts-form', method: 'GET' }) do |f| %>

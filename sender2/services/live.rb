@@ -27,7 +27,8 @@ class Live
 
   def data_has_changed?
     previous_data = JSON.parse(File.open(file_path).read || {})
-    previous_data['table_lines'].count != data['table_lines'].count ||
+    previous_data.fetch('lines', []).count != data.fetch('lines', []).count ||
+      previous_data['table_lines'].count != data['table_lines'].count ||
       previous_data['shift']['total'] != data['shift']['total'] ||
       previous_data['tables'].count { |t| t['busy'] } != data['tables'].count { |t| t['shift'] }
   end
@@ -39,9 +40,14 @@ class Live
   def data
     @data ||= {
       'tables' => reader.tables(as_hash: true),
-      'table_lines' => reader.table_lines(as_hash: true),
+      'table_lines' => table_lines.select { |l| l['table_no'] && !l['bno'] },
+      'lines' => table_lines.select { |l| !l['table_no'] && l['bno'] },
       'shift' => reader.current_shift.to_hash
     }
+  end
+
+  def table_lines
+    @table_lines ||= reader.table_lines(as_hash: true)
   end
 
   def file_existing?

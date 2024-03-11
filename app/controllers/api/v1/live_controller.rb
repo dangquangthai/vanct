@@ -9,7 +9,8 @@ module API
         data = {
           shift: shift,
           tables: [],
-          updated_at: Current.ftime
+          updated_at: Current.ftime,
+          lines: lines
         }
 
         tables.each do |table|
@@ -46,22 +47,32 @@ module API
       end
 
       def table_lines
-        @table_lines ||= params
-                         .permit(table_lines: %i[table_no
-                                                 product_name
-                                                 product_no
-                                                 amount
-                                                 price
-                                                 unit
-                                                 product_group
-                                                 order_time
-                                                 da_bao
-                                                 cabin
-                                                 staff
-                                                 inor
-                                                 no
-                                                 stt
-                                                 total]).to_h['table_lines']
+        @table_lines ||= params.permit(table_lines: columns).to_h['table_lines']
+      end
+
+      def lines
+        @lines ||= params.permit(lines: columns).to_h['lines']
+      end
+
+      def columns
+        %i[
+          table_no
+          product_name
+          product_no
+          amount
+          price
+          unit
+          product_group
+          order_time
+          da_bao
+          cabin
+          staff
+          inor
+          no
+          stt
+          bno
+          total
+        ]
       end
 
       def shift

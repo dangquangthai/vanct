@@ -12,6 +12,29 @@ module Admin
       end
     end
 
+    def new
+      @product = current_customer.products.build
+
+      respond_to do |format|
+        format.turbo_stream
+      end
+    end
+
+    def create
+      @product = current_customer.products.build(create_params)
+      @product.have_to_validate = true
+      @success = @product.valid? && @product.save
+
+      respond_to do |format|
+        format.turbo_stream do
+          if @success
+            flash[:notice] = 'Thêm món thành công!'
+            @product.queue_insert_to_desktop
+          end
+        end
+      end
+    end
+
     def edit
       @product = current_customer.products.find(params[:id])
 
@@ -22,19 +45,25 @@ module Admin
 
     def update
       @product = current_customer.products.find(params[:id])
-      @success = @product.update(update_params)
+      @product.assign_attributes(update_params)
+      @product.have_to_validate = true
+      @success = @product.valid? && @product.save
 
       respond_to do |format|
         format.turbo_stream do
           if @success
+            flash[:notice] = 'Cập nhật món thành công!'
             @product.queue_update_to_desktop
-            @pagy, @products = pagy(products_query, items: 30)
           end
         end
       end
     end
 
     protected
+
+    def create_params
+      params.require(:product).permit(:no, :unit, :name, :gname, :cname, :unit, :price, :price1)
+    end
 
     def update_params
       params.require(:product).permit(:unit, :name, :gname, :cname, :unit, :price, :price1)

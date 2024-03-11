@@ -10,7 +10,7 @@
     <div class="flex gap-4">
       <div class="grow">
         <%= f.label :no, 'MÃ' %>
-        <%= f.text_field :no, readonly: true, autocomplete: 'off', class: 'txt' %>
+        <%= f.text_field :no, readonly: product.persisted?, autocomplete: 'off', class: 'txt' %>
         <% if f.object.errors.key?(:no) %>
           <div class="text-xs text-red-600 mt-1"><%= f.object.errors[:no].join(', ') %></div>
         <% end %>
@@ -53,7 +53,7 @@
     <div class="flex gap-4">
       <div class="grow">
         <%= f.label :price, 'GIÁ' %>
-        <%= f.text_field :price, autocomplete: 'off', class: 'txt' %>
+        <%= f.number_field :price, autocomplete: 'off', class: 'txt' %>
         <% if f.object.errors.key?(:price) %>
           <div class="text-xs text-red-600 mt-1"><%= f.object.errors[:price].join(', ') %></div>
         <% end %>
@@ -61,7 +61,7 @@
 
       <div class="grow">
         <%= f.label :price1, 'GIÁ TẾT' %>
-        <%= f.text_field :price1, autocomplete: 'off', class: 'txt' %>
+        <%= f.number_field :price1, autocomplete: 'off', class: 'txt' %>
         <% if f.object.errors.key?(:price1) %>
           <div class="text-xs text-red-600 mt-1"><%= f.object.errors[:price1].join(', ') %></div>
         <% end %>

@@ -13,6 +13,7 @@ module Admin
 
     def products
       @customer.sync_products!
+      flash[:notice] = 'Đã sẳn sàng đồng bộ danh mục Món'
 
       respond_to do |format|
         format.turbo_stream
@@ -21,6 +22,7 @@ module Admin
 
     def live_data
       @customer.sync_live_data! if @customer.live_data_exist?
+      flash[:notice] = 'Đã sẳn sàng đồng bộ dữ liệu Hiện tại (bán online)'
 
       respond_to do |format|
         format.turbo_stream

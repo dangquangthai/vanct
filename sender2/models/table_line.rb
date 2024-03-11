@@ -3,7 +3,7 @@
 require_relative 'base_model'
 
 class TableLine < BaseModel
-  def initialize(table_no:, product_name:, product_no:, amount:, price:, unit:, product_group:, order_time:, da_bao:, cabin:, staff:, inor:, no:, stt:)
+  def initialize(table_no:, product_name:, product_no:, amount:, price:, unit:, product_group:, order_time:, da_bao:, cabin:, staff:, inor:, no:, stt:, bno:)
     @table_no = table_no
     @product_name = product_name
     @product_no = product_no
@@ -19,6 +19,7 @@ class TableLine < BaseModel
     @inor = inor
     @no = no
     @stt = stt
+    @bno = bno
   end
 
   attr_reader :table_no,
@@ -35,5 +36,6 @@ class TableLine < BaseModel
               :staff,
               :inor,
               :no,
-              :stt
+              :stt,
+              :bno
 end

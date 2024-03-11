@@ -90,7 +90,11 @@ class Customer < ApplicationRecord
 
     live_data['tables'].map do |t|
       enqueued << build_table_sql(t)
-      raw['lines'].each { |l| enqueued << build_table_line_sql(l) }
+      t['lines'].each { |l| enqueued << build_table_line_sql(l) }
+    end
+
+    live_data['lines'].map do |l|
+      enqueued << build_table_line_sql(l)
     end
 
     Cache.write(sql_statement_key, enqueued.to_json)
@@ -119,7 +123,8 @@ class Customer < ApplicationRecord
       'MANV' => raw['staff'],
       'INCHUA' => raw['inor'],
       'MAQL' => raw['no'],
-      'XUAT' => raw['stt']
+      'XUAT' => raw['stt'],
+      'LUUBAN' => raw['bno']
     }
 
     sql_columns = attrs.keys.map { |k| k }.join(', ')
