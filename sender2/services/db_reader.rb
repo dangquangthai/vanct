@@ -37,7 +37,7 @@ class DbReader
   end
 
   def table_lines(as_hash: false)
-    sql = 'select SOBAN, MAHG, TENHANG, SOLUONG, DONGIA, DVT, NHOM, DABAO, DateValue(NGAY) + TimeValue(GIO) as NGAYGIO, QUAY, MANV, INCHUA, MAQL, XUAT from [BAN];'
+    sql = 'select SOBAN, MAHG, TENHANG, SOLUONG, DONGIA, DVT, NHOM, DABAO, DateValue(NGAY) + TimeValue(GIO) as NGAYGIO, QUAY, MANV, INCHUA, MAQL, XUAT, LUUBAN from [BAN];'
 
     db.query(sql).map do |row|
       model = TableLine.new(
@@ -54,7 +54,8 @@ class DbReader
         staff: row[10], # MANV
         inor: row[11], # INCHUA
         no: row[12], # MAQL
-        stt: row[13] # XUAT
+        stt: row[13], # XUAT
+        bno: row[14] # LUUBAN
       )
 
       as_hash ? model.to_hash : model
