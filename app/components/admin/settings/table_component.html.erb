@@ -4,24 +4,22 @@
       <tr>
         <%= render Shared::SortColumnComponent.new(title: 'TÊN', column: 'label') %>
         <%= render Shared::SortColumnComponent.new(title: 'GIÁ TRỊ', column: 'value', th_class: 'h-6') %>
-        <th class="disable-sort"></th>
       </tr>
     </thead>
     <tbody>
       <% settings.each do |setting| %>
-        <tr id="setting_<%= setting.id %>">
-          <td><%= setting.label %></td>
+        <tr id="setting_<%= setting.id %>" data-controller="turbo-fetch" data-url="<%= edit_admin_setting_path(setting.id) %>">
+          <td>
+            <div class="flex items-center h-6">
+              <%= setting.label %>
+            </div>    
+          </td>
           <td>
             <% if setting.boolean? %>
               <%= setting.value == '1' ? 'Có' : 'Không' %>
             <% else %>
               <%= setting.value %>
             <% end %>
-          </td>
-          <td>
-            <div class="w-fit cursor-pointer" data-controller="turbo-fetch" data-url="<%= edit_admin_setting_path(setting.id) %>">
-              <%== svg_icon 'edit', class: 'w-6 h-6' %>
-            </div>
           </td>
         </tr>
       <% end %>

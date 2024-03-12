@@ -13,9 +13,9 @@ module API
           lines: lines
         }
 
-        tables.each do |table|
+        tables.each_with_index do |table, index|
           lines = table_lines.select { |table_line| table_line[:table_no] == table[:table_no] }
-          data[:tables] << buil_table(table, lines)
+          data[:tables] << buil_table(index, table, lines)
         end
 
         Cache.write(@customer.live_data_key, data.to_json)
@@ -25,7 +25,8 @@ module API
 
       protected
 
-      def buil_table(table, lines)
+      def buil_table(index, table, lines)
+        table[:uuid] = sprintf('%03d', index)
         table[:lines] = lines
         table[:da_bao] = lines.size.positive? && lines.size == lines.count { |line| line[:da_bao] }
         discount = table[:discount] || 0
