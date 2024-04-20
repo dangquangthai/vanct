@@ -11,7 +11,7 @@ class PurchasesController < ApplicationController
 
   def update
     @purchase = Purchase.find(params[:purchase_id])
-    @purchase.update(paid: !purchase.paid)
+    @purchase.update(paid: !@purchase.paid)
 
     respond_to do |format|
       format.turbo_stream
