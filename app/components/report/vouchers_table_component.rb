@@ -9,7 +9,7 @@ module Report
 
     attr_reader :vouchers, :pagy
 
-    def kind_classes(purchase)
+    def kind_classes(voucher)
       class_names('h-5 flex items-center justify-end', 'text-red-600' => voucher.kind == 'payment', 'text-green-700' => voucher.kind == 'receipt')
     end
   end
