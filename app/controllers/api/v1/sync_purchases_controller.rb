@@ -18,7 +18,8 @@ module API
               total: sum_purchase(purchase_number),
               provider_name: first_line['ncc'],
               phone_number: first_line['sdt'],
-              time: first_line['time']
+              time: first_line['time'],
+              bank_account: first_line['stk']
             )
 
             create_purchase_lines(lines, new_purchase)
@@ -70,6 +71,7 @@ module API
                                               unit
                                               sl
                                               tt
+                                              stk
                                             ]).to_h[:purchases]
       end
     end

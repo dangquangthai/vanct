@@ -3,9 +3,9 @@
 require_relative 'base_model'
 
 class Purchase < BaseModel
-  attr_reader :no, :time, :tt, :sdt, :ncc, :pno, :name, :gname, :unit, :price, :sl
+  attr_reader :no, :time, :tt, :sdt, :ncc, :pno, :name, :gname, :unit, :price, :sl, :stk
 
-  def initialize(no:, time:, sdt:, ncc:, pno:, name:, gname:, unit:, price:, sl:, tt:)
+  def initialize(no:, time:, sdt:, ncc:, pno:, name:, gname:, unit:, price:, sl:, tt:, :stk)
     @no = no
     @time = time
     @sdt = sdt # phone number
@@ -17,5 +17,6 @@ class Purchase < BaseModel
     @price = price
     @sl = sl
     @tt = tt
+    @stk = stk
   end
 end

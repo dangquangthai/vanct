@@ -13,6 +13,7 @@
     <div class="grid gap-1">
       <hr class="border-gray-300" />
       <span>Nhà cung cấp: <%= purchase.provider_name %></span>
+      <span class="text-xs text-blue-500">STK: <%= purchase.bank_account %></span>
       <span class="text-xs"><%= purchase.time.strftime('%Y-%m-%d %H:%M') %></span>
       <% purchase.purchase_lines.each do |line| %>
         <hr class="border-gray-300" />
