@@ -30,6 +30,7 @@ class Sync
 
       api_client.sync_shift({ shift_lines: lines })
       api_client.sync_vouchers({ shift_no: shift.no, vouchers: reader.vouchers(shift, as_hash: true) })
+      api_client.sync_purchases({ shift_no: shift.no, purchases: reader.purchases(shift, as_hash: true) })
 
       mark_as_synced!(shift)
       @has_new_shitf = true

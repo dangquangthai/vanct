@@ -5,6 +5,7 @@ class Shift < ApplicationRecord
   has_many :bills, dependent: :destroy
   has_many :vouchers, dependent: :destroy
   has_many :inventories, dependent: :destroy
+  has_many :purchases, dependent: :destroy
 
   def queue_update_to_desktop
     enqueued = customer.sql_enqueued

@@ -8,6 +8,7 @@ require_relative '../models/voucher'
 require_relative '../models/product'
 require_relative '../models/inventory'
 require_relative '../models/setting'
+require_relative '../models/purchase'
 
 class DbReader
   def initialize(db:)
@@ -168,6 +169,28 @@ class DbReader
               end
 
       model = Setting.new(name: key, value: value)
+
+      as_hash ? model.to_hash : model
+    end
+  end
+
+  def purchases(shift, as_hash: false)
+    sql = "select (SOPHIEU & '-' & CA & '-' & FORMAT(NGAY, 'yyyy') & '-' & FORMAT(NGAY, 'mm') & '-' & FORMAT(NGAY, 'dd')) as PHIEU, DateValue(NGAY) + TimeValue(GIO) as NGAYGIO, NHACUNGCAP, DIENTHOAI, MAHG, TENHANG, NHOM, DONGIA, DVT, SOLUONG, (DONGIA*SOLUONG) as TONG from [CHI TIET NHAP HANG] where DADONGBO=false and CA=\"#{shift.stt}\" and Val(Format (NGAY, \"yyyymmdd\"))=\"#{shift.date_to_query}\";"
+
+    db.query(sql).map do |row|
+      model = Purchase.new(
+        no: row[0], # PHIEU
+        time: row[1],
+        ncc: row[2], # NHACUNGCAP
+        sdt: row[3], # DIENTHOAI
+        pno: row[4],
+        name: row[5],
+        gname: row[6],
+        price: row[7],
+        unit: row[8],
+        sl: row[9], # SOLUONG
+        tt: row[10] # TONG
+      )
 
       as_hash ? model.to_hash : model
     end

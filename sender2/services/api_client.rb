@@ -43,6 +43,10 @@ class ApiClient
     post(data, api_method: 'sync_inventories')
   end
 
+  def sync_purchases(data)
+    post(data, api_method: 'sync_purchases')
+  end
+
   private
 
   attr_reader :endpoint, :key

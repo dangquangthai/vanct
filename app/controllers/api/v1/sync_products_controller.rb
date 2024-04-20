@@ -7,7 +7,7 @@ module API
 
       def create
         ActiveRecord::Base.transaction do
-          products.each do |product_params|
+          products_params.each do |product_params|
             product = @customer.products.find_by(no: product_params[:no])
 
             if product.present?
@@ -21,16 +21,16 @@ module API
         json_response({ success: true })
       end
 
-      def products
-        @products ||= params.permit(products: %i[
-                                      no
-                                      name
-                                      gname
-                                      cname
-                                      unit
-                                      price
-                                      price1
-                                    ]).to_h[:products]
+      def products_params
+        @products_params ||= params.permit(products: %i[
+                                             no
+                                             name
+                                             gname
+                                             cname
+                                             unit
+                                             price
+                                             price1
+                                           ]).to_h[:products]
       end
     end
   end

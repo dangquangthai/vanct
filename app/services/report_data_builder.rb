@@ -3,12 +3,13 @@
 require 'csv'
 
 class ReportDataBuilder
-  def initialize(from_date:, to_date:, bill_no:, table_no:, v_kind:)
+  def initialize(from_date:, to_date:, bill_no:, table_no:, v_kind:, provider_name:)
     @from_date = from_date
     @to_date = to_date
     @bill_no = bill_no
     @table_no = table_no
     @v_kind = v_kind
+    @provider_name = provider_name
   end
 
   attr_reader :to_date, :from_date, :bill_no, :table_no, :v_kind
@@ -126,5 +127,16 @@ class ReportDataBuilder
         .where(shifts: { customer_id: current_customer.id })
         .group('bill_lines.product_no, bill_lines.product_name, bill_lines.unit, bill_lines.price')
     ).order('amount DESC')
+  end
+
+  def purchases_query
+    @purchases_query ||= begin
+      purchases = Purchase.includes(:shift)
+            .joins(:shift)
+            .where(shifts: { shift_date: from_date..to_date })
+            .where(shifts: { customer_id: current_customer.id })
+      purchases = purchases.where(purchases: { provider_name: provider_name }) if provider_name.present?
+      purchases.order('shifts.shift_date DESC, purchases.time DESC')
+    end
   end
 end

@@ -26,7 +26,7 @@ module API
       protected
 
       def buil_table(index, table, lines)
-        table[:uuid] = sprintf('%03d', index)
+        table[:uuid] = format('%03d', index)
         table[:lines] = lines
         table[:da_bao] = lines.size.positive? && lines.size == lines.count { |line| line[:da_bao] }
         discount = table[:discount] || 0
