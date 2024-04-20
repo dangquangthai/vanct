@@ -2,33 +2,8 @@
   <div class="px-2 pt-2">
     <%= render Report::SearchFormComponent.new %>
   </div>
-  
-  <div class="grid gap-1">
-    <div class="px-2 flex gap-1 font-bold">
-      <div class="w-[130px]">Doanh thu</div>
-      <div class="w-[150px] text-red-600 flex justify-end"><%= show_money(@report_builder.sum_shifts) %></div>
-    </div>
 
-    <div class="px-2 flex gap-1 font-bold">
-      <div class="w-[130px]">Tăng/Giảm giá</div>
-      <div class="w-[150px] text-red-600 flex justify-end"><%= show_money(@report_builder.sum_discount_of_bills) %></div>
-    </div>
-
-    <div class="px-2 flex gap-1 font-bold">
-      <div class="w-[130px]">Thu ngoài</div>
-      <div class="w-[150px] text-red-600 flex justify-end"><%= show_money(@report_builder.sum_receipt_vouchers) %></div>
-    </div>
-
-    <div class="px-2 flex gap-1 font-bold">
-      <div class="w-[130px]">Chi</div>
-      <div class="w-[150px] text-red-600 flex justify-end"><%= show_money(@report_builder.sum_payment_vouchers) %></div>
-    </div>
-
-    <div class="px-2 flex gap-1 font-bold">
-      <div class="w-[130px]">Còn lại</div>
-      <div class="w-[150px] text-red-600 flex justify-end"><%= show_money(@report_builder.sum_shifts + @report_builder.sum_discount_of_bills + @report_builder.sum_receipt_vouchers - @report_builder.sum_payment_vouchers) %></div>
-    </div>
-  </div>
+  <%= render 'summary' %>
   
   <div class="max-w-full overflow-auto">
     <div class="grid gap-2">
@@ -39,48 +14,14 @@
   </div>
 
   <div class="w-full h-3"></div>
-
-  <div class="grid gap-2">
-    <div class="flex items-center font-bold px-2">
-      <div class="grow">
-        <%= link_to "D.Sách Bill (#{@bills_pagy.count})", report_index_path(q: query_attributes.except(:show_bill_lines)), class: 'text-red-600' %>  
-      </div>
-      <div class="flex-none">
-        <%= link_to "Chi Tiết Bán (#{@bill_lines_pagy.count})", report_index_path(q: query_attributes.merge(show_bill_lines: 'yes')), class: 'text-green-700' %>  
-      </div>
-    </div>
-    <% if query_attributes[:show_bill_lines] == 'yes' %>
-      <%= render Report::BillLinesTableComponent.new(lines: @bill_lines, pagy: @bill_lines_pagy) %>
-    <% else %>
-      <%= render Report::SearchBillFormComponent.new %>
-      <%= render Report::BillsTableComponent.new(bills: @bills, pagy: @bills_pagy) %>
-    <% end %>
-  </div>
+  <%= render 'bills' %>
 
   <div class="w-full h-3"></div>
-
-  <div class="grid gap-2">
-    <div class="flex items-center">
-      <div class="font-bold px-2 grow">D.Sách thu/chi (<%= @vouchers_pagy.count %>)</div>
-      <div class="font-bold px-2 flex-none flex gap-4">
-        <%= link_to 'CHI', report_index_path(q: query_attributes.merge(v_kind: 'payment')), class: 'text-red-600' %>
-        <%= link_to 'THU', report_index_path(q: query_attributes.merge(v_kind: 'receipt')), class: 'text-green-700' %>
-      </div>
-    </div>
-      
-    <%= render Report::VouchersTableComponent.new(vouchers: @vouchers, pagy: @vouchers_pagy) %>
-  </div>
+  <%= render 'vouchers' %>
+  
+  <div class="w-full h-3"></div>
+  <%= render 'purchases' %>
 
   <div class="w-full h-3"></div>
-
-  <div class="grid gap-2">
-    <div class="flex items-center">
-      <div class="font-bold px-2 grow">Xuất nhập tồn</div>
-      <div class="font-bold px-2 flex-none flex gap-4">
-        
-      </div>
-    </div>
-      
-    <%= render Report::InventoriesTableComponent.new(inventories: @inventories, pagy: @inventories_pagy) %>
-  </div>
+  <%= render 'inventories' %>
 </div>

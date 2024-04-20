@@ -12,7 +12,7 @@ class ReportDataBuilder
     @provider_name = provider_name
   end
 
-  attr_reader :to_date, :from_date, :bill_no, :table_no, :v_kind
+  attr_reader :to_date, :from_date, :bill_no, :table_no, :v_kind, :provider_name
 
   delegate :current_user, :current_customer, to: Current
 
@@ -129,13 +129,38 @@ class ReportDataBuilder
     ).order('amount DESC')
   end
 
+  def providers_query
+    @providers_query ||= Purchase.select('*').from(
+      Purchase.includes(:shift)
+        .joins(:shift)
+        .where(shifts: { shift_date: from_date..to_date })
+        .where(shifts: { customer_id: current_customer.id })
+        .where(purchases: { paid: false })
+        .select('purchases.provider_name, sum(purchases.total) as total, purchases.phone_number')
+        .group('purchases.provider_name, purchases.phone_number')
+    ).order('total DESC')
+  end
+
+  def sum_purchases
+    purchases_query.sum(:total)
+  end
+
+  def sum_paid_purchases
+    purchases_query.where(paid: true).sum(:total)
+  end
+
+  def sum_unpaid_purchases
+    purchases_query.where(paid: false).sum(:total)
+  end
+
   def purchases_query
     @purchases_query ||= begin
       purchases = Purchase.includes(:shift)
-            .joins(:shift)
-            .where(shifts: { shift_date: from_date..to_date })
-            .where(shifts: { customer_id: current_customer.id })
+                          .joins(:shift)
+                          .where(shifts: { shift_date: from_date..to_date })
+                          .where(shifts: { customer_id: current_customer.id })
       purchases = purchases.where(purchases: { provider_name: provider_name }) if provider_name.present?
+      # purchases = purchases.where('LOWER(purchases.provider_name) LIKE ?', "%#{provider_name.downcase}%") if provider_name.present?
       purchases.order('shifts.shift_date DESC, purchases.time DESC')
     end
   end

@@ -1,0 +1,16 @@
+<div class="grid gap-2">
+  <div class="flex items-center font-bold px-2">
+    <div class="grow">
+      <%= link_to "D.Sách Bill (#{@bills_pagy.count})", report_index_path(q: query_attributes.except(:show_bill_lines)), class: 'text-red-600' %>  
+    </div>
+    <div class="flex-none">
+      <%= link_to "Chi Tiết Bán (#{@bill_lines_pagy.count})", report_index_path(q: query_attributes.merge(show_bill_lines: 'yes')), class: 'text-green-700' %>  
+    </div>
+  </div>
+  <% if query_attributes[:show_bill_lines] == 'yes' %>
+    <%= render Report::BillLinesTableComponent.new(lines: @bill_lines, pagy: @bill_lines_pagy) %>
+  <% else %>
+    <%= render Report::SearchBillFormComponent.new %>
+    <%= render Report::BillsTableComponent.new(bills: @bills, pagy: @bills_pagy) %>
+  <% end %>
+</div>

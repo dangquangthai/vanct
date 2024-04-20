@@ -22,6 +22,9 @@ Rails.application.routes.draw do
 
   get '/expired' => 'expired#index', as: :expired
 
+  get    '/report/show_purchase/:purchase_id' => 'purchases#show', as: :show_purchase
+  patch  '/report/show_purchase/:purchase_id' => 'purchases#update', as: :update_purchase
+
   namespace :admin do
     resources :customers do
       resources :users

@@ -1,0 +1,19 @@
+<%= form_for('q', as: :q, url: report_index_path, html: { id: 'report-search-purchase-form', method: 'GET' }) do |f| %>
+  <input
+    type="hidden" value="<%= query_attributes[:from] %>"
+    required name="q[from]" id="q_from">
+  <input 
+    type="hidden" value="<%= query_attributes[:to] %>"
+    required name="q[to]" id="q_to">
+
+  <div class="flex gap-2 w-full px-2">
+    <input 
+      type="text" value="<%= query_attributes[:provider_name] %>"
+      name="q[provider_name]" id="q_provider_name"
+      autocomplete="off" class="txt" placeholder="Nhà cung cấp">
+
+    <div>
+      <%= f.submit "Tìm", class: 'btn w-20' %>
+    </div>
+  </div>
+<% end %>

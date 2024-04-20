@@ -175,7 +175,7 @@ class DbReader
   end
 
   def purchases(shift, as_hash: false)
-    sql = "select (SOPHIEU & '-' & CA & '-' & FORMAT(NGAY, 'yyyy') & '-' & FORMAT(NGAY, 'mm') & '-' & FORMAT(NGAY, 'dd')) as PHIEU, DateValue(NGAY) + TimeValue(GIO) as NGAYGIO, NHACUNGCAP, DIENTHOAI, MAHG, TENHANG, NHOM, DONGIA, DVT, SOLUONG, (DONGIA*SOLUONG) as TONG from [CHI TIET NHAP HANG] where DADONGBO=false and CA=\"#{shift.stt}\" and Val(Format (NGAY, \"yyyymmdd\"))=\"#{shift.date_to_query}\";"
+    sql = "select (SOPHIEU & CA & FORMAT(NGAY, 'mm') & FORMAT(NGAY, 'dd')) as PHIEU, DateValue(NGAY) + TimeValue(GIO) as NGAYGIO, NHACUNGCAP, DIENTHOAI, MAHG, TENHANG, NHOM, DONGIA, DVT, SOLUONG, (DONGIA*SOLUONG) as TONG from [CHI TIET NHAP HANG] where DADONGBO=false and CA=\"#{shift.stt}\" and Val(Format (NGAY, \"yyyymmdd\"))=\"#{shift.date_to_query}\";"
 
     db.query(sql).map do |row|
       model = Purchase.new(

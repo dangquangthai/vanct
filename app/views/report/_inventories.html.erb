@@ -1,0 +1,10 @@
+<div class="grid gap-2">
+  <div class="flex items-center">
+    <div class="font-bold px-2 grow">Xuất nhập tồn</div>
+    <div class="font-bold px-2 flex-none flex gap-4">
+      
+    </div>
+  </div>
+    
+  <%= render Report::InventoriesTableComponent.new(inventories: @inventories, pagy: @inventories_pagy) %>
+</div>

@@ -1,0 +1,57 @@
+<div class="grid gap-2">
+  <div class="flex items-center">
+    <div class="grow">
+      <div class="grid gap-1">
+        <div class="font-bold">Phiếu nhập hàng <%= purchase.no %></div>
+      </div>
+    </div>
+    <div class="flex-none cursor-pointer" data-action="click->turbo-modal#close">
+      <%== svg_icon('close', class: 'w-6 h-6') %>
+    </div>
+  </div>
+  <div class="max-h-[530px] overflow-y-auto">
+    <div class="grid gap-1">
+      <hr class="border-gray-300" />
+      <span>Nhà cung cấp: <%= purchase.provider_name %></span>
+      <span class="text-xs"><%= purchase.time.strftime('%Y-%m-%d %H:%M') %></span>
+      <% purchase.purchase_lines.each do |line| %>
+        <hr class="border-gray-300" />
+        <div class="grid gap-1">
+          <div><%= line.product_name %></div>
+          <div class="flex gap-1 justify-end">
+            <span class="font-bold"><%= line.amount.round %></span>
+            <span class="font-bold"><%= line.unit %></span>
+            <span>x</span>
+            <span><%= show_money line.price %></span>
+            <span>=</span>
+            <span><%= show_money line.total %></span>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+  <hr class="border-gray-300" />
+  <div class="flex items-center">
+    <div class="grow">
+      <% if !purchase.paid %>
+        <button type="button" class="btn w-fit" data-controller="turbo-fetch" data-method="PATCH" data-url="<%= update_purchase_path(purchase_id: purchase.id) %>">Thanh toán</button>
+      <% end %>
+    </div>
+
+    <div class="flex-none grid gap-1 justify-end">
+      <% if purchase.paid %>
+        <div class="flex gap-1 items-center font-bold">
+          <span>Tổng:</span>
+          <span class="text-green-700"><%= show_money purchase.total %></span>
+        </div>
+        <span class="text-green-700 text-xs flex justify-end">Đã thanh toán</span>
+      <% else %>
+        <div class="flex gap-1 items-center font-bold">
+          <span>Tổng:</span>
+          <span class="text-red-600"><%= show_money purchase.total %></span>
+        </div>
+        <span class="text-red-600 text-xs flex justify-end">Chưa thanh toán</span>
+      <% end %>
+    </div>
+  </div>
+</div>

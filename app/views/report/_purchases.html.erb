@@ -1,0 +1,16 @@
+<div class="grid gap-2">
+  <div class="flex items-center font-bold px-2">
+    <div class="grow">
+      <%= link_to "Nhập hàng (#{@purchases_pagy.count})", report_index_path(q: query_attributes.except(:show_provider)) %>  
+    </div>
+    <div class="flex-none">
+      <%= link_to "N.C.C (#{@providers_pagy.count})", report_index_path(q: query_attributes.merge(show_provider: 'yes')) %>  
+    </div>
+  </div>
+  <% if query_attributes[:show_provider] == 'yes' %>
+    <%= render Report::ProvidersTableComponent.new(providers: @providers, pagy: @providers_pagy) %>
+  <% else %>
+    <%= render Report::SearchPurchaseFormComponent.new %>
+    <%= render Report::PurchasesTableComponent.new(purchases: @purchases, pagy: @purchases_pagy) %>
+  <% end %>
+</div>

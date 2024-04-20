@@ -1,0 +1,11 @@
+<div class="grid gap-2">
+  <div class="flex items-center">
+    <div class="font-bold px-2 grow">D.Sách thu/chi (<%= @vouchers_pagy.count %>)</div>
+    <div class="font-bold px-2 flex-none flex gap-4">
+      <%= link_to 'CHI', report_index_path(q: query_attributes.merge(v_kind: 'payment')), class: 'text-red-600' %>
+      <%= link_to 'THU', report_index_path(q: query_attributes.merge(v_kind: 'receipt')), class: 'text-green-700' %>
+    </div>
+  </div>
+    
+  <%= render Report::VouchersTableComponent.new(vouchers: @vouchers, pagy: @vouchers_pagy) %>
+</div>

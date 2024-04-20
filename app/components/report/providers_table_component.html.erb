@@ -1,0 +1,32 @@
+<div class="max-w-full overflow-auto border-t">
+  <table class="table no-break-line w-full" id="providers-table" data-controller="table-sort">
+    <thead>
+      <tr>
+        <%= render Shared::SortColumnComponent.new(title: 'N.C.C', column: 'ncc') %>
+        <%= render Shared::SortColumnComponent.new(title: 'Tiền', column: 'total', th_class: 'justify-end h-6') %>
+      </tr>
+    </thead>
+    <tbody>
+      <% providers.each do |provider| %>
+        <tr class="cursor-pointer" onclick="window.location='<%= report_index_path(q: query_attributes.except(:show_provider).merge(provider_name: provider.provider_name)) %>'">
+          <td>
+            <div class="grid gap-2">
+              <span><%= provider.provider_name %></span>
+              <span class="text-xs"><%= provider.phone_number %></span>
+            </div>
+          </td>
+          <td>
+            <div class="grid gap-2 justify-end">
+              <span class="font-bold flex justify-end"><%= show_money provider.total %></span>
+              <span class="text-red-600 text-xs">Chưa thanh toán</span>
+            </div>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<div class="overflow-auto flex items-center justify-center h-10 mx-2">
+  <%== pagy_nav(pagy) if pagy.pages > 1 %>
+</div>
