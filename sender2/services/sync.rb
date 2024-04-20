@@ -52,5 +52,8 @@ class Sync
   def mark_as_synced!(shift)
     sql = "update [DA KET SO] set DADONGBO=true where MAKETSO=\"#{shift.access_db_key}\";"
     reader.db.execute(sql)
+
+    sql = "update [CHI TIET NHAP HANG] set DADONGBO=true where CA=\"#{shift.stt}\" and Val(Format (NGAY, \"yyyymmdd\"))=\"#{shift.date_to_query}\";"
+    reader.db.execute(sql)
   end
 end

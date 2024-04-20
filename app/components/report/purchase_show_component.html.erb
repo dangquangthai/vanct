@@ -33,7 +33,9 @@
   <hr class="border-gray-300" />
   <div class="flex items-center">
     <div class="grow">
-      <% if !purchase.paid %>
+      <% if purchase.paid %>
+        <button type="button" class="btn w-fit bg-red-600" data-controller="turbo-fetch" data-method="PATCH" data-url="<%= update_purchase_path(purchase_id: purchase.id) %>">Chưa thanh toán</button>
+      <% else %>
         <button type="button" class="btn w-fit" data-controller="turbo-fetch" data-method="PATCH" data-url="<%= update_purchase_path(purchase_id: purchase.id) %>">Thanh toán</button>
       <% end %>
     </div>
