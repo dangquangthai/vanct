@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_04_20_150213) do
+ActiveRecord::Schema[7.1].define(version: 2024_04_21_061612) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -19,7 +19,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_20_150213) do
     t.string "product_no"
     t.string "product_name"
     t.string "product_group"
-    t.integer "amount"
+    t.float "amount"
     t.decimal "price"
     t.string "unit"
     t.decimal "total"
@@ -87,7 +87,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_20_150213) do
     t.string "product_no"
     t.string "product_name"
     t.string "product_group"
-    t.integer "amount"
+    t.float "amount"
     t.decimal "price"
     t.string "unit"
     t.decimal "total"
