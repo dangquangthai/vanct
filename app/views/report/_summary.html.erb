@@ -11,18 +11,25 @@
     <div class="w-[150px] text-red-600 flex justify-end"><%= show_money(@report_builder.sum_discount_of_bills) %></div>
   </div>
 
-  <div class="px-2 flex gap-1 font-bold">
-    <div class="w-[130px]">Thu ngoài</div>
-    <div class="w-[150px] text-green-700 flex justify-end"><%= show_money(@report_builder.sum_receipt_vouchers) %></div>
-  </div>
+  <% if current_customer.sync_voucher? %>
+    <div class="px-2 flex gap-1 font-bold">
+      <div class="w-[130px]">Thu ngoài</div>
+      <div class="w-[150px] text-green-700 flex justify-end"><%= show_money(@report_builder.sum_receipt_vouchers) %></div>
+    </div>
 
-  <div class="px-2 flex gap-1 font-bold">
-    <div class="w-[130px]">Chi</div>
-    <div class="w-[150px] text-red-600 flex justify-end"><%= show_money(@report_builder.sum_payment_vouchers) %></div>
-  </div>
+    <div class="px-2 flex gap-1 font-bold">
+      <div class="w-[130px]">Chi</div>
+      <div class="w-[150px] text-red-600 flex justify-end"><%= show_money(@report_builder.sum_payment_vouchers) %></div>
+    </div>
 
-  <div class="px-2 flex gap-1 font-bold">
-    <div class="w-[130px]">Còn lại</div>
-    <div class="w-[150px] text-blue-600 flex justify-end"><%= show_money(@report_builder.sum_shifts + @report_builder.sum_discount_of_bills + @report_builder.sum_receipt_vouchers - @report_builder.sum_payment_vouchers) %></div>
-  </div>
+    <div class="px-2 flex gap-1 font-bold">
+      <div class="w-[130px]">Còn lại</div>
+      <div class="w-[150px] text-blue-600 flex justify-end"><%= show_money(@report_builder.sum_shifts + @report_builder.sum_discount_of_bills + @report_builder.sum_receipt_vouchers - @report_builder.sum_payment_vouchers) %></div>
+    </div>
+  <% else %>
+    <div class="px-2 flex gap-1 font-bold">
+      <div class="w-[130px]">Còn lại</div>
+      <div class="w-[150px] text-blue-600 flex justify-end"><%= show_money(@report_builder.sum_shifts + @report_builder.sum_discount_of_bills) %></div>
+    </div>
+  <% end %>
 </div>

@@ -61,7 +61,7 @@ module Admin
     protected
 
     def customer_params
-      params.require(:customer).permit(:name, :key, :expires_at, :enabled, :sync_data)
+      params.require(:customer).permit(:name, :key, :expires_at, :enabled, :sync_data, :sync_purchase, :sync_inventory, :sync_voucher)
     end
   end
 end

@@ -16,10 +16,10 @@ db = AccessDb.new(path: PATH, password: PASSWORD)
 reader = DbReader.new(db: db)
 api_client = ApiClient.new(endpoint: WEBSITE, key: KEY)
 sync = Sync.new(reader: reader, api_client: api_client)
-info = api_client.verify_data('sync_data')
+config = api_client.verify_data('sync_data')
 db.open
-info['sql'].each { |sql| db.execute(sql) }
-sync.perform if info['sync']
+config['sql'].each { |sql| db.execute(sql) }
+sync.perform(config) if config['sync']
 # shifts = reader.shifts
 # puts reader.purchases(shifts.first, as_hash: true).to_json
 # puts reader.purchases(shifts.last, as_hash: true).to_json

@@ -9,15 +9,17 @@ class Sync
     @has_new_shitf = false
   end
 
-  attr_reader :reader, :api_client, :has_new_shitf
+  attr_reader :reader, :api_client, :has_new_shitf, :sync_voucher, :sync_purchase
 
-  def perform
+  def perform(config)
     sync_shifts
+    @sync_voucher = config['sync_voucher']
+    @sync_purchase = config['sync_purchase']
 
     return unless has_new_shitf
 
     sync_products
-    sync_inventories
+    sync_inventories if info['sync_inventory']
     sync_settings
   end
 
@@ -29,8 +31,8 @@ class Sync
       next if lines.empty?
 
       api_client.sync_shift({ shift_lines: lines })
-      api_client.sync_vouchers({ shift_no: shift.no, vouchers: reader.vouchers(shift, as_hash: true) })
-      api_client.sync_purchases({ shift_no: shift.no, purchases: reader.purchases(shift, as_hash: true) })
+      api_client.sync_vouchers({ shift_no: shift.no, vouchers: reader.vouchers(shift, as_hash: true) }) if sync_voucher
+      api_client.sync_purchases({ shift_no: shift.no, purchases: reader.purchases(shift, as_hash: true) }) if sync_purchase
 
       mark_as_synced!(shift)
       @has_new_shitf = true
@@ -50,10 +52,12 @@ class Sync
   end
 
   def mark_as_synced!(shift)
-    sql = "update [DA KET SO] set DADONGBO=true where MAKETSO=\"#{shift.access_db_key}\";"
-    reader.db.execute(sql)
+    if sync_purchase
+      sql = "update [CHI TIET NHAP HANG] set DADONGBO=true where CA=\"#{shift.stt}\" and Val(Format (NGAY, \"yyyymmdd\"))=\"#{shift.date_to_query}\";"
+      reader.db.execute(sql)
+    end
 
-    sql = "update [CHI TIET NHAP HANG] set DADONGBO=true where CA=\"#{shift.stt}\" and Val(Format (NGAY, \"yyyymmdd\"))=\"#{shift.date_to_query}\";"
+    sql = "update [DA KET SO] set DADONGBO=true where MAKETSO=\"#{shift.access_db_key}\";"
     reader.db.execute(sql)
   end
 end

@@ -16,5 +16,6 @@ module InitializeComponentContext
     def current_customer
       current_user.customer
     end
+    helper_method :current_customer
   end
 end

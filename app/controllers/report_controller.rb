@@ -4,12 +4,10 @@ class ReportController < ApplicationController
   before_action :validate_customer_expired!
 
   def index
-    @bills_pagy, @bills = pagy(report_builder.bills_query, page_param: :bill_page, items: 10)
-    @vouchers_pagy, @vouchers = pagy(report_builder.vouchers_query, page_param: :voucher_page, items: 10)
-    @bill_lines_pagy, @bill_lines = pagy(report_builder.bill_lines_query, page_param: :bill_line_page, items: 10)
-    @inventories_pagy, @inventories = pagy(report_builder.inventories_query, page_param: :inventory_page, items: 10)
-    @purchases_pagy, @purchases = pagy(report_builder.purchases_query, page_param: :purchase_page, items: 10)
-    @providers_pagy, @providers = pagy(report_builder.providers_query, page_param: :purchase_page, items: 10)
+    load_bills
+    load_vouchers
+    load_inventories
+    load_purchases
     @chart_data = report_builder.perform
 
     respond_to do |format|
@@ -40,6 +38,30 @@ class ReportController < ApplicationController
   end
 
   protected
+
+  def load_bills
+    @bills_pagy, @bills = pagy(report_builder.bills_query, page_param: :bill_page, items: 10)
+    @bill_lines_pagy, @bill_lines = pagy(report_builder.bill_lines_query, page_param: :bill_line_page, items: 10)
+  end
+
+  def load_vouchers
+    return unless current_customer.sync_voucher?
+
+    @vouchers_pagy, @vouchers = pagy(report_builder.vouchers_query, page_param: :voucher_page, items: 10)
+  end
+
+  def load_inventories
+    return unless current_customer.sync_inventory?
+
+    @inventories_pagy, @inventories = pagy(report_builder.inventories_query, page_param: :inventory_page, items: 10)
+  end
+
+  def load_purchases
+    return unless current_customer.sync_purchase?
+
+    @purchases_pagy, @purchases = pagy(report_builder.purchases_query, page_param: :purchase_page, items: 10)
+    @providers_pagy, @providers = pagy(report_builder.providers_query, page_param: :provider_page, items: 10)
+  end
 
   def report_builder
     @report_builder ||= ReportDataBuilder.new(from_date: from_date, to_date: to_date, bill_no: bill_no, table_no: table_no, v_kind: v_kind, provider_name: provider_name)

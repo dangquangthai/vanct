@@ -10,7 +10,13 @@ module API
       end
 
       def sync_data
-        json_response({ sync: @customer.sync?, sql: @customer.queue_update_settings_to_desktop })
+        json_response({
+                        sync: @customer.sync?,
+                        sql: @customer.queue_update_settings_to_desktop,
+                        sync_purchase: @customer.sync_purchase?,
+                        sync_inventory: @customer.sync_inventory?,
+                        sync_voucher: @customer.sync_voucher?
+                      })
       end
 
       protected
