@@ -4,7 +4,7 @@
       <tr>
         <%= render Shared::SortColumnComponent.new(title: 'Tên', column: 'name') %>
         <%= render Shared::SortColumnComponent.new(title: 'H.Động', column: 'enabled') %>
-        <%= render Shared::SortColumnComponent.new(title: 'ĐB.Dữ liệu', column: 'sync_data') %>
+        <%= render Shared::SortColumnComponent.new(title: 'Báo cáo', column: 'sync_data') %>
         <th class="disable-sort">
           <div class="flex justify-end w-full">
             <div class="w-fit cursor-pointer" data-controller="turbo-fetch" data-url="<%= new_admin_customer_path %>">
@@ -23,9 +23,7 @@
             <div class="grid gap-1">
               <% if customer.sync_data %>
                 <div class="grid text-sm">
-                  <div>- Danh mục món</div>
-                  <div>- Tuỳ chọn</div>
-                  <div>- D.Sách Bill</div>
+                  <div>Mặt định(Danh mục món, Tuỳ chọn, D.Sách Bill, Biểu đồ)</div>
                   <% if customer.sync_voucher? %><div>- D.Sách thu/chi</div><% end %>
                   <% if customer.sync_purchase? %><div>- Nhập Hàng</div><% end %>
                   <% if customer.sync_inventory? %><div>- Xuất nhập tồn</div><% end %>
