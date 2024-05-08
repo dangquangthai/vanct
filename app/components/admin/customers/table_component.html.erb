@@ -19,7 +19,22 @@
         <tr id="customer_<%= customer.id %>">
           <td><%= customer.name %></td>
           <td><%= customer.enabled ? 'Có' : 'Không' %></td>
-          <td><%= customer.sync_data ? 'Có' : 'Không' %></td>
+          <td>
+            <div class="grid gap-1">
+              <% if customer.sync_data %>
+                <div class="grid text-sm">
+                  <div>- Danh mục món</div>
+                  <div>- Tuỳ chọn</div>
+                  <div>- D.Sách Bill</div>
+                  <% if customer.sync_voucher? %><div>- D.Sách thu/chi</div><% end %>
+                  <% if customer.sync_purchase? %><div>- Nhập Hàng</div><% end %>
+                  <% if customer.sync_inventory? %><div>- Xuất nhập tồn</div><% end %>
+                </div>
+              <% else %>
+                <span class="text-red-600">Không</span>
+              <% end %>
+            </div>
+          </td>
           <td>
             <div class="flex gap-2 items-center justify-end">
               <div title="Cập nhật khách hàng" class="w-fit cursor-pointer" data-controller="turbo-fetch" data-url="<%= edit_admin_customer_path(customer.id) %>">

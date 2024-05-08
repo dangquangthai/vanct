@@ -7,7 +7,7 @@
         <span class="<%= class_names('font-bold': controller_name == 'dashboard') %>">Hiện tại</span>
       <% end %>
     <% end %>
-    <% if current_user.manager? %>
+    <% if current_user.manager? && current_customer.sync_data? %>
       <%= link_to '/report', class: 'flex gap-1 items-center' do %>
         <%== svg_icon 'report', class: 'w-4 h-4' %>
         <span class="<%= class_names('font-bold': controller_name == 'report') %>">Báo cáo</span>

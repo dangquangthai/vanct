@@ -12,6 +12,10 @@ class ApplicationController < ActionController::Base
     redirect_to expired_path if current_customer.expired?
   end
 
+  def validate_customer_sync_data!
+    redirect_to root_path unless current_customer.sync_data?
+  end
+
   def authorize_admin!
     redirect_to root_path, alert: 'Access Denied' unless current_user.admin?
   end

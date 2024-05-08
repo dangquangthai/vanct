@@ -11,6 +11,8 @@ class Customer < ApplicationRecord
 
   scope :without_ace, -> { where.not('LOWER(key) = ?', 'ace') }
 
+  before_save :uncheck_features, unless: -> { sync_data? } 
+
   def expired?
     expires_at < Time.current
   end
@@ -105,6 +107,12 @@ class Customer < ApplicationRecord
   end
 
   protected
+
+  def uncheck_features
+    self.sync_purchase = false
+    self.sync_inventory = false
+    self.sync_voucher = false
+  end
 
   def build_table_line_sql(raw)
     order_time = Time.zone.parse(raw['order_time'])

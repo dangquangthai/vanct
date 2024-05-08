@@ -2,6 +2,7 @@
 
 class ReportController < ApplicationController
   before_action :validate_customer_expired!
+  before_action :validate_customer_sync_data!
 
   def index
     load_bills
