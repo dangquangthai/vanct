@@ -5,7 +5,7 @@ module Admin
     before_action :authorize_admin!
 
     def index
-      @customers = Customer.without_ace
+      @customers = Customer.without_ace.order('created_at DESC')
 
       respond_to do |format|
         format.html
