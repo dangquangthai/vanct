@@ -75,19 +75,15 @@
     @apply block;
   }
 
-  .pagination {
+  .pagy {
     @apply flex gap-1 items-center justify-center;
   }
 
-  .pagination .page > a {
+  .pagy > a[href] {
     @apply btn;
   }
 
-  .pagination .page.disabled > a {
-    @apply opacity-50 cursor-not-allowed;
-  }
-
-  .pagination .page.active > a {
-    @apply cursor-not-allowed bg-blue-900;
+  .pagy > a.current {
+    @apply btn opacity-50 cursor-not-allowed;
   }
 }
