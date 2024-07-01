@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_07_01_125637) do
+ActiveRecord::Schema[7.1].define(version: 2024_07_01_132818) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -40,23 +40,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_01_125637) do
     t.index ["shift_id"], name: "index_bills_on_shift_id"
   end
 
-  create_table "customers", force: :cascade do |t|
-    t.string "name"
-    t.string "key"
-    t.date "expires_at"
-    t.boolean "enabled", default: true
-    t.boolean "sync_data", default: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.datetime "last_seen_at"
-    t.boolean "sync_purchase", default: false
-    t.boolean "sync_inventory", default: false
-    t.boolean "sync_voucher", default: false
-    t.integer "tax_vat_value", default: 10
-    t.boolean "tax_vat_inclusion", default: false
-    t.index ["key"], name: "index_customers_on_key", unique: true
-  end
-
   create_table "inventories", force: :cascade do |t|
     t.bigint "shift_id", null: false
     t.string "no"
@@ -72,7 +55,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_01_125637) do
   end
 
   create_table "products", force: :cascade do |t|
-    t.bigint "customer_id", null: false
+    t.bigint "tenant_id", null: false
     t.string "no"
     t.string "name"
     t.string "gname"
@@ -82,8 +65,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_01_125637) do
     t.decimal "price1"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["customer_id", "no"], name: "index_products_on_customer_id_and_no", unique: true
-    t.index ["customer_id"], name: "index_products_on_customer_id"
+    t.index ["tenant_id", "no"], name: "index_products_on_tenant_id_and_no", unique: true
+    t.index ["tenant_id"], name: "index_products_on_tenant_id"
   end
 
   create_table "purchase_lines", force: :cascade do |t|
@@ -116,24 +99,41 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_01_125637) do
   end
 
   create_table "settings", force: :cascade do |t|
-    t.bigint "customer_id", null: false
+    t.bigint "tenant_id", null: false
     t.string "name"
     t.string "value"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "label"
-    t.index ["customer_id"], name: "index_settings_on_customer_id"
+    t.index ["tenant_id"], name: "index_settings_on_tenant_id"
   end
 
   create_table "shifts", force: :cascade do |t|
-    t.bigint "customer_id", null: false
+    t.bigint "tenant_id", null: false
     t.string "no"
     t.string "stt"
     t.decimal "total"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.date "shift_date"
-    t.index ["customer_id"], name: "index_shifts_on_customer_id"
+    t.index ["tenant_id"], name: "index_shifts_on_tenant_id"
+  end
+
+  create_table "tenants", force: :cascade do |t|
+    t.string "name"
+    t.string "key"
+    t.date "expires_at"
+    t.boolean "enabled", default: true
+    t.boolean "sync_data", default: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.datetime "last_seen_at"
+    t.boolean "sync_purchase", default: false
+    t.boolean "sync_inventory", default: false
+    t.boolean "sync_voucher", default: false
+    t.integer "tax_vat_value", default: 10
+    t.boolean "tax_vat_inclusion", default: false
+    t.index ["key"], name: "index_tenants_on_key", unique: true
   end
 
   create_table "users", force: :cascade do |t|
@@ -143,9 +143,9 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_01_125637) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "email", default: "", null: false
-    t.bigint "customer_id"
-    t.index ["customer_id"], name: "index_users_on_customer_id"
+    t.bigint "tenant_id"
     t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["tenant_id"], name: "index_users_on_tenant_id"
     t.index ["username"], name: "index_users_on_username", unique: true
   end
 
@@ -164,11 +164,11 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_01_125637) do
   add_foreign_key "bill_lines", "bills"
   add_foreign_key "bills", "shifts"
   add_foreign_key "inventories", "shifts"
-  add_foreign_key "products", "customers"
+  add_foreign_key "products", "tenants"
   add_foreign_key "purchase_lines", "purchases"
   add_foreign_key "purchases", "shifts"
-  add_foreign_key "settings", "customers"
-  add_foreign_key "shifts", "customers"
-  add_foreign_key "users", "customers"
+  add_foreign_key "settings", "tenants"
+  add_foreign_key "shifts", "tenants"
+  add_foreign_key "users", "tenants"
   add_foreign_key "vouchers", "shifts"
 end

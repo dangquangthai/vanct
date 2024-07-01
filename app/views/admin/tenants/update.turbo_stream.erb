@@ -2,7 +2,7 @@
   <%= turbo_modal_close %>
 
   <%= turbo_stream.replace('tenants-table') do %>
-    <%= render Admin::Tenants::TableComponent.new(tenants: Tenant.without_ace) %>
+    <%= render Admin::Tenants::TableComponent.new(tenants: Tenant.without_ace.order('created_at DESC')) %>
   <% end %>
 
   <%= turbo_klass "#tenant_#{@tenant.id}", 'selected', 'add' %>
