@@ -8,6 +8,6 @@
   <%= turbo_klass "#tenant_#{@tenant.id}", 'selected', 'add' %>
 <% else %>
   <%= turbo_modal do %>
-    <%= render Admin::Tenants::FormComponent.new(tenant: @tenant, url: admin_tenants_path, form_method: 'POST', form_title: 'Thêm khách hàng mới') %>
+    <%= render Admin::Tenants::FormComponent.new(tenant: @tenant, url: admin_tenants_path, form_method: 'POST', form_title: 'Thêm Account mới') %>
   <% end %>
 <% end %>

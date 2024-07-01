@@ -8,7 +8,7 @@
     </div>
 
     <div>
-      <%= f.label :name, 'Tên khách hàng' %>
+      <%= f.label :name, 'Tên Account' %>
       <%= f.text_field :name, required: true, autocomplete: 'off', class: 'txt' %>
       <% if f.object.errors.key?(:name) %>
         <div class="text-xs text-red-600 mt-1"><%= f.object.errors[:name].join(', ') %></div>

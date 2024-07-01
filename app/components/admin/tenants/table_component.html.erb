@@ -35,7 +35,7 @@
           </td>
           <td>
             <div class="flex gap-2 items-center justify-end">
-              <div title="Cập nhật khách hàng" class="w-fit cursor-pointer" data-controller="turbo-fetch" data-url="<%= edit_admin_tenant_path(tenant.id) %>">
+              <div title="Cập nhật Account" class="w-fit cursor-pointer" data-controller="turbo-fetch" data-url="<%= edit_admin_tenant_path(tenant.id) %>">
                 <%== svg_icon 'edit', class: 'w-6 h-6' %>
               </div>
 
@@ -51,7 +51,7 @@
                 <%== svg_icon 'users', class: 'w-6 h-6' %>
               <% end %>
 
-              <%= link_to admin_tenant_path(tenant.id), title: 'Xoá khách hàng', data: { "turbo-method" => :delete, 'turbo-confirm' => 'Xoá khách hàng này, toàn bộ dữ liệu liên quan sẽ mất. Bạn chắc chặn không?' } do %>
+              <%= link_to admin_tenant_path(tenant.id), title: 'Xoá Account', data: { "turbo-method" => :delete, 'turbo-confirm' => 'Xoá Account này, toàn bộ dữ liệu liên quan sẽ mất. Bạn chắc chặn không?' } do %>
                 <%== svg_icon 'trash', class: 'w-6 h-6' %>
               <% end %>
             </div>
