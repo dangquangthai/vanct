@@ -3,12 +3,12 @@
 module Admin
   module Users
     class TableComponent < ApplicationComponent
-      def initialize(users:, customer:)
+      def initialize(users:, tenant:)
         @users = users
-        @customer = customer
+        @tenant = tenant
       end
 
-      attr_reader :users, :customer
+      attr_reader :users, :tenant
     end
   end
 end

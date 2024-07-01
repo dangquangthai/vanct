@@ -3,10 +3,10 @@
 module API
   module V1
     class SyncVouchersController < API::V1::BaseController
-      before_action :require_customer!
+      before_action :require_tenant!
 
       def create
-        shift = @customer.shifts.find_by(no: params[:shift_no])
+        shift = @tenant.shifts.find_by(no: params[:shift_no])
 
         ActiveRecord::Base.transaction do
           vouchers.each do |voucher|

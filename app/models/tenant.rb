@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Customer < ApplicationRecord
+class Tenant < ApplicationRecord
   has_many :users, dependent: :destroy
   has_many :shifts, dependent: :destroy
   has_many :products, dependent: :destroy

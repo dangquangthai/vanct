@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe Admin::Cutomers::TableComponent, type: :component do
+RSpec.describe Admin::Tenants::TableComponent, type: :component do
   pending "add some examples to (or delete) #{__FILE__}"
 
   # it "renders something useful" do

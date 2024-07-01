@@ -16,17 +16,17 @@
   <div class="w-full h-3"></div>
   <%= render 'bills' %>
 
-  <% if current_customer.sync_voucher? %>
+  <% if current_tenant.sync_voucher? %>
     <div class="w-full h-3"></div>
     <%= render 'vouchers' %>
   <% end %>
   
-  <% if current_customer.sync_purchase? %>
+  <% if current_tenant.sync_purchase? %>
     <div class="w-full h-3"></div>
     <%= render 'purchases' %>
   <% end %>
 
-  <% if current_customer.sync_inventory? %>
+  <% if current_tenant.sync_inventory? %>
     <div class="w-full h-3"></div>
     <%= render 'inventories' %>
   <% end %>

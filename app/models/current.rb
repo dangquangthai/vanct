@@ -2,7 +2,7 @@
 
 # https://api.rubyonrails.org/classes/ActiveSupport/CurrentAttributes.html
 class Current < ActiveSupport::CurrentAttributes
-  attribute :current_user, :current_customer
+  attribute :current_user, :current_tenant
 
   TIME_FORMAT = '%Y-%m-%d %H:%M:%S'
 

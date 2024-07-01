@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe Admin::Cutomers::FormComponent, type: :component do
+RSpec.describe Admin::Tenants::FormComponent, type: :component do
   pending "add some examples to (or delete) #{__FILE__}"
 
   # it "renders something useful" do

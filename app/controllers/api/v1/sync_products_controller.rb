@@ -3,17 +3,17 @@
 module API
   module V1
     class SyncProductsController < API::V1::BaseController
-      before_action :require_customer!
+      before_action :require_tenant!
 
       def create
         ActiveRecord::Base.transaction do
           products_params.each do |product_params|
-            product = @customer.products.find_by(no: product_params[:no])
+            product = @tenant.products.find_by(no: product_params[:no])
 
             if product.present?
               product.update!(product_params)
             else
-              @customer.products.create!(product_params)
+              @tenant.products.create!(product_params)
             end
           end
         end

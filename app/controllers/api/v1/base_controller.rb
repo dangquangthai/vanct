@@ -5,8 +5,8 @@ module API
     class BaseController < ActionController::API
       protected
 
-      def require_customer!
-        @customer = Customer.find_by!(key: params[:key])
+      def require_tenant!
+        @tenant = Tenant.find_by!(key: params[:key])
       end
 
       rescue_from StandardError,                      with: :internal_server_error

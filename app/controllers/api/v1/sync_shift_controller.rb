@@ -3,10 +3,10 @@
 module API
   module V1
     class SyncShiftController < API::V1::BaseController
-      before_action :require_customer!
+      before_action :require_tenant!
 
       def create
-        success = @customer.shifts.where(no: shift_no).count.zero? && bill_refs.present?
+        success = @tenant.shifts.where(no: shift_no).count.zero? && bill_refs.present?
 
         if success
           ActiveRecord::Base.transaction do
@@ -54,7 +54,7 @@ module API
       end
 
       def new_shift
-        @new_shift ||= @customer.shifts.create!(
+        @new_shift ||= @tenant.shifts.create!(
           no: shift_no,
           stt: shift_no.split('-')[0],
           shift_date: Time.zone.parse(shift_no.last(10)),

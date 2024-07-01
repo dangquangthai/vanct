@@ -26,7 +26,7 @@ Rails.application.routes.draw do
   patch  '/report/show_purchase/:purchase_id' => 'purchases#update', as: :update_purchase
 
   namespace :admin do
-    resources :customers do
+    resources :tenants do
       resources :users
       resources :shifts, only: %i[index] do
         collection do

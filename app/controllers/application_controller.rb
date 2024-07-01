@@ -8,12 +8,12 @@ class ApplicationController < ActionController::Base
 
   protected
 
-  def validate_customer_expired!
-    redirect_to expired_path if current_customer.expired?
+  def validate_tenant_expired!
+    redirect_to expired_path if current_tenant.expired?
   end
 
-  def validate_customer_sync_data!
-    redirect_to root_path unless current_customer.sync_data?
+  def validate_tenant_sync_data!
+    redirect_to root_path unless current_tenant.sync_data?
   end
 
   def authorize_admin!

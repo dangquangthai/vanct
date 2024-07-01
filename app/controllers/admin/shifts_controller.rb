@@ -3,7 +3,7 @@
 module Admin
   class ShiftsController < BaseController
     before_action :authorize_admin!
-    before_action :require_customer!
+    before_action :require_tenant!
     before_action :search_shifts
 
     def index
@@ -23,7 +23,7 @@ module Admin
     protected
 
     def search_shifts
-      @shifts = @customer.shifts.where(shift_date: from_date..to_date)
+      @shifts = @tenant.shifts.where(shift_date: from_date..to_date)
     end
 
     def from_date

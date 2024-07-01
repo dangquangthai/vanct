@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 class ReportController < ApplicationController
-  before_action :validate_customer_expired!
-  before_action :validate_customer_sync_data!
+  before_action :validate_tenant_expired!
+  before_action :validate_tenant_sync_data!
 
   def index
     load_bills
@@ -46,19 +46,19 @@ class ReportController < ApplicationController
   end
 
   def load_vouchers
-    return unless current_customer.sync_voucher?
+    return unless current_tenant.sync_voucher?
 
     @vouchers_pagy, @vouchers = pagy(report_builder.vouchers_query, page_param: :voucher_page, items: 10)
   end
 
   def load_inventories
-    return unless current_customer.sync_inventory?
+    return unless current_tenant.sync_inventory?
 
     @inventories_pagy, @inventories = pagy(report_builder.inventories_query, page_param: :inventory_page, items: 10)
   end
 
   def load_purchases
-    return unless current_customer.sync_purchase?
+    return unless current_tenant.sync_purchase?
 
     @purchases_pagy, @purchases = pagy(report_builder.purchases_query, page_param: :purchase_page, items: 10)
     @providers_pagy, @providers = pagy(report_builder.providers_query, page_param: :provider_page, items: 10)

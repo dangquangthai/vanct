@@ -1,0 +1,13 @@
+<% if @tenant.persisted? %>
+  <%= turbo_modal_close %>
+
+  <%= turbo_stream.replace('tenants-table') do %>
+    <%= render Admin::Tenants::TableComponent.new(tenants: Tenant.without_ace) %>
+  <% end %>
+
+  <%= turbo_klass "#tenant_#{@tenant.id}", 'selected', 'add' %>
+<% else %>
+  <%= turbo_modal do %>
+    <%= render Admin::Tenants::FormComponent.new(tenant: @tenant, url: admin_tenants_path, form_method: 'POST', form_title: 'Thêm khách hàng mới') %>
+  <% end %>
+<% end %>

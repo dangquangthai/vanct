@@ -2,8 +2,8 @@
 
 module Admin
   class BaseController < ApplicationController
-    def require_customer!
-      @customer = Customer.find(params[:customer_id])
+    def require_tenant!
+      @tenant = Tenant.find(params[:tenant_id])
     end
   end
 end

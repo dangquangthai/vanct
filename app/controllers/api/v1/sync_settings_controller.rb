@@ -3,12 +3,12 @@
 module API
   module V1
     class SyncSettingsController < API::V1::BaseController
-      before_action :require_customer!
+      before_action :require_tenant!
 
       def create
         ActiveRecord::Base.transaction do
           settings_params.each do |setting_params|
-            setting = @customer.settings.find_by(name: setting_params[:name])
+            setting = @tenant.settings.find_by(name: setting_params[:name])
 
             setting.update!(value: setting_params[:value]) if setting.present?
           end

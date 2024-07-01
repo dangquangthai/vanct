@@ -3,19 +3,19 @@
 module API
   module V1
     class InfoController < API::V1::BaseController
-      before_action :require_customer!
+      before_action :require_tenant!
 
       def index
-        json_response({ live: @customer.live?, sync: @customer.sync?, sql: sql_enqueued })
+        json_response({ live: @tenant.live?, sync: @tenant.sync?, sql: sql_enqueued })
       end
 
       protected
 
       def sql_enqueued
-        return [] unless @customer.sync?
+        return [] unless @tenant.sync?
 
-        enqueued = @customer.sql_enqueued
-        @customer.discard_sql_enqueued
+        enqueued = @tenant.sql_enqueued
+        @tenant.discard_sql_enqueued
         enqueued
       end
     end

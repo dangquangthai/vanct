@@ -7,7 +7,7 @@ class User < ApplicationRecord
 
   ROLES = %w[admin manager staff].freeze
 
-  belongs_to :customer
+  belongs_to :tenant
 
   validates :role, inclusion: { in: ROLES }
   validates :username, uniqueness: true

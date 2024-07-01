@@ -1,0 +1,63 @@
+<div class="max-w-full overflow-auto border-t">
+  <table class="table no-break-line w-full" id="tenants-table" data-controller="table-sort">
+    <thead>
+      <tr>
+        <%= render Shared::SortColumnComponent.new(title: 'Tên', column: 'name') %>
+        <%= render Shared::SortColumnComponent.new(title: 'H.Động', column: 'enabled') %>
+        <%= render Shared::SortColumnComponent.new(title: 'Báo cáo', column: 'sync_data') %>
+        <th class="disable-sort">
+          <div class="flex justify-end w-full">
+            <div class="w-fit cursor-pointer" data-controller="turbo-fetch" data-url="<%= new_admin_tenant_path %>">
+              <%== svg_icon 'add', class: 'w-6 h-6' %>
+            </div>
+          </div>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <% tenants.each do |tenant| %>
+        <tr id="tenant_<%= tenant.id %>">
+          <td><%= tenant.name %></td>
+          <td><%= tenant.enabled ? 'Có' : 'Không' %></td>
+          <td>
+            <div class="grid gap-1">
+              <% if tenant.sync_data %>
+                <div class="grid text-sm">
+                  <div>Mặt định(Danh mục món, Tuỳ chọn, D.Sách Bill, Biểu đồ)</div>
+                  <% if tenant.sync_voucher? %><div>- D.Sách thu/chi</div><% end %>
+                  <% if tenant.sync_purchase? %><div>- Nhập Hàng</div><% end %>
+                  <% if tenant.sync_inventory? %><div>- Xuất nhập tồn</div><% end %>
+                </div>
+              <% else %>
+                <span class="text-red-600">Không</span>
+              <% end %>
+            </div>
+          </td>
+          <td>
+            <div class="flex gap-2 items-center justify-end">
+              <div title="Cập nhật khách hàng" class="w-fit cursor-pointer" data-controller="turbo-fetch" data-url="<%= edit_admin_tenant_path(tenant.id) %>">
+                <%== svg_icon 'edit', class: 'w-6 h-6' %>
+              </div>
+
+              <%= link_to admin_tenant_syncs_path(tenant.id), data: { turbo: false }, title: 'Đồng bộ' do %>
+                <%== svg_icon 'sync', class: 'w-6 h-6' %>
+              <% end %>
+
+              <%= link_to admin_tenant_shifts_path(tenant.id), data: { turbo: false }, target: '_blank', title: 'Danh sách ca bán hàng' do %>
+                <%== svg_icon 'shift', class: 'w-6 h-6' %>
+              <% end %>
+
+              <%= link_to admin_tenant_users_path(tenant.id), data: { turbo: false }, title: 'Danh sách người dùng' do %>
+                <%== svg_icon 'users', class: 'w-6 h-6' %>
+              <% end %>
+
+              <%= link_to admin_tenant_path(tenant.id), title: 'Xoá khách hàng', data: { "turbo-method" => :delete, 'turbo-confirm' => 'Xoá khách hàng này, toàn bộ dữ liệu liên quan sẽ mất. Bạn chắc chặn không?' } do %>
+                <%== svg_icon 'trash', class: 'w-6 h-6' %>
+              <% end %>
+            </div>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

@@ -7,7 +7,7 @@
         <span class="<%= class_names('font-bold': controller_name == 'dashboard') %>">Hiện tại</span>
       <% end %>
     <% end %>
-    <% if current_user.manager? && current_customer.sync_data? %>
+    <% if current_user.manager? && current_tenant.sync_data? %>
       <%= link_to '/report', class: 'flex gap-1 items-center' do %>
         <%== svg_icon 'report', class: 'w-4 h-4' %>
         <span class="<%= class_names('font-bold': controller_name == 'report') %>">Báo cáo</span>
@@ -24,8 +24,8 @@
       <div data-dropdown-target="dropdown" class="z-10 border hidden shadow-lg bg-whitehidden absolute top-8 right-0 shadow-sm bg-white rounded-md px-4 py-2 grid gap-2">
         <% if current_user.admin? %>
           <div class="w-[180px]" data-turbo="false">
-            <%= link_to '/admin/customers', class: 'flex gap-1 items-center' do %>
-              <%== svg_icon 'customer', class: 'w-4 h-4' %>
+            <%= link_to '/admin/tenants', class: 'flex gap-1 items-center' do %>
+              <%== svg_icon 'tenant', class: 'w-4 h-4' %>
               <span>Quản lý khách hàng</span>
             <% end %>
           </div>

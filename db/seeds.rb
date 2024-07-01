@@ -8,7 +8,7 @@
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
 
-ace = Customer.find_or_initialize_by(key: 'ace')
+ace = Tenant.find_or_initialize_by(key: 'ace')
 ace.name = 'ACE SOFT'
 ace.expires_at = Date.new(2099, 12, 31)
 ace.enabled = true
@@ -20,11 +20,11 @@ ace.save!
   user.password = '123456' # ThisIs@Very!@#456
   user.role = 'admin'
   user.email = "#{username}@vanct.com"
-  user.customer = ace
+  user.tenant = ace
   user.save!
 end
 
 # (1..29).each do |index|
 #   day = sprintf '%02d', index
-#   Shift.create({ customer_id: 1, no: "1-2024-01-#{day}", stt: "1", total: (200.0 * index) * rand(1000..9000), shift_date: Time.zone.parse("2024-01-#{day}") })
+#   Shift.create({ tenant_id: 1, no: "1-2024-01-#{day}", stt: "1", total: (200.0 * index) * rand(1000..9000), shift_date: Time.zone.parse("2024-01-#{day}") })
 # end

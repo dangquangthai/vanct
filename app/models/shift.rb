@@ -1,16 +1,16 @@
 # frozen_string_literal: true
 
 class Shift < ApplicationRecord
-  belongs_to :customer
+  belongs_to :tenant
   has_many :bills, dependent: :destroy
   has_many :vouchers, dependent: :destroy
   has_many :inventories, dependent: :destroy
   has_many :purchases, dependent: :destroy
 
   def queue_update_to_desktop
-    enqueued = customer.sql_enqueued
+    enqueued = tenant.sql_enqueued
     enqueued << to_update_sql_statement
-    Cache.write(customer.sql_statement_key, enqueued.to_json)
+    Cache.write(tenant.sql_statement_key, enqueued.to_json)
   end
 
   protected

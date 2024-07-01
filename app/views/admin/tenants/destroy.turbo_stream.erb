@@ -1,0 +1,3 @@
+<%= turbo_stream.replace('tenants-table') do %>
+  <%= render Admin::Tenants::TableComponent.new(tenants: Tenant.without_ace) %>
+<% end %>

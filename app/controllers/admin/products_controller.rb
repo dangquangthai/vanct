@@ -13,7 +13,7 @@ module Admin
     end
 
     def new
-      @product = current_customer.products.build
+      @product = current_tenant.products.build
 
       respond_to do |format|
         format.turbo_stream
@@ -21,7 +21,7 @@ module Admin
     end
 
     def create
-      @product = current_customer.products.build(create_params)
+      @product = current_tenant.products.build(create_params)
       @product.have_to_validate = true
       @success = @product.valid? && @product.save
 
@@ -36,7 +36,7 @@ module Admin
     end
 
     def edit
-      @product = current_customer.products.find(params[:id])
+      @product = current_tenant.products.find(params[:id])
 
       respond_to do |format|
         format.turbo_stream
@@ -44,7 +44,7 @@ module Admin
     end
 
     def update
-      @product = current_customer.products.find(params[:id])
+      @product = current_tenant.products.find(params[:id])
       @product.assign_attributes(update_params)
       @product.have_to_validate = true
       @success = @product.valid? && @product.save
@@ -70,7 +70,7 @@ module Admin
     end
 
     def products_query
-      products = current_customer.products
+      products = current_tenant.products
       products = products.where('LOWER(products.name) LIKE ?', "%#{name.downcase}%") if name.present?
       products.order(:no)
     end

@@ -3,7 +3,7 @@
 module API
   module V1
     class LiveController < API::V1::BaseController
-      before_action :require_customer!
+      before_action :require_tenant!
 
       def create
         data = {
@@ -18,7 +18,7 @@ module API
           data[:tables] << buil_table(index, table, lines)
         end
 
-        Cache.write(@customer.live_data_key, data.to_json)
+        Cache.write(@tenant.live_data_key, data.to_json)
 
         json_response({ success: true })
       end

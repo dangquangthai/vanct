@@ -10,12 +10,12 @@ module InitializeComponentContext
       return unless user_signed_in?
 
       Current.current_user = current_user
-      Current.current_customer = current_customer
+      Current.current_tenant = current_tenant
     end
 
-    def current_customer
-      current_user.customer
+    def current_tenant
+      current_user.tenant
     end
-    helper_method :current_customer
+    helper_method :current_tenant
   end
 end

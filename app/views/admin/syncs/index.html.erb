@@ -1,5 +1,5 @@
 <div class="px-4 py-2 font-bold flex gap-1">
-  <span class="text-gray-600">[<%= @customer.name %>]</span> Đồng bộ dữ liệu
+  <span class="text-gray-600">[<%= @tenant.name %>]</span> Đồng bộ dữ liệu
 </div>
 <%= render partial: 'shared/notice' %>
 <hr class="border-gray-300" />
@@ -9,14 +9,14 @@
       class="cursor-pointer btn" 
       data-controller="turbo-fetch"
       data-method="POST"
-      data-url="<%= live_data_admin_customer_syncs_path(@customer.id) %>">
+      data-url="<%= live_data_admin_tenant_syncs_path(@tenant.id) %>">
       Hiện tại - bán online
     </div>
     <div 
       class="cursor-pointer btn" 
       data-controller="turbo-fetch"
       data-method="POST"
-      data-url="<%= products_admin_customer_syncs_path(@customer.id) %>">
+      data-url="<%= products_admin_tenant_syncs_path(@tenant.id) %>">
       Danh mục món
     </div>
   </div>

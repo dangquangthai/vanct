@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
 module Admin
-  class CustomersController < BaseController
+  class TenantsController < BaseController
     before_action :authorize_admin!
 
     def index
-      @customers = Customer.without_ace.order('created_at DESC')
+      @tenants = Tenant.without_ace.order('created_at DESC')
 
       respond_to do |format|
         format.html
@@ -13,7 +13,7 @@ module Admin
     end
 
     def new
-      @customer = Customer.new
+      @tenant = Tenant.new
 
       respond_to do |format|
         format.turbo_stream
@@ -21,17 +21,17 @@ module Admin
     end
 
     def create
-      @customer = Customer.create(customer_params)
+      @tenant = Tenant.create(tenant_params)
 
       respond_to do |format|
         format.turbo_stream do
-          @customer.init_settings if @customer.persisted?
+          @tenant.init_settings if @tenant.persisted?
         end
       end
     end
 
     def edit
-      @customer = Customer.find(params[:id])
+      @tenant = Tenant.find(params[:id])
 
       respond_to do |format|
         format.turbo_stream
@@ -39,29 +39,29 @@ module Admin
     end
 
     def update
-      @customer = Customer.find(params[:id])
+      @tenant = Tenant.find(params[:id])
 
       respond_to do |format|
         format.turbo_stream do
-          @success = @customer.update(customer_params)
+          @success = @tenant.update(tenant_params)
         end
       end
     end
 
     def destroy
-      @customer = Customer.find(params[:id])
+      @tenant = Tenant.find(params[:id])
 
       respond_to do |format|
         format.turbo_stream do
-          @customer.destroy
+          @tenant.destroy
         end
       end
     end
 
     protected
 
-    def customer_params
-      params.require(:customer).permit(:name, :key, :expires_at, :enabled, :sync_data, :sync_purchase, :sync_inventory, :sync_voucher)
+    def tenant_params
+      params.require(:tenant).permit(:name, :key, :expires_at, :enabled, :sync_data, :sync_purchase, :sync_inventory, :sync_voucher)
     end
   end
 end

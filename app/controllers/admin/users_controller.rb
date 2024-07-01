@@ -3,10 +3,10 @@
 module Admin
   class UsersController < BaseController
     before_action :authorize_admin!
-    before_action :require_customer!
+    before_action :require_tenant!
 
     def index
-      @users = @customer.users
+      @users = @tenant.users
 
       respond_to do |format|
         format.html
@@ -14,7 +14,7 @@ module Admin
     end
 
     def new
-      @user = @customer.users.build
+      @user = @tenant.users.build
 
       respond_to do |format|
         format.turbo_stream
@@ -22,7 +22,7 @@ module Admin
     end
 
     def create
-      @user = @customer.users.build(new_user_params)
+      @user = @tenant.users.build(new_user_params)
 
       respond_to do |format|
         format.turbo_stream { @user.save }
@@ -30,7 +30,7 @@ module Admin
     end
 
     def edit
-      @user = @customer.users.find(params[:id])
+      @user = @tenant.users.find(params[:id])
 
       respond_to do |format|
         format.turbo_stream
@@ -38,7 +38,7 @@ module Admin
     end
 
     def update
-      @user = @customer.users.find(params[:id])
+      @user = @tenant.users.find(params[:id])
 
       respond_to do |format|
         format.turbo_stream do
@@ -50,7 +50,7 @@ module Admin
     end
 
     def destroy
-      @user = @customer.users.find(params[:id])
+      @user = @tenant.users.find(params[:id])
 
       respond_to do |format|
         format.turbo_stream do

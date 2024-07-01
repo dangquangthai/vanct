@@ -3,10 +3,10 @@
 module API
   module V1
     class SyncInventoriesController < API::V1::BaseController
-      before_action :require_customer!
+      before_action :require_tenant!
 
       def create
-        latest_shift = @customer.shifts.last
+        latest_shift = @tenant.shifts.last
 
         if latest_shift.blank?
           json_response({ success: false })

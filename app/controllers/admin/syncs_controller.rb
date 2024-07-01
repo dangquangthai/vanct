@@ -3,7 +3,7 @@
 module Admin
   class SyncsController < BaseController
     before_action :authorize_admin!
-    before_action :require_customer!
+    before_action :require_tenant!
 
     def index
       respond_to do |format|
@@ -12,7 +12,7 @@ module Admin
     end
 
     def products
-      @customer.sync_products!
+      @tenant.sync_products!
       flash[:notice] = 'Đã sẳn sàng đồng bộ danh mục Món'
 
       respond_to do |format|
@@ -21,7 +21,7 @@ module Admin
     end
 
     def live_data
-      @customer.sync_live_data! if @customer.live_data_exist?
+      @tenant.sync_live_data! if @tenant.live_data_exist?
       flash[:notice] = 'Đã sẳn sàng đồng bộ dữ liệu Hiện tại (bán online)'
 
       respond_to do |format|

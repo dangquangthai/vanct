@@ -14,7 +14,7 @@ class ReportDataBuilder
 
   attr_reader :to_date, :from_date, :bill_no, :table_no, :v_kind, :provider_name
 
-  delegate :current_user, :current_customer, to: Current
+  delegate :current_user, :current_tenant, to: Current
 
   def perform
     bg_colors = shifts_and_totals.map { sample_colors.sample }
@@ -54,7 +54,7 @@ class ReportDataBuilder
   end
 
   def shifts_and_totals
-    @shifts_and_totals ||= current_customer
+    @shifts_and_totals ||= current_tenant
                            .shifts
                            .where(shift_date: from_date..to_date)
                            .select('shift_date')
@@ -64,7 +64,7 @@ class ReportDataBuilder
   end
 
   def inventories_query
-    latest_shift = current_customer.shifts.where(shift_date: from_date..to_date).order(:id).last
+    latest_shift = current_tenant.shifts.where(shift_date: from_date..to_date).order(:id).last
     return latest_shift.inventories if latest_shift.present?
 
     Inventory.none
@@ -85,7 +85,7 @@ class ReportDataBuilder
     Voucher.includes(:shift)
            .joins(:shift)
            .where(shifts: { shift_date: from_date..to_date })
-           .where(shifts: { customer_id: current_customer.id })
+           .where(shifts: { tenant_id: current_tenant.id })
   end
 
   def vouchers_query
@@ -107,7 +107,7 @@ class ReportDataBuilder
       bills = Bill.includes(:shift)
                   .joins(:shift)
                   .where(shifts: { shift_date: from_date..to_date })
-                  .where(shifts: { customer_id: current_customer.id })
+                  .where(shifts: { tenant_id: current_tenant.id })
       bills = bills.where(bill_no: bill_no) if bill_no.present?
       bills = bills.where(table_no: table_no) if table_no.present?
       bills.order('shifts.shift_date DESC, bills.bill_no DESC')
@@ -124,7 +124,7 @@ class ReportDataBuilder
         .joins('INNER JOIN bills ON bill_lines.bill_id = bills.id')
         .joins('INNER JOIN shifts ON bills.shift_id = shifts.id')
         .where(shifts: { shift_date: from_date..to_date })
-        .where(shifts: { customer_id: current_customer.id })
+        .where(shifts: { tenant_id: current_tenant.id })
         .group('bill_lines.product_no, bill_lines.product_name, bill_lines.unit, bill_lines.price')
     ).order('amount DESC')
   end
@@ -134,7 +134,7 @@ class ReportDataBuilder
       Purchase.includes(:shift)
         .joins(:shift)
         .where(shifts: { shift_date: from_date..to_date })
-        .where(shifts: { customer_id: current_customer.id })
+        .where(shifts: { tenant_id: current_tenant.id })
         .where(purchases: { paid: false })
         .select('purchases.provider_name, sum(purchases.total) as total, purchases.phone_number')
         .group('purchases.provider_name, purchases.phone_number')
@@ -158,7 +158,7 @@ class ReportDataBuilder
       purchases = Purchase.includes(:shift)
                           .joins(:shift)
                           .where(shifts: { shift_date: from_date..to_date })
-                          .where(shifts: { customer_id: current_customer.id })
+                          .where(shifts: { tenant_id: current_tenant.id })
       purchases = purchases.where(purchases: { provider_name: provider_name }) if provider_name.present?
       # purchases = purchases.where('LOWER(purchases.provider_name) LIKE ?', "%#{provider_name.downcase}%") if provider_name.present?
       purchases.order('shifts.shift_date DESC, purchases.time DESC')

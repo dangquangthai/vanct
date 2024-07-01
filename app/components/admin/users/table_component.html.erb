@@ -6,7 +6,7 @@
         <%= render Shared::SortColumnComponent.new(title: 'Quyền', column: 'role') %>
         <th class="disable-sort">
           <div class="flex justify-end w-full">
-            <div class="w-fit cursor-pointer" data-controller="turbo-fetch" data-url="<%= new_admin_customer_user_path(customer_id: customer.id) %>">
+            <div class="w-fit cursor-pointer" data-controller="turbo-fetch" data-url="<%= new_admin_tenant_user_path(tenant_id: tenant.id) %>">
               <%== svg_icon 'add', class: 'w-6 h-6' %>
             </div>
           </div>
@@ -21,11 +21,11 @@
           <td>
             <% unless user.admin? %>
               <div class="flex gap-2 items-center justify-end">
-                <div class="w-fit cursor-pointer" data-controller="turbo-fetch" data-url="<%= edit_admin_customer_user_path(user.id, customer_id: user.customer_id) %>">
+                <div class="w-fit cursor-pointer" data-controller="turbo-fetch" data-url="<%= edit_admin_tenant_user_path(user.id, tenant_id: user.tenant_id) %>">
                   <%== svg_icon 'edit', class: 'w-6 h-6' %>
                 </div>
 
-                <%= link_to admin_customer_user_path(user.id, customer_id: user.customer_id), data: { "turbo-method" => :delete, 'turbo-confirm' => 'Xoá người dùng này. Bạn chắc chặn không?' } do %>
+                <%= link_to admin_tenant_user_path(user.id, tenant_id: user.tenant_id), data: { "turbo-method" => :delete, 'turbo-confirm' => 'Xoá người dùng này. Bạn chắc chặn không?' } do %>
                   <%== svg_icon 'trash', class: 'w-6 h-6' %>
                 <% end %>
               </div>
