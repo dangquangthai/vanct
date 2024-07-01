@@ -29,6 +29,14 @@
     </div>
   </div>
 
+  <% if table['tra_mon'] %>
+    <hr class="border-gray-300" />
+    <div class="flex gap-1 justify-end">
+      <span>Có trả món</span>
+      <span><%== svg_icon('tra_mon', class: 'w-6 h-6') %></span>
+    </div>
+  <% end %>
+
   <% if (table['discount'] || 0) > 0 %>
     <hr class="border-gray-300" />
     <div class="flex gap-1 justify-end">

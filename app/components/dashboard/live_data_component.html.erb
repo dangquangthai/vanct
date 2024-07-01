@@ -26,6 +26,11 @@
           <div><%= table['table_no'] %></div>
           <div><%= show_time_ago(table['in_time']) if table['in_time'].present? %></div>
           <div class="flex items-end justify-end"><%= show_money(table['total']) if table['busy'] %></div>
+          <% if table['tra_mon'] %>
+            <div class="absolute right-1 top-1 text-yellow-300">
+              <%== svg_icon('tra_mon', class: 'w-6 h-6') %>
+            </div>
+          <% end %>
         </div>
       <% end %>
     </div>
