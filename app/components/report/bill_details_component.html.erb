@@ -27,18 +27,19 @@
       <% end %>
     </div>
   </div>
-  
-  <% if bill.tra_mon? %>
-    <hr class="border-gray-300" />
-    <div class="flex gap-1 justify-end font-bold text-red-600">
-      <span>Có trả món</span>
-      <span><%== svg_icon('tra_mon', class: 'w-6 h-6') %></span>
-    </div>
-  <% end %>
 
   <hr class="border-gray-300" />
-  <div class="flex gap-1 justify-end font-bold text-red-600">
-    <span>Tổng:</span>
-    <span><%= show_money bill.total %></span>
+  <div class="flex">
+    <% if bill.tra_mon? %>
+      <div class="grow flex gap-1 justify-start font-bold text-red-600">
+        <span><%== svg_icon('tra_mon', class: 'w-6 h-6') %></span>
+        <span>Có trả món</span>
+      </div>
+    <% end %>
+
+    <div class="grow flex gap-1 justify-end font-bold text-red-600">
+      <span>Tổng:</span>
+      <span><%= show_money bill.total %></span>
+    </div>
   </div>
 </div>
