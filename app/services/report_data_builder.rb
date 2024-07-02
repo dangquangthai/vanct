@@ -104,7 +104,7 @@ class ReportDataBuilder
 
   def bills_query
     @bills_query ||= begin
-      bills = Bill.includes(:shift)
+      bills = Bill.includes(:shift, :bill_lines)
                   .joins(:shift)
                   .where(shifts: { shift_date: from_date..to_date })
                   .where(shifts: { tenant_id: current_tenant.id })

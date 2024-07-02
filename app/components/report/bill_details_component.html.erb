@@ -27,6 +27,15 @@
       <% end %>
     </div>
   </div>
+  
+  <% if bill.tra_mon? %>
+    <hr class="border-gray-300" />
+    <div class="flex gap-1 justify-end font-bold text-red-600">
+      <span>Có trả món</span>
+      <span><%== svg_icon('tra_mon', class: 'w-6 h-6') %></span>
+    </div>
+  <% end %>
+
   <hr class="border-gray-300" />
   <div class="flex gap-1 justify-end font-bold text-red-600">
     <span>Tổng:</span>

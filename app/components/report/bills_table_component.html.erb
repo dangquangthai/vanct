@@ -11,7 +11,7 @@
     </thead>
     <tbody>
       <% bills.each do |bill| %>
-        <tr id="bill_<%= bill.id %>" class="cursor-pointer" data-controller="turbo-fetch" data-url="<%= report_show_path(bill_id: bill.id) %>">
+        <tr id="bill_<%= bill.id %>" class="cursor-pointer <%= 'tra-mon' if bill.tra_mon? %>" data-controller="turbo-fetch" data-url="<%= report_show_path(bill_id: bill.id) %>">
           <td><%= bill.bill_no %></td>
           <td><%= bill.table_no %></td>
           <td><%= bill.shift.shift_date.strftime('%d/%m') %></td>

@@ -1,0 +1,75 @@
+curl --location 'https://api-vinvoice.viettel.vn/services/einvoiceapplication/api/InvoiceAPI/InvoiceWS/createInvoice/0100109106-509' \
+--header 'Content-Type: application/json' \
+--header 'Authorization: Basic MDEwMDEwOTEwNi01MDk6MndzeENERSM=' \
+--data '{
+    "generalInvoiceInfo": {
+        "invoiceType": "1",
+        "templateCode": "1/014",
+        "invoiceSeries": "K23TXM",
+        "currencyCode": "VND",
+        "adjustmentType": "1",
+        "paymentStatus": true,
+        "cusGetInvoiceRight": true,
+        "exchangeRate": 1,
+    },
+    "buyerInfo": {
+        "buyerName": "Người mua không cung cấp tên, địa chỉ, mã số thuế",
+        "buyerLegalName": null,
+        "buyerTaxCode": null,
+        "buyerAddressLine": null,
+        "buyerPhoneNumber": null,
+        "buyerFaxNumber": null,
+        "buyerEmail": null,
+        "buyerBankName": null,
+        "buyerBankAccount": null,
+        "buyerDistrictName": null,
+        "buyerCityName": null,
+        "buyerCountryCode": null,
+        "buyerIdNo": null,
+        "buyerIdType": null,
+        "buyerNotGetInvoice": 1
+    },
+    "payments": [
+        {
+            
+            "paymentMethod": "2",
+            "paymentMethodName": "CK"
+        }
+    ],
+    "itemInfo": [
+        {
+            "lineNumber": 1,
+            "selection": 1,
+            "itemCode": null,
+            "itemName": "item1",
+            "unitName": "",
+            "quantity":1,
+            "unitPrice": 10000,
+            "itemTotalAmountWithoutTax": 10000,
+            "itemTotalAmountAfterDiscount": 10000,
+            "itemTotalAmountWithTax": 10000,
+            "taxPercentage": 0,
+            "taxAmount": 0,
+            "discount": null,
+            "itemDiscount": 0,
+            "itemNote": null,
+            "isIncreaseItem": null
+        }
+    ],
+    "summarizeInfo": {
+        "sumOfTotalLineAmountWithoutTax": 10000,
+        "totalAmountAfterDiscount": 10000,
+        "totalAmountWithoutTax": 10000,
+        "totalTaxAmount": 10000,
+        "totalAmountWithTax": 10000,
+        "totalAmountWithTaxInWords": "Một triệu, hai trăm sáu mươi nghìn đồng y.",
+        "discountAmount": 0
+    },
+    "taxBreakdowns": [
+        {
+            "taxPercentage": 0,
+            "taxableAmount": 10000,
+            "taxAmount": 0
+        }
+    ]
+}'

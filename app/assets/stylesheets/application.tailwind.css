@@ -42,6 +42,10 @@
     @apply leading-3 px-4 py-2 border-b border-gray-100;
   }
 
+  .table tbody tr.tra-mon td {
+    @apply bg-yellow-200;
+  }
+
   .table tbody tr:nth-child(odd) {
     @apply bg-gray-50;
   }
