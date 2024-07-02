@@ -2,7 +2,7 @@
 
 module API
   module V1
-    class SyncCustomersController < ApplicationController
+    class SyncCustomersController < API::V1::BaseController
       before_action :require_tenant!
 
       def create

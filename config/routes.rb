@@ -58,6 +58,7 @@ Rails.application.routes.draw do
       resources :sync_inventories, only: %i[create]
       resources :sync_settings, only: %i[create]
       resources :sync_purchases, only: %i[create]
+      resources :sync_customers, only: %i[create]
     end
 
     namespace :v2 do
