@@ -14,7 +14,7 @@ module API
               no: customer_params[:no],
               tax_code: customer_params[:mst],
               legal_name: customer_params[:ten],
-              emai: customer_params[:mail],
+              email: customer_params[:mail],
               address: customer_params[:dc],
               phone_number: customer_params[:dt],
               expired_at: customer_params[:dh],

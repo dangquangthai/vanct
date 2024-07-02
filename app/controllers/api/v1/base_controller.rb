@@ -19,8 +19,7 @@ module API
       end
 
       def internal_server_error(execption)
-        raise execption if Rails.env.development?
-
+        Rails.logger.error(execption)
         json_response({ success: false, message: execption.message }, :internal_server_error)
       end
 
