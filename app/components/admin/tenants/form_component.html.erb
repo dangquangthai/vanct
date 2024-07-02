@@ -24,7 +24,7 @@
     </div>
 
     <div>
-      <%= f.label :expires_at, label: 'Ngày hết hạn' %>
+      <%= f.label :expires_at, 'Ngày hết hạn' %>
       <%= f.date_field :expires_at, required: true, class: 'txt' %>
       <% if f.object.errors.key?(:expires_at) %>
         <div class="text-xs text-red-600 mt-1"><%= f.object.errors[:expires_at].join(', ') %></div>
@@ -36,7 +36,7 @@
       <%= f.label :enabled, 'Hoạt động' %>
     </div>
 
-    <div>
+    <div class="grid gap-2">
       <div class="flex gap-1 items-center">
         <%= f.check_box :sync_data %>
         <%= f.label :sync_data, 'Báo cáo' %>
@@ -56,6 +56,32 @@
         <div class="flex gap-1 items-center">
           <%= f.check_box :sync_voucher %>
           <%= f.label :sync_voucher, 'D.Sách thu/chi' %>
+        </div>
+      </div>
+    </div>
+
+    <div class="flex-none grid gap-2">
+      <div>Xuất hoá đơn Viettel</div>
+      <div class="grid gap-3 ml-4">
+        <div>
+          <%= f.label :tax_code, 'Mã số thuế' %>
+          <%= f.text_field :tax_code, required: true, autocomplete: 'off', class: 'txt' %>
+          <% if f.object.errors.key?(:tax_code) %>
+            <div class="text-xs text-red-600 mt-1"><%= f.object.errors[:tax_code].join(', ') %></div>
+          <% end %>
+        </div>
+
+        <div>
+          <%= f.label :tax_vat_value, 'Thuế GTGG (%)' %>
+          <%= f.number_field :tax_vat_value, required: true, autocomplete: 'off', class: 'txt' %>
+          <% if f.object.errors.key?(:tax_vat_value) %>
+            <div class="text-xs text-red-600 mt-1"><%= f.object.errors[:tax_vat_value].join(', ') %></div>
+          <% end %>
+        </div>
+
+        <div class="flex gap-1 items-center">
+          <%= f.check_box :tax_vat_inclusion %>
+          <%= f.label :tax_vat_inclusion, 'Giá đã bao gồm thuế' %>
         </div>
       </div>
     </div>

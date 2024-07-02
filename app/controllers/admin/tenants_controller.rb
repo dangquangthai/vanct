@@ -61,7 +61,7 @@ module Admin
     protected
 
     def tenant_params
-      params.require(:tenant).permit(:name, :key, :expires_at, :enabled, :sync_data, :sync_purchase, :sync_inventory, :sync_voucher)
+      params.require(:tenant).permit(:name, :key, :expires_at, :enabled, :sync_data, :sync_purchase, :sync_inventory, :sync_voucher, :tax_code, :tax_vat_value, :tax_vat_inclusion)
     end
   end
 end

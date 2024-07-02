@@ -5,6 +5,7 @@
         <%= render Shared::SortColumnComponent.new(title: 'Tên', column: 'name') %>
         <%= render Shared::SortColumnComponent.new(title: 'H.Động', column: 'enabled') %>
         <%= render Shared::SortColumnComponent.new(title: 'Báo cáo', column: 'sync_data') %>
+        <%= render Shared::SortColumnComponent.new(title: 'Xuất hoá đơn', column: 'tax_code') %>
         <th class="disable-sort">
           <div class="flex justify-end w-full">
             <div class="w-fit cursor-pointer" data-controller="turbo-fetch" data-url="<%= new_admin_tenant_path %>">
@@ -23,7 +24,9 @@
             <div class="grid gap-1">
               <% if tenant.sync_data %>
                 <div class="grid text-sm">
-                  <div>Mặt định(Danh mục món, Tuỳ chọn, D.Sách Bill, Biểu đồ)</div>
+                  <% if !tenant.sync_voucher? && !tenant.sync_purchase? && !tenant.sync_inventory? %>
+                    <div>- Mặt định</div>
+                  <% end %>
                   <% if tenant.sync_voucher? %><div>- D.Sách thu/chi</div><% end %>
                   <% if tenant.sync_purchase? %><div>- Nhập Hàng</div><% end %>
                   <% if tenant.sync_inventory? %><div>- Xuất nhập tồn</div><% end %>
@@ -31,6 +34,13 @@
               <% else %>
                 <span class="text-red-600">Không</span>
               <% end %>
+            </div>
+          </td>
+          <td>
+            <div class="grid gap-1 text-sm">
+              <div>MST: <%= tenant.tax_code %></div>
+              <div>GTGG: <%= tenant.tax_vat_value %>%</div>
+              <div><%= tenant.tax_vat_inclusion ? 'Giá có thuế' : 'Giá ko thuế' %></div>
             </div>
           </td>
           <td>

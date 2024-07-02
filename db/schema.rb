@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_07_01_132818) do
+ActiveRecord::Schema[7.1].define(version: 2024_07_02_042313) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -133,6 +133,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_01_132818) do
     t.boolean "sync_voucher", default: false
     t.integer "tax_vat_value", default: 10
     t.boolean "tax_vat_inclusion", default: false
+    t.string "tax_code"
     t.index ["key"], name: "index_tenants_on_key", unique: true
   end
 
