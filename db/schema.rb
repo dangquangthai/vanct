@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_07_02_042313) do
+ActiveRecord::Schema[7.1].define(version: 2024_07_02_073305) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -38,6 +38,21 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_02_042313) do
     t.datetime "updated_at", null: false
     t.decimal "discount", default: "0.0"
     t.index ["shift_id"], name: "index_bills_on_shift_id"
+  end
+
+  create_table "customers", force: :cascade do |t|
+    t.string "no"
+    t.string "tax_code"
+    t.string "legal_name"
+    t.string "email"
+    t.string "address"
+    t.string "phone_number"
+    t.datetime "expired_at"
+    t.float "point"
+    t.float "percentage"
+    t.text "note"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "inventories", force: :cascade do |t|

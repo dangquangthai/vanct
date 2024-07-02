@@ -5,6 +5,6 @@ class Bill < ApplicationRecord
   has_many :bill_lines, dependent: :destroy
 
   def tra_mon?
-    bill_lines.map { |line| line.amount < 0 }.any?
+    bill_lines.map { |line| line.amount.negative? }.any?
   end
 end

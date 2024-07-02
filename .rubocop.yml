@@ -18,6 +18,7 @@ AllCops:
     - 'node_modules/**/*'
     - 'vendor/**/*'
     - 'spec/**/*'
+    - 'sender2/**/*'
 
   DisplayCopNames: true
   DisplayStyleGuide: true

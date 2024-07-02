@@ -5,13 +5,14 @@ class Tenant < ApplicationRecord
   has_many :shifts, dependent: :destroy
   has_many :products, dependent: :destroy
   has_many :settings, dependent: :destroy
+  has_many :customers, dependent: :destroy
 
   validates :key, presence: true, uniqueness: true
   validates :name, :expires_at, presence: true
 
   scope :without_ace, -> { where.not('LOWER(key) = ?', 'ace') }
 
-  before_save :uncheck_features, unless: -> { sync_data? } 
+  before_save :uncheck_features, unless: -> { sync_data? }
 
   def expired?
     expires_at < Time.current

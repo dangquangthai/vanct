@@ -29,7 +29,7 @@ module API
         table[:uuid] = format('%03d', index)
         table[:lines] = lines
         table[:da_bao] = lines.size.positive? && lines.size == lines.count { |line| line[:da_bao] }
-        table[:tra_mon] = lines.map { |line| line[:amount] < 0 }.any?
+        table[:tra_mon] = lines.map { |line| (line[:amount]).negative? }.any?
         discount = table[:discount] || 0
         table[:total] = lines.sum { |line| line[:total] || 0 } - discount
         table
