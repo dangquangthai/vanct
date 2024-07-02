@@ -1,0 +1,20 @@
+<div class="px-4 py-2 font-bold">
+  <div class="flex items-center">
+    <div class="grow">Quản lý khách hàng (<%= @pagy.count %>)</div>
+    <div class="flex-none">
+      <div class="w-fit cursor-pointer flex items-center gap-1" data-controller="turbo-fetch" data-url="<%= new_admin_customer_path %>">
+        <div><%== svg_icon 'add', class: 'w-6 h-6' %></div>
+        <div>Khách hàng</div>
+      </div>
+    </div>
+  </div>
+</div>
+<%= render partial: 'shared/notice' %>
+<hr class="border-gray-300" />
+<div class="grid gap-2">
+  <div class="pt-2">
+    <%= render Admin::Customers::SearchFormComponent.new %>
+  </div>
+  <%= render Admin::Customers::TableComponent.new(customers: @customers, pagy: @pagy) %>  
+</div>
+<div class="w-full h-20"></div>

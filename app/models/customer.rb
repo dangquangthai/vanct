@@ -2,4 +2,51 @@
 
 class Customer < ApplicationRecord
   belongs_to :tenant
+
+  validates :no, uniqueness: { scope: :tenant_id, message: 'đã sử dụng' }
+
+  def queue_update_to_desktop
+    enqueued = tenant.sql_enqueued
+    enqueued << to_update_sql_statement
+    Cache.write(tenant.sql_statement_key, enqueued.to_json)
+  end
+
+  def queue_insert_to_desktop
+    enqueued = tenant.sql_enqueued
+    enqueued << to_insert_sql_statement
+    Cache.write(tenant.sql_statement_key, enqueued.to_json)
+  end
+
+  protected
+
+  def update_attributes
+    @update_attributes ||= {
+      'MAST' => tax_code,
+      'HOTEN' => legal_name,
+      'EMAIL' => email,
+      'DIACHI' => address,
+      'DIENTHOAI' => phone_number,
+      'DENHAN' => expired_at&.strftime('%d/%m/%Y'),
+      'DIEM' => point&.to_f,
+      'PHANTRAM' => percentage&.to_f,
+      'GHICHU' => note
+    }
+  end
+
+  def to_update_sql_statement
+    sql_params = update_attributes.keys.map { |k| "#{k}=?" }.join(', ')
+    sql = self.class.sanitize_sql_array([sql_params] + update_attributes.values)
+
+    "UPDATE [DANH SACH THE] set #{sql} WHERE MATHE='#{no}';"
+  end
+
+  def to_insert_sql_statement
+    attrs = { 'MATHE' => no }.merge(update_attributes)
+
+    sql_columns = attrs.keys.map { |k| k }.join(', ')
+    sql_params = attrs.keys.map { |_| '?' }.join(', ')
+    sql = self.class.sanitize_sql_array([sql_params] + attrs.values)
+
+    "INSERT INTO [DANH SACH THE] (#{sql_columns}) VALUES(#{sql});"
+  end
 end

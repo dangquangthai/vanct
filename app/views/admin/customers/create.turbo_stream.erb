@@ -1,0 +1,7 @@
+<% if @success %>
+  <%= turbo_redirect request.referrer %>
+<% else %>
+  <%= turbo_modal do %>
+    <%= render Admin::Customers::FormComponent.new(customer: @customer, url: admin_customers_path, form_method: 'POST', form_title: 'Thêm khách hàng') %>
+  <% end %>
+<% end %>

@@ -40,6 +40,13 @@
           </div>
           <hr class="border-gray-100" />
           <div class="w-[180px]" data-turbo="false">
+            <%= link_to '/admin/customers', class: 'flex gap-1 items-center' do %>
+              <%== svg_icon 'food', class: 'w-4 h-4' %>
+              <span>Quản lý Khách hàng</span>
+            <% end %>
+          </div>
+          <hr class="border-gray-100" />
+          <div class="w-[180px]" data-turbo="false">
             <%= link_to '/admin/settings', class: 'flex gap-1 items-center' do %>
               <%== svg_icon 'settings', class: 'w-4 h-4' %>
               <span>Tuỳ chọn</span>

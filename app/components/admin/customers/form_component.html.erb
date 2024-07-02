@@ -1,0 +1,97 @@
+<%= form_for(customer, as: :customer, url: url, html: { id: 'customer-form', method: form_method }) do |f| %>
+  <div class="grid gap-4">
+    <div class="font-bold flex items-center">
+      <div class="grow"><%= form_title %></div>
+      <div class="flex-none cursor-pointer" data-action="click->turbo-modal#close">
+        <%== svg_icon('close', class: 'w-6 h-6') %>
+      </div>
+    </div>
+
+    <div class="flex gap-4">
+      <div class="grow">
+        <%= f.label :no, 'MÃ KHÁCH HÀNG' %>
+        <%= f.text_field :no, readonly: customer.persisted?, autocomplete: 'off', class: 'txt' %>
+        <% if f.object.errors.key?(:no) %>
+          <div class="text-xs text-red-600 mt-1"><%= f.object.errors[:no].join(', ') %></div>
+        <% end %>
+      </div>
+      <div class="grow">
+        <%= f.label :tax_code, 'MÃ SỐ THUẾ' %>
+        <%= f.text_field :tax_code, autocomplete: 'off', class: 'txt' %>
+        <% if f.object.errors.key?(:tax_code) %>
+          <div class="text-xs text-red-600 mt-1"><%= f.object.errors[:tax_code].join(', ') %></div>
+        <% end %>
+      </div>
+    </div>
+
+    <div>
+      <%= f.label :legal_name, 'TÊN CÔNG TY/KHÁCH HÀNG' %>
+      <%= f.text_field :legal_name, autocomplete: 'off', class: 'txt' %>
+      <% if f.object.errors.key?(:legal_name) %>
+        <div class="text-xs text-red-600 mt-1"><%= f.object.errors[:legal_name].join(', ') %></div>
+      <% end %>
+    </div>
+
+    <div>
+      <%= f.label :address, 'ĐỊA CHỈ' %>
+      <%= f.text_field :address, autocomplete: 'off', class: 'txt' %>
+      <% if f.object.errors.key?(:address) %>
+        <div class="text-xs text-red-600 mt-1"><%= f.object.errors[:address].join(', ') %></div>
+      <% end %>
+    </div>
+
+    <div class="flex gap-4">
+      <div class="grow">
+        <%= f.label :email, 'EMAIL' %>
+        <%= f.text_field :email, autocomplete: 'off', class: 'txt' %>
+        <% if f.object.errors.key?(:email) %>
+          <div class="text-xs text-red-600 mt-1"><%= f.object.errors[:email].join(', ') %></div>
+        <% end %>
+      </div>
+
+      <div class="grow">
+        <%= f.label :phone_number, 'ĐIỆN THOẠI' %>
+        <%= f.text_field :phone_number, autocomplete: 'off', class: 'txt' %>
+        <% if f.object.errors.key?(:phone_number) %>
+          <div class="text-xs text-red-600 mt-1"><%= f.object.errors[:phone_number].join(', ') %></div>
+        <% end %>
+      </div>
+    </div>
+
+    <div>
+      <%= f.label :expired_at, 'NGÀY HẾT HẠN' %>
+      <%= f.date_field :expired_at, autocomplete: 'off', class: 'txt' %>
+      <% if f.object.errors.key?(:expired_at) %>
+        <div class="text-xs text-red-600 mt-1"><%= f.object.errors[:expired_at].join(', ') %></div>
+      <% end %>
+    </div>
+
+    <div class="flex gap-4">
+      <div class="grow">
+        <%= f.label :point, 'ĐIỂM' %>
+        <%= f.number_field :point, autocomplete: 'off', class: 'txt' %>
+        <% if f.object.errors.key?(:point) %>
+          <div class="text-xs text-red-600 mt-1"><%= f.object.errors[:point].join(', ') %></div>
+        <% end %>
+      </div>
+
+      <div class="grow">
+        <%= f.label :percentage, 'PHẦN TRĂM' %>
+        <%= f.number_field :percentage, autocomplete: 'off', class: 'txt' %>
+        <% if f.object.errors.key?(:percentage) %>
+          <div class="text-xs text-red-600 mt-1"><%= f.object.errors[:percentage].join(', ') %></div>
+        <% end %>
+      </div>
+    </div>
+
+    <div>
+      <%= f.label :note, 'GHI CHÚ' %>
+      <%= f.text_field :note, autocomplete: 'off', class: 'txt' %>
+      <% if f.object.errors.key?(:note) %>
+        <div class="text-xs text-red-600 mt-1"><%= f.object.errors[:note].join(', ') %></div>
+      <% end %>
+    </div>
+
+    <%= f.submit "Lưu", class: 'btn' %>
+  </div>
+<% end %>

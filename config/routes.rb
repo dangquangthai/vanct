@@ -42,6 +42,7 @@ Rails.application.routes.draw do
     end
     resources :settings, only: %i[index edit update]
     resources :products, only: %i[index new create edit update]
+    resources :customers, only: %i[index new create edit update]
   end
 
   namespace :api do

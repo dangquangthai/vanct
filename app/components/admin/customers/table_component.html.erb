@@ -1,0 +1,32 @@
+<div class="max-w-full overflow-auto border-t">
+  <table class="table no-break-line w-full" id="customers-table" data-controller="table-sort">
+    <thead>
+      <tr>
+        <%= render Shared::SortColumnComponent.new(title: 'MÃ KH', column: 'no', th_class: 'h-6') %>
+        <%= render Shared::SortColumnComponent.new(title: 'MÃ ST', column: 'tax_code') %>
+        <%= render Shared::SortColumnComponent.new(title: 'TÊN', column: 'name') %>
+        <%= render Shared::SortColumnComponent.new(title: 'ĐT', column: 'phone_number') %>
+        <%= render Shared::SortColumnComponent.new(title: 'EMAIL', column: 'email') %>
+      </tr>
+    </thead>
+    <tbody>
+      <% customers.each do |customer| %>
+        <tr id="customer_<%= customer.id %>" class="cursor-pointer" data-controller="turbo-fetch" data-url="<%= edit_admin_customer_path(customer.id) %>">
+          <td class="h-6">
+            <div class="h-6">
+              <%= customer.no %>
+            </div>  
+          </td>
+          <td><%= customer.tax_code %></td>
+          <td><%= customer.legal_name %></td>
+          <td><%= customer.phone_number %></td>
+          <td><%= customer.email %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<div class="overflow-auto flex items-center justify-center h-10 mx-2">
+  <%== pagy_nav(pagy) if pagy.pages > 1 %>
+</div>

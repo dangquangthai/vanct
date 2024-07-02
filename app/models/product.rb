@@ -25,8 +25,8 @@ class Product < ApplicationRecord
 
   protected
 
-  def to_update_sql_statement
-    attrs = {
+  def update_attributes
+    @update_attributes ||= {
       'TENHANG' => name,
       'NHOM' => gname,
       'MUC' => cname,
@@ -34,23 +34,17 @@ class Product < ApplicationRecord
       'DONGIA' => price.to_i,
       'DONGIA1' => price1.to_i
     }
+  end
 
-    sql_params = attrs.keys.map { |k| "#{k}=?" }.join(', ')
-    sql = self.class.sanitize_sql_array([sql_params] + attrs.values)
+  def to_update_sql_statement
+    sql_params = update_attributes.keys.map { |k| "#{k}=?" }.join(', ')
+    sql = self.class.sanitize_sql_array([sql_params] + update_attributes.values)
 
-    "update [DANH MUC HANG] set #{sql} where MAHG='#{no}';"
+    "UPDATE [DANH MUC HANG] set #{sql} WHERE MAHG='#{no}';"
   end
 
   def to_insert_sql_statement
-    attrs = {
-      'MAHG' => no,
-      'TENHANG' => name,
-      'NHOM' => gname,
-      'MUC' => cname,
-      'DVT' => unit,
-      'DONGIA' => price.to_i,
-      'DONGIA1' => price1.to_i
-    }
+    attrs = { 'MAHG' => no }.merge(update_attributes)
 
     sql_columns = attrs.keys.map { |k| k }.join(', ')
     sql_params = attrs.keys.map { |_| '?' }.join(', ')

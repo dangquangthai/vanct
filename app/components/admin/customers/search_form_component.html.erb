@@ -1,0 +1,13 @@
+<%= form_for('q', as: :q, url: admin_customers_path, html: { id: 'customer-search-form', method: 'GET' }) do |f| %>
+  <div class="flex gap-2 items-center w-full md:w-[500px] px-2">
+    <div class="grow">
+      <input 
+        type="text" value="<%= query_attributes[:name] %>"
+        name="q[name]" id="q_name"
+        autocomplete="off" class="txt" placeholder="Tên món">
+    </div>
+    <div class="flex-none w-[80px]">
+      <%= f.submit "Tìm", class: 'btn' %>
+    </div>
+  </div>
+<% end %>
