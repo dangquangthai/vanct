@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-KEY = 'nai'
+KEY = 'test'
 PATH = 'D:\Phan mem tinh tien 4.0\SyncData\Datashare.mdb'
 PASSWORD = '26331'
 WEBSITE = 'http://vanct.vn'
@@ -23,4 +23,5 @@ sync.perform(config) if config['sync']
 # shifts = reader.shifts
 # puts reader.purchases(shifts.first, as_hash: true).to_json
 # puts reader.purchases(shifts.last, as_hash: true).to_json
+# puts reader.customers(as_hash: true).to_json
 db.close

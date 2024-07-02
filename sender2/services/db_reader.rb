@@ -9,6 +9,7 @@ require_relative '../models/product'
 require_relative '../models/inventory'
 require_relative '../models/setting'
 require_relative '../models/purchase'
+require_relative '../models/customer'
 
 class DbReader
   def initialize(db:)
@@ -191,6 +192,27 @@ class DbReader
         sl: row[9], # SOLUONG
         tt: row[10], # TONG
         stk: row[11]
+      )
+
+      as_hash ? model.to_hash : model
+    end
+  end
+
+  def customers(as_hash: false)
+    sql = "select MATHE, MAST, HOTEN, EMAIL, DIACHI, DIENTHOAI, DENHAN, DIEM, PHANTRAM, GHICHU from [DANH SACH THE]"
+
+    db.query(sql).map do |row|
+      model = Customer.new(
+        no: row[0], # MATHE
+        mst: row[1], # MAST
+        ten: row[2], # HOTEN
+        mail: row[3], # EMAIL
+        dc: row[4], # DIACHI
+        dt: row[5], # DIENTHOAI
+        dh: row[6], # DENHAN
+        diem: row[7], # DIEM
+        pt: row[8], # PHANTRAM
+        gc: row[9] # GHICHU
       )
 
       as_hash ? model.to_hash : model

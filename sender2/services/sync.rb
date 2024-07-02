@@ -21,6 +21,7 @@ class Sync
     sync_products
     sync_inventories if info['sync_inventory']
     sync_settings
+    sync_customers
   end
 
   protected
@@ -49,6 +50,10 @@ class Sync
 
   def sync_settings
     api_client.sync_settings({ settings: reader.settings(as_hash: true) })
+  end
+
+  def sync_customers
+    api_client.sync_customers({ customers: reader.customers(as_hash: true) })
   end
 
   def mark_as_synced!(shift)
